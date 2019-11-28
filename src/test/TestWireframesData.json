@@ -1,0 +1,151 @@
+{
+    "accounts": [
+    {
+        "name": "James Johnson",
+        "id": 0,
+        "administrator" : false,
+        "wireframe": [
+            {
+                "name": "What's your name?",
+                "key": 0,
+                "items": [
+                    {
+                        "control" : "label",
+                        "control_width" : 20,
+                        "control_height" : 20,
+                        "control_text" : "Enter your first name: ",
+                        "control_font_size" : "14",
+                        "control_background" : "",
+                        "control_border_color" : "",
+                        "control_text_color" : "black",
+                        "control_border_thickness" : 0,
+                        "control_border_radius" : 0
+                    },
+                    {
+                        "control" : "textfield",
+                        "control_width" : 20,
+                        "control_height" : 20,
+                        "control_text" : "Gerald",
+                        "control_font_size" : "14",
+                        "control_background" : "white",
+                        "control_border_color" : "black",
+                        "control_text_color" : "black",
+                        "control_border_thickness" : 5,
+                        "control_border_radius" : 4
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "John Doe",
+        "id": 1,
+        "administrator" : true,
+        "wireframe": [
+        {
+            "name": "Let's create an account",
+            "key": 0,
+            "items": [
+                {
+                    "control" : "label",
+                    "control_width" : 40,
+                    "control_height" : 40,
+                    "control_text" : "Enter your email address: ",
+                    "control_font_size" : "14",
+                    "control_background" : "",
+                    "control_border_color" : "",
+                    "control_text_color" : "black",
+                    "control_border_thickness" : 0,
+                    "control_border_radius" : 0
+                },
+                {
+                    "control" : "textfield",
+                    "control_width" : 40,
+                    "control_height" : 40,
+                    "control_text" : "john_doe@live.com",
+                    "control_font_size" : "14",
+                    "control_background" : "white",
+                    "control_border_color" : "black",
+                    "control_text_color" : "black",
+                    "control_border_thickness" : 3,
+                    "control_border_radius" : 2
+                },
+                {
+                    "control" : "label",
+                    "control_width" : 40,
+                    "control_height" : 40,
+                    "control_text" : "Enter your password: ",
+                    "control_font_size" : "14",
+                    "control_background" : "lightgrey",
+                    "control_border_color" : "",
+                    "control_text_color" : "black",
+                    "control_border_thickness" : 0,
+                    "control_border_radius" : 0
+                },
+                {
+                    "control" : "textfield",
+                    "control_width" : 40,
+                    "control_height" : 40,
+                    "control_text" : "abcdefg",
+                    "control_font_size" : "14",
+                    "control_background" : "white",
+                    "control_border_color" : "black",
+                    "control_text_color" : "black",
+                    "control_border_thickness" : 3,
+                    "control_border_radius" : 2
+                },
+                {
+                    "control" : "button",
+                    "control_width" : 40,
+                    "control_height" : 40,
+                    "control_text" : "Create account",
+                    "control_font_size" : "14",
+                    "control_background" : "grey",
+                    "control_border_color" : "",
+                    "control_text_color" : "black",
+                    "control_border_thickness" : 2,
+                    "control_border_radius" : 2
+                }
+            ]
+        }
+    ]
+},
+    {
+        "name": "William Smith",
+        "id": 2,
+        "administrator" : false,
+        "wireframe": [
+    {
+            "name": "My magical box",
+            "key": 0,
+            "items": [
+                {
+                    "control" : "container",
+                    "control_width" : 120,
+                    "control_height" : 120,
+                    "control_text" : "",
+                    "control_font_size" : "18",
+                    "control_background" : "",
+                    "control_border_color" : "",
+                    "control_text_color" : "black",
+                    "control_border_thickness" : 2,
+                    "control_border_radius" : 2
+                },
+                {
+                    "control" : "button",
+                    "control_width" : 50,
+                    "control_height" : 50,
+                    "control_text" : "Click for magic",
+                    "control_font_size" : "14",
+                    "control_background" : "gray",
+                    "control_border_color" : "black",
+                    "control_text_color" : "blue",
+                    "control_border_thickness" : 3,
+                    "control_border_radius" : 3
+                }
+            ]
+        }
+    ]
+}
+]
+}
