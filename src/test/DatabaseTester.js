@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import todoJson from './TestTodoListData.json'
+import todoJson from './TestWireframesData.json'
 import { getFirestore } from 'redux-firestore';
 import {Button, Icon} from 'react-materialize';
 
@@ -30,11 +30,11 @@ class DatabaseTester extends React.Component {
     }
 }
 
-// const mapStateToProps = function (state) {
-//     return {
-//         auth: state.firebase.auth,
-//         firebase: state.firebase
-//     };
-// }
+const mapStateToProps = function (state) {
+    return {
+        auth: state.firebase.auth,
+        firebase: state.firebase
+    };
+}
 
-// export default connect(mapStateToProps)(DatabaseTester);
+export default connect(mapStateToProps)(DatabaseTester);

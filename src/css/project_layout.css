@@ -18,11 +18,12 @@ body {
   width: 80%;
   left: 10%;
   top: 5%;
+
 }
 
-div.banner {
-  padding: 20px;
-  margin-top: 60px;
+.banner {
+  padding-left: 10px;
+  padding-right: 40px;
 }
 
 input[type=text]:not(.browser-default):focus:not([readonly]),
@@ -38,4 +39,65 @@ textarea.materialize-textarea:focus:not([readonly]) + label,
 input[type=email]:not(.browser-default):focus:not([readonly]) + label,
 input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   color: #ec407a !important;
+}
+
+/* --------------------------------------------- */ 
+  /* START OF THE PROJECT --> NEW CSS CONTROLS*/ 
+
+  /* --------------------------------------------- */ 
+  /* LOGIN SCREEN */   /* LOGIN SCREEN */   /* LOGIN SCREEN */ 
+  /* LOGIN SCREEN */   /* LOGIN SCREEN */   /* LOGIN SCREEN */ 
+  /* LOGIN SCREEN */   /* LOGIN SCREEN */   /* LOGIN SCREEN */ 
+
+.wireframer_text {
+  float:left;
+  font-size: 18pt;
+}
+
+.register_text {
+  float:right;
+  font-size: 18pt;
+}
+
+.wireframer_text_box {
+  position: relative;
+  height: 400px;
+  width: 500px;
+  float: right;
+  right: 90px;
+  top: 50px;
+}
+
+.login_box {
+  height: 500px;
+}
+
+#login_text {
+  font-weight: bold;
+  font-size: 25pt;
+}
+
+#form_format {
+  position: relative;
+  top: 70px;
+  left: 60px;
+}
+
+  /* --------------------------------------------- */ 
+  /* HOME SCREEN */   /* HOME SCREEN */   /* HOME SCREEN */ 
+  /* HOME SCREEN */   /* HOME SCREEN */   /* HOME SCREEN */ 
+  /* HOME SCREEN */   /* HOME SCREEN */   /* HOME SCREEN */ 
+
+#create_wireframe_button {
+  position : relative;
+  height : 100px;
+  width: 400px;
+  top: 260px;
+  left: 50px;
+}
+
+#recent_work_text {
+  position : relative;
+  top: 45pt;
+  left: 10pt;
 }

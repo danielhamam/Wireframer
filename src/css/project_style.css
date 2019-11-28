@@ -14,27 +14,70 @@
 }
 
 body {
-  background-color: var(--swatch-foundation);
+  background-color: white;
   font-family: 'Lexend Exa';
 }
 
-div.banner {
+.banner {
   background-image: linear-gradient(to bottom,         
-  #b8b808, #636723);
-  color: white;
-  font-size: 48pt;
+  #b8b808, beige);
   border-color: black;
   border-width: 2px;
   border-style: solid;
-  border-radius: 10px;
-  padding-left: 10%;
-  padding-top: 5%;
-  padding-bottom: 5%;
 }
 
-.home_new_list_button {
-  font-size: 32pt;
-}
-.home_new_list_button:hover {
-  box-shadow: 1px 2px;
-}
+
+/* --------------------------------------------- */ 
+  /* START OF THE PROJECT --> NEW CSS CONTROLS*/ 
+
+    /* --------------------------------------------- */ 
+  /* LOGIN SCREEN */   /* LOGIN SCREEN */   /* LOGIN SCREEN */ 
+  /* LOGIN SCREEN */   /* LOGIN SCREEN */   /* LOGIN SCREEN */ 
+  /* LOGIN SCREEN */   /* LOGIN SCREEN */   /* LOGIN SCREEN */ 
+
+  .wireframer_text {
+    color: black;
+    font-family: 'Roboto';
+    font-weight: bold;
+  }
+
+  .register_text {
+    color: black;
+    font-family: 'Roboto';
+  }
+
+  .wireframer_text_box {
+    background-image: linear-gradient(to bottom,         
+    #b8b808, beige);
+  border-color: black;
+  border-width: 2px;
+  border-style: solid;
+  }
+
+  #wireframe_text_box_text {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 50pt;
+  }
+
+  .login_box {
+  border-color: black;
+  border-width: 2px;
+  border-style: solid;
+  }
+
+    /* --------------------------------------------- */ 
+  /* HOME SCREEN */   /* HOME SCREEN */   /* HOME SCREEN */ 
+  /* HOME SCREEN */   /* HOME SCREEN */   /* HOME SCREEN */ 
+  /* HOME SCREEN */   /* HOME SCREEN */   /* HOME SCREEN */ 
+
+  #create_wireframe_button {
+    box-shadow: 1px 2px;
+    font-size: 28pt;
+    border-radius: 4pt;
+  }
+
+  #recent_work_text {
+    font-size: 28pt;
+    font-weight : bold;
+  }

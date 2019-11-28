@@ -3,7 +3,13 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
+
 import Navbar from './components/navbar/Navbar.js';
+import RegisterScreen from './components/register_screen/RegisterScreen.js';
+import LoginScreen from './components/login_screen/LoginScreen.js';
+import HomeScreen from './components/home_screen/HomeScreen.js';
+import EditScreen from './components/edit_screen/EditScreen.js';
+import DatabaseTester from './test/DatabaseTester'
 
 class App extends Component {
   render() {
@@ -17,13 +23,12 @@ class App extends Component {
           <div className="App">
             <Navbar />
             <Switch>
-              {/* <Route exact path="/" component={HomeScreen} />
+              <Route exact path="/" component={HomeScreen} />
               <Route path="/databaseTester" component={DatabaseTester} />
               <Route path="/register" component={RegisterScreen} />
               <Route path="/login" component={LoginScreen} />
-              <Route path="/todoList/:id/:key" component={ItemScreen} />
-              <Route path="/todoList/:id" component={ListScreen} />
-              <Route path="/:any" component={HomeScreen} /> */}
+              <Route path="/todoList/:id" component={EditScreen} />
+              <Route path="/:any" component={HomeScreen} />
             </Switch>
           </div>
         </BrowserRouter>
