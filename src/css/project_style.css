@@ -60,10 +60,16 @@ body {
     font-size: 50pt;
   }
 
-  .login_box {
+  .login_box, .register_box, .home_box {
   border-color: black;
   border-width: 2px;
   border-style: solid;
+  }
+
+  .wireframe_card {
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
   }
 
     /* --------------------------------------------- */ 

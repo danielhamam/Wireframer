@@ -68,11 +68,11 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   top: 50px;
 }
 
-.login_box {
+.login_box, .register_box {
   height: 500px;
 }
 
-#login_text {
+#login_text, #register_text {
   font-weight: bold;
   font-size: 25pt;
 }
@@ -92,12 +92,49 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   position : relative;
   height : 100px;
   width: 400px;
-  top: 260px;
-  left: 50px;
+  top: 50px;
+  left: 610px;
+}
+
+.home_box {
+  height: 600px;
 }
 
 #recent_work_text {
   position : relative;
   top: 45pt;
   left: 10pt;
+}
+
+.wireframe_card {
+  font-size: 16pt;
+}
+
+  /* --------------------------------------------- */ 
+  /* REGISTER SCREEN */   /* REGISTER SCREEN */   /* REGISTER SCREEN */ 
+  /* REGISTER SCREEN */   /* REGISTER SCREEN */   /* REGISTER SCREEN */ 
+  /* REGISTER SCREEN */   /* REGISTER SCREEN */   /* REGISTER SCREEN */ 
+
+#register_form {
+  position:absolute;
+  top: 90px;
+  left: 20px;
+}
+
+.input-field2 {
+  height: 50px;
+  width: 500px;
+  margin-bottom: 2rem;
+}
+
+  /* --------------------------------------------- */ 
+  /* ADMIN SCREEN */   /* ADMIN SCREEN */   /* ADMIN SCREEN */ 
+  /* ADMIN SCREEN */   /* ADMIN SCREEN */   /* ADMIN SCREEN */ 
+  /* ADMIN SCREEN */   /* ADMIN SCREEN */   /* ADMIN SCREEN */ 
+
+.handle_button {
+  position: relative;
+  left: 250px;
+  font-size: 30pt;
+  text-align : center;
 }

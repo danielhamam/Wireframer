@@ -20,9 +20,9 @@ class EditScreen extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     const { id } = ownProps.match.params;
-    // const { todoLists } = state.firestore.data;
-    // const todoList = todoLists ? todoLists[id] : null;
-    // todoList.id = id;
+    const { accounts } = state.firestore.data;
+    const account = accounts ? accounts[id] : null;
+    accounts.id = id;
   
     return {
     //   todoList,
@@ -33,6 +33,6 @@ const mapStateToProps = (state, ownProps) => {
   export default compose(
     connect(mapStateToProps),
     firestoreConnect([
-      { collection: 'todoLists' },
+      { collection: 'accounts' },
     ]),
   )(EditScreen);

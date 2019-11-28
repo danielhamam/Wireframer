@@ -6,14 +6,14 @@ import 'firebase/auth';
 // PUT YOUR FIREBASE PROJECT CONFIG STUFF HERE
 // (ADDED)
 var firebaseConfig = {
-    apiKey: "AIzaSyB9Zb6NNKyftnjXeUu5OAwwGaCcNCxeG8I",
-    authDomain: "todohw3-fc532.firebaseapp.com",
-    databaseURL: "https://todohw3-fc532.firebaseio.com",
-    projectId: "todohw3-fc532",
-    storageBucket: "todohw3-fc532.appspot.com",
-    messagingSenderId: "773473334120",
-    appId: "1:773473334120:web:a08996436e21cb4e165cdd",
-    measurementId: "G-86BQ00J742"
+    apiKey: "AIzaSyCZcHpbnk8IbCdYQExAkweaPvusji6qaIM",
+    authDomain: "project316-7097b.firebaseapp.com",
+    databaseURL: "https://project316-7097b.firebaseio.com",
+    projectId: "project316-7097b",
+    storageBucket: "project316-7097b.appspot.com",
+    messagingSenderId: "37182883154",
+    appId: "1:37182883154:web:9e6c0d8fe39031392fa68b",
+    measurementId: "G-SGKG7GR5XT"
 };
 firebase.initializeApp(firebaseConfig);
 

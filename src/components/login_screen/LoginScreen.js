@@ -39,9 +39,9 @@ class LoginScreen extends Component {
 
   render() {
     const { auth, authError } = this.props;
-    // if (auth.uid) {
-    //   return <Redirect to="/" />;
-    // }
+    if (auth.uid) {
+      return <Redirect to="/" />;
+    }
 
     return (
       <div className="login_box">

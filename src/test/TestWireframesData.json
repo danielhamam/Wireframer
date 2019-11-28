@@ -2,12 +2,11 @@
     "accounts": [
     {
         "name": "James Johnson",
-        "id": 0,
+        "account_key": 0,
         "administrator" : false,
-        "wireframe": [
+        "wireframes": [
             {
                 "name": "What's your name?",
-                "key": 0,
                 "items": [
                     {
                         "control" : "label",
@@ -39,12 +38,11 @@
     },
     {
         "name": "John Doe",
-        "id": 1,
+        "account_key": 1,
         "administrator" : true,
-        "wireframe": [
+        "wireframes": [
         {
             "name": "Let's create an account",
-            "key": 0,
             "items": [
                 {
                     "control" : "label",
@@ -112,12 +110,11 @@
 },
     {
         "name": "William Smith",
-        "id": 2,
+        "account_key": 2,
         "administrator" : false,
-        "wireframe": [
+        "wireframes": [
     {
             "name": "My magical box",
-            "key": 0,
             "items": [
                 {
                     "control" : "container",

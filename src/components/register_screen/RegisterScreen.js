@@ -39,31 +39,43 @@ class RegisterScreen extends Component {
     }
 
     return (
-      <div className="container">
-        <form onSubmit={this.handleSubmit} className="white">
-          <h5 className="grey-text text-darken-3">Register</h5>
-          <div className="input-field">
+
+      <div className="register_box">
+
+<div className="wireframer_text_box">
+          <div id="wireframe_text_box_text"> 
+            Wireframer™
+          </div>
+        </div>
+        <div className="row">
+
+        <form id="register_form" onSubmit={this.handleSubmit} className="white">
+          <h5 className="black-text text-darken-3" id="register_text">Register</h5>
+          <div className="input-field2">
             <label htmlFor="email">Email</label>
             <input type="email" name="email" id="email" onChange={this.handleChange} />
           </div>
-          <div className="input-field">
+          <div className="input-field2">
             <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password" onChange={this.handleChange} />
           </div>
-          <div className="input-field">
+          <div className="input-field2">
             <label htmlFor="firstName">First Name</label>
             <input type="text" name="firstName" id="firstName" onChange={this.handleChange} />
           </div>
-          <div className="input-field">
+          <div className="input-field2">
             <label htmlFor="lastName">Last Name</label>
             <input type="text" name="lastName" id="lastName" onChange={this.handleChange} />
           </div>
-          <div className="input-field">
+          <div className="input-field2">
             <button type="submit" className="btn pink lighten-1 z-depth-0">Sign Up</button>
             {authError ? <div className="red-text center"><p>{authError}</p></div> : null}
           </div>
         </form>
+
       </div>
+      </div>
+
     );
   }
 }
