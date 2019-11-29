@@ -7,6 +7,7 @@
         "wireframes": [
             {
                 "name": "What's your name?",
+                "key" : 0,
                 "items": [
                     {
                         "control" : "label",
@@ -43,6 +44,7 @@
         "wireframes": [
         {
             "name": "Let's create an account",
+            "key" : 0,
             "items": [
                 {
                     "control" : "label",
@@ -115,6 +117,7 @@
         "wireframes": [
     {
             "name": "My magical box",
+            "key" : 0,
             "items": [
                 {
                     "control" : "container",

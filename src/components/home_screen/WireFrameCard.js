@@ -5,11 +5,11 @@ class WireFrameCard extends React.Component {
 
     render() {
 
-        const { account } = this.props;
+        const { wireframe } = this.props;
         return (
             <div className="wireframe_card">
                 <div className="card-content black-text text-darken-3">
-                    <span className="card-title"> {account.name} </span>
+                    <span className="card-title"> {wireframe.name} </span>
                 </div>
             </div>
         );

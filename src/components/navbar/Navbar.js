@@ -14,14 +14,11 @@ class Navbar extends React.Component {
 
     return (
       <nav className="banner">
+            {links}
         <div className="wireframer_text">
           Wireframer!
         </div>
-        {/* <div className="register_text">
-          Logout
-        </div> */}
       </nav>
-
     );
   };
 }

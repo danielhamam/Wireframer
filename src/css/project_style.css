@@ -26,6 +26,11 @@ body {
   border-style: solid;
 }
 
+#navbar_links {
+
+  color: black;
+  
+}
 
 /* --------------------------------------------- */ 
   /* START OF THE PROJECT --> NEW CSS CONTROLS*/ 
@@ -87,3 +92,115 @@ body {
     font-size: 28pt;
     font-weight : bold;
   }
+
+   /* --------------------------------------------- */ 
+  /* EDIT SCREEN */   /* EDIT SCREEN */   /* EDIT SCREEN */ 
+  /* EDIT SCREEN */   /* EDIT SCREEN */   /* EDIT SCREEN */ 
+  /* EDIT SCREEN */   /* EDIT SCREEN */   /* EDIT SCREEN */ 
+
+.edit_box {
+  border-color: black;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.inner_edit_box {
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4pt;
+}
+
+.left_screen {
+  border-color: black;
+  background-color : whitesmoke;
+  border-width: 0.5px;
+  border-style: solid;
+  border-radius: 2pt;
+}
+
+.top_left {
+  border-width: 0.5px;
+  border-style: solid;
+  border-radius: 2pt;
+  background-color : whitesmoke;
+}
+
+.right_screen {
+  border-color: black;
+  border-width: 0.5px;
+  border-style: solid;
+  background-color : whitesmoke;
+  border-radius: 2pt;
+}
+
+#zoom_buttons {
+  font-size: 30pt;
+}
+
+#save_work, #close_work {
+  font-size: 16pt;
+  cursor:pointer;
+}
+
+#container_box {
+  background-color: white;
+  border-color: black;
+  border-width: 0.5px;
+  border-style: solid;
+  border-radius: 2pt;
+  cursor:pointer;
+}
+
+#container_text {
+  font-size: 16pt;
+  cursor:pointer;
+}
+
+#button_example {}
+
+#button_submit {
+  font-size: 18pt;
+  border-radius: 4pt;
+  cursor:pointer;
+}
+
+#button_text {
+  font-weight: bold;
+}
+
+.textfield_input {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2pt;
+  border-color: black;
+}
+
+#textfield_label {}
+#properties_label {}
+.labels_list {}
+#font_size_label, #background_label, #border_color_label, #border_thickness_label, #border_radius_label {}
+#font_size_textfield {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2pt;
+  border-color: black;
+}
+#background_field {}
+#border_color_field {}
+#border_thickness_field {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2pt;
+  border-color: black;
+}
+#border_radius_field {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2pt;
+  border-color: black;
+}
+
+.right {
+  color : black;
+}

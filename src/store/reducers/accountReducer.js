@@ -1,8 +1,8 @@
 const initState = {
-    todoLists: []
+    wireframes: []
 };
 
-const todoListReducer = (state = initState, action) => {
+const accountReducer = (state = initState, action) => {
     switch (action.type) {
         /* IF YOU HAVE ANY TODO LIST EDITING REDUCERS ADD THEM HERE */ 
         default:
@@ -11,4 +11,4 @@ const todoListReducer = (state = initState, action) => {
     }
 };
 
-export default todoListReducer;
+export default accountReducer;

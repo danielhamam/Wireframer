@@ -138,3 +138,187 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   font-size: 30pt;
   text-align : center;
 }
+
+ /* --------------------------------------------- */ 
+  /* EDIT SCREEN */   /* EDIT SCREEN */   /* EDIT SCREEN */ 
+  /* EDIT SCREEN */   /* EDIT SCREEN */   /* EDIT SCREEN */ 
+  /* EDIT SCREEN */   /* EDIT SCREEN */   /* EDIT SCREEN */ 
+
+.edit_box {
+  height : 600px;
+}
+
+.inner_edit_box {
+  position : relative;
+  top: 2px;
+  left : 22px;
+  height: 550px;
+  width: 1100px;
+}
+
+.left_screen {
+  float : left;
+  position : relative;
+  height: 500px;
+  top: 48px;
+  width: 260px;
+}
+
+.top_left {
+  position : relative;
+  height: 58px;
+  bottom : 50px;
+  width: 260px;
+  right: 1px;
+}
+
+.right_screen {
+  height: 548px;
+  width: 260px;
+  float : right;
+}
+
+#zoom_buttons {
+  position : relative;
+  left: 5px;
+}
+
+#save_work {
+  position : relative;
+  bottom: 65px;
+  left: 138px;
+}
+
+#close_work {
+  position : relative;
+  bottom: 97px;
+  left: 195px;
+}
+
+.container_example {
+}
+
+#container_box {
+  position : relative;
+  left: 55px;
+  bottom: 15px;
+  text-align : center;
+  height: 80px;
+  width: 140px;
+}
+
+#container_text {
+  position: relative;
+  left: 80px;
+  bottom: 5px;
+}
+
+#prompt_text {
+  position : relative;
+  font-size: 12pt;
+  left: 68px;
+  cursor:pointer;
+}
+
+#label_text {
+  position: relative;
+  font-size: 14pt;
+  font-weight : bold;
+  left: 95px;
+}
+
+.button_example {
+  position : relative;
+  line-height: 2em;
+}
+
+#button_submit {
+  position : relative;
+  height: 33px;
+  width: 180px;
+  left: 35px;
+}
+
+#button_text {
+  position : relative;
+  font-size: 13pt;
+  font-weight: bold;
+  left: 93px;
+  cursor:pointer;
+}
+
+.textfield_example {
+  position:relative;
+  line-height: 1em;
+}
+
+.properties_example {
+  position:relative;
+  line-height: 0.1em;
+}
+
+.textfield_input {
+  position:relative;
+    grid-column: 2;
+    margin-top: 1%;
+    font-size: 12pt;
+    width: 200px;
+    left: 25px;
+}
+
+#textfield_label {
+  position: relative;
+  left:88px;
+  font-size:14pt;
+  font-weight: bold;
+}
+
+#properties_label {
+  position: relative;
+  left:25px;
+  font-size:13pt;
+  font-weight: bold;
+}
+
+.labels_list {
+  position:relative;
+  line-height: 4em;
+}
+
+#font_size_label, #background_label, #border_color_label, #border_thickness_label, #border_radius_label {
+  position : relative;
+  font-size: 14pt;
+  font-weight: bold;
+  left: 25px;
+}
+
+#font_size_textfield {
+  position:relative;
+  grid-column: 2;
+  margin-top: 1%;
+  font-size: 12pt;
+  width: 80px;
+  left: 25px;
+}
+
+#background_field {
+  position:relative;
+  left: 15px;
+}
+
+#border_color_field {
+  position:relative;
+  left: 15px;
+}
+
+#border_thickness_field {
+  position:relative;
+  left: 15px;
+  width: 40px;
+}
+
+#border_radius_field {
+  position:relative;
+  left: 15px;
+  width: 40px;
+}

@@ -17,28 +17,38 @@ class HomeScreen extends Component {
 handleNewWireframe = () => {
 
   const fireStore = getFirestore();
-  let reference = fireStore.collection('accounts').doc(this.props.account.id);
+  let reference = fireStore.collection('accounts').doc(this.props.auth.uid);
   let answer = Math.floor(Math.random() * 1000) + 100;
-  this.setState({keytoUse : answer});
 
   reference.update({
       'wireframes': fireStore.FieldValue.arrayUnion({
         name: "",
         created_time: new Date(), // to later sort, the ones in json dont need a date. that order doesnt matter. 
-        items: []
+        items: [],
+        key : answer
       })
     }).then(ref => {
-      this.setState({wireframe_id: ref.id});
-      this.setState({isNewItem : true});
+      this.setState({isNewWireframe : true});
+      this.setState({keytoUse : answer});
   }).catch((error) => {
       console.log(error);
   });
+
+//   const new_wireframe = {
+//     name: "",
+//     created_time: new Date(), // to later sort, the ones in json dont need a date. that order doesnt matter. 
+//     items: [],
+//     key : answer
+// };
+
+  // this.props.account.wireframes.push(new_wireframe);
+
 }
 
     render() {
 
       if (this.state.isNewWireframe) {
-        return <Redirect to={'/wireframe/' + this.state.wireframe_id} />;
+        return <Redirect to={'/wireframe/' + this.props.account.wireframes.map(function (wireframe) {return wireframe.key;}).indexOf(this.state.key)} />;
      }
       if (!this.props.auth.uid) {
         return <Redirect to="/login" />;
@@ -71,16 +81,16 @@ handleNewWireframe = () => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { id } = ownProps.match.params;
+  const { id } = state.firebase.auth.uid;
   const { accounts } = state.firestore.data;
-  const account = accounts ? accounts[id] : null;
-  account.id = id;
+  // const account = state.account;
+  // account.id = id;
 
     return {
-        account,
-        accounts: state.firestore.ordered.accounts, //.ordered something we can map through. 
-        auth: state.firebase.auth
-    };
+        // accounts, //.ordered something we can map through. 
+        auth: state.firebase.auth,
+        // account
+    }
 };
 
 export default compose(

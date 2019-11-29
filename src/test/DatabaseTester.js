@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import todoJson from './TestWireframesData.json'
+import accountJson from './TestWireframesData.json'
 import { getFirestore } from 'redux-firestore';
 import {Button, Icon} from 'react-materialize';
 
@@ -21,19 +21,22 @@ class DatabaseTester extends React.Component {
 
     handleReset = () => {
         const fireStore = getFirestore();
-        todoJson.accounts.forEach(todoListJson => {
+        accountJson.accounts.forEach(accountJson => {
             fireStore.collection('accounts').add({
                     created_time: new Date(),
-                    name: todoListJson.name,
-                    account_key: todoListJson.account_key,
-                    administrator: todoListJson.administrator,
-                    wireframes: todoListJson.wireframes,
+                    name: accountJson.name,
+                    account_key: accountJson.account_key,
+                    administrator: accountJson.administrator,
+                    wireframes: accountJson.wireframes,
                 }).then(() => {
                     console.log("DATABASE RESET");
                 }).catch((err) => {
                     console.log(err);
                 });
         });
+
+        
+
     }
 
     render() {
