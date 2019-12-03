@@ -12,6 +12,7 @@ class HomeScreen extends Component {
   state = {
     isNewWireframe : false,
     wireframe_id : 0,
+    index_use : 0,
   }
 
 handleNewWireframe = () => {
@@ -22,7 +23,7 @@ handleNewWireframe = () => {
 
   reference.update({
       'wireframes': fireStore.FieldValue.arrayUnion({
-        name: "",
+        name: "Unknown",
         created_time: new Date(), // to later sort, the ones in json dont need a date. that order doesnt matter. 
         items: [],
         key : answer
@@ -30,26 +31,17 @@ handleNewWireframe = () => {
     }).then(ref => {
       this.setState({isNewWireframe : true});
       this.setState({keytoUse : answer});
+      // this.setState({index_use : }); 
   }).catch((error) => {
       console.log(error);
   });
 
-//   const new_wireframe = {
-//     name: "",
-//     created_time: new Date(), // to later sort, the ones in json dont need a date. that order doesnt matter. 
-//     items: [],
-//     key : answer
-// };
-
-  // this.props.account.wireframes.push(new_wireframe);
-
 }
-
     render() {
 
-      if (this.state.isNewWireframe) {
-        return <Redirect to={'/wireframe/' + this.props.account.wireframes.map(function (wireframe) {return wireframe.key;}).indexOf(this.state.key)} />;
-     }
+    //   if (this.state.isNewWireframe) {
+    //     return <Redirect to={'/wireframe/' + this.state.index_use} />;
+    //  }
       if (!this.props.auth.uid) {
         return <Redirect to="/login" />;
       }
@@ -60,7 +52,7 @@ handleNewWireframe = () => {
                 <div id="form_format"> 
               <form onSubmit={this.handleSubmit} className="col s4 white">
                 <h5 id="login_text">Recent Work</h5>
-                < WireFrameLinks />
+                < WireFrameLinks accounts={this.props.accounts}/>
               </form>
               </div>
     
@@ -81,7 +73,7 @@ handleNewWireframe = () => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { id } = state.firebase.auth.uid;
+  // const { id } = state.firebase.auth.uid;
   const { accounts } = state.firestore.data;
   // const account = state.account;
   // account.id = id;
@@ -89,7 +81,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         // accounts, //.ordered something we can map through. 
         auth: state.firebase.auth,
-        // account
+        accounts : state.firestore.ordered.accounts
     }
 };
 

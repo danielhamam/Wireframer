@@ -30,7 +30,7 @@ export function logoutSuccess() {
     return { type: 'LOGOUT_SUCCESS' }
 };
 
-// THESE CREATORS MAKE ACTIONS FOR ASYNCHRONOUS TODO LIST UPDATES
+// THESE CREATORS MAKE ACTIONS FOR ASYNCHRONOUS WIREFRAME UPDATES
 export function createWireFrame(wireframe) {
     return {
         type: 'CREATE_WIREFRAME',

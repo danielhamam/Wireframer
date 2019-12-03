@@ -9,28 +9,27 @@ import WireFrameCard from './WireFrameCard';
 class WireFrameLinks extends React.Component {
 
     render() {
-        // const account_id = this.props.auth.uid;
-        // const fireStore = getFirestore();
-        const wireframes = this.props.account.wireframes;
-        return (
-            <div className="wireframes section">
-                {wireframes && wireframes.map(wireframe => (
-                    <WireFrameCard wireframe={wireframe}/>
+
+        const { accounts } = this.props;
+            return (
+              <div className="wireframes section">
+                {accounts && accounts.map(account => (
+                    <WireFrameCard account={account} id={this.props.auth.uid}/>
                 ))}
             </div>
-        );
+            )
     }
 }
 
 // Each component is deciding which things it wants from the store, and we're deciding it right here. 
-const mapStateToProps = (state, ownProps) => { // Give me the following things from the database: 
+const mapStateToProps = (state) => { // Give me the following things from the database: 
     const { id } = state.firebase.auth.uid;
-    const { accounts } = state.firestore.data;
-    const account = accounts ? accounts[id] : null;
-    // account.id = id;
+    let accounts = state.firestore.ordered.accounts;
+    // const index = accounts.map(function (account) {return account.id;}).indexOf(id);
+    // const account = accounts[index]
    return { // ordered something we can map through. 
         auth: state.firebase.auth,
-        account
+        accounts
     };
 };
 

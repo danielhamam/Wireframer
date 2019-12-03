@@ -88,6 +88,20 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   /* HOME SCREEN */   /* HOME SCREEN */   /* HOME SCREEN */ 
   /* HOME SCREEN */   /* HOME SCREEN */   /* HOME SCREEN */ 
 
+#wireframe_name {
+  position: relative;
+  left: 7px;
+  color: black;
+}
+
+#delete_icon {
+  position: relative;
+  float:right;
+  top: 3px;
+  z-index: 9999; /* to move in front of other elements. */
+  cursor:pointer;
+}
+
 #create_wireframe_button {
   position : relative;
   height : 100px;
@@ -107,6 +121,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .wireframe_card {
+  width: 300px;
   font-size: 16pt;
 }
 
@@ -321,4 +336,17 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   position:relative;
   left: 15px;
   width: 40px;
+}
+
+#name_of_wireframe {
+  font-size: 14pt;
+  position : relative;
+  top: 60px;
+  margin-left: 10%;
+}
+
+#name_wireframe_field {
+  font-size: 12pt;
+  margin-left: 4%;
+  width: 150px;
 }

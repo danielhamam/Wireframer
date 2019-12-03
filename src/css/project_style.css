@@ -204,3 +204,14 @@ body {
 .right {
   color : black;
 }
+
+#name_of_wireframe {
+  font-weight: bold;
+}
+
+#name_wireframe_field {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2pt;
+  border-color: black;
+}
