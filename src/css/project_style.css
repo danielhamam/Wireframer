@@ -143,26 +143,26 @@ body {
   cursor:pointer;
 }
 
-#container_box {
+.container_box {
   background-color: white;
   border-color: black;
   border-width: 0.5px;
   border-style: solid;
   border-radius: 2pt;
-  cursor:pointer;
+  /* cursor:pointer; */
 }
 
 #container_text {
   font-size: 16pt;
-  cursor:pointer;
+  /* cursor:pointer; */
 }
 
 #button_example {}
 
-#button_submit {
+.button_submit {
   font-size: 18pt;
   border-radius: 4pt;
-  cursor:pointer;
+  /* cursor:pointer; */
 }
 
 #button_text {

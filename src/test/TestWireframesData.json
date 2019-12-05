@@ -2,6 +2,10 @@
     "accounts": [
     {
         "name": "James Johnson",
+        "firstName": "James",
+        "lastName": "Johnson",
+        "email": "jamesjohnson@hotmail.com",
+        "password" : "password",
         "account_key": 0,
         "administrator" : false,
         "wireframes": [
@@ -39,6 +43,10 @@
     },
     {
         "name": "John Doe",
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "johndoe@gmail.com",
+        "password" : "password1",
         "account_key": 1,
         "administrator" : true,
         "wireframes": [
@@ -104,7 +112,8 @@
                     "control_border_color" : "",
                     "control_text_color" : "black",
                     "control_border_thickness" : 2,
-                    "control_border_radius" : 2
+                    "control_border_radius" : 2,
+                    "selected_border" : ""
                 }
             ]
         }
@@ -112,6 +121,10 @@
 },
     {
         "name": "William Smith",
+        "firstName": "William",
+        "lastName": "Smith",
+        "email": "williamsmith@live.com",
+        "password" : "password2",
         "account_key": 2,
         "administrator" : false,
         "wireframes": [

@@ -193,6 +193,13 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   float : right;
 }
 
+.middle_screen {
+  position : relative;
+  height: 548px;
+  width: 580px;
+  left: 260px;
+}
+
 #zoom_buttons {
   position : relative;
   left: 5px;
@@ -211,9 +218,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .container_example {
+
 }
 
-#container_box {
+.container_box {
   position : relative;
   left: 55px;
   bottom: 15px;
@@ -228,11 +236,33 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   bottom: 5px;
 }
 
-#prompt_text {
+.prompt_text1 {
   position : relative;
   font-size: 12pt;
-  left: 68px;
-  cursor:pointer;
+  /* left: 68px; */
+  /* cursor:pointer; */
+}
+
+.prompt_text2 {
+  position : absolute;
+  font-size: 12pt;
+  /* left: 68px; */
+  /* cursor:pointer; */
+}
+  /* for the select: */
+.rectangle1, .rectangle2, .rectangle3, .rectangle4 {
+  height: 50px;
+  width: 50px;
+  color : white;
+}
+
+.rectangle1 {
+
+}
+
+#prompt_for_input {
+    position:relative;
+    left: 68px;
 }
 
 #label_text {
@@ -247,7 +277,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   line-height: 2em;
 }
 
-#button_submit {
+.button_submit {
   position : relative;
   height: 33px;
   width: 180px;
@@ -259,7 +289,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   font-size: 13pt;
   font-weight: bold;
   left: 93px;
-  cursor:pointer;
+  /* cursor:pointer; */
 }
 
 .textfield_example {
@@ -349,4 +379,8 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   font-size: 12pt;
   margin-left: 4%;
   width: 150px;
+}
+
+#control_spawn, #control_move, .control_move  {
+  cursor : move;
 }

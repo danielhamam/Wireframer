@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
+import WireframeMiddle from './WireframeMiddle';
 
 class WireframeBox extends Component {
     state = {
@@ -57,17 +58,17 @@ return (
                       </div>
                   </div>
                   <div className="container_example">
-                    <div id="container_box"> </div>
+                    <div className="container_box"> </div>
                     <div id="container_text"> Container </div>
                   </div>
                   < br />
-                  <div className="prompt_for_input">
-                    <div id="prompt_text"> Prompt for input:</div>
-                    <div id="label_text"> Label</div>
+                  <div id="prompt_for_input">
+                    <div className="prompt_text"> Prompt for input:</div>
                   </div>
+                  <div id="label_text"> Label</div>
                   < br />
                   <div className="button_example">
-                    <button id="button_submit"> Submit</button>
+                    <button className="button_submit"> Submit</button>
                     <div id="button_text"> Button</div>
                   </div>
                   < br />
@@ -103,7 +104,12 @@ return (
                       <input type="input" id="name_wireframe_field" defaultValue={wireframe.name}/>
                   </div>
               </div>
+            </div>
 
+            <div className="middle_screen">
+                {wireframe.items && wireframe.items.map(item => (
+                    <WireframeMiddle item={item}/>
+                ))}
             </div>
 
         </div>

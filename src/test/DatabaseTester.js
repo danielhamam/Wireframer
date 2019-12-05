@@ -2,10 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux';
 import accountJson from './TestWireframesData.json'
 import { getFirestore } from 'redux-firestore';
-import {Button, Icon} from 'react-materialize';
+import { firebaseConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
+import { registerHandler } from '../store/database/asynchHandler'
 
 class DatabaseTester extends React.Component {
-
+    state = {
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+      }
     // NOTE, BY KEEPING THE DATABASE PUBLIC YOU CAN
     // DO THIS ANY TIME YOU LIKE WITHOUT HAVING
     // TO LOG IN
@@ -21,22 +28,48 @@ class DatabaseTester extends React.Component {
 
     handleReset = () => {
         const fireStore = getFirestore();
+        const { props, state } = this;
+        const { firebase } = props;
+        const newUser = { ...state };
+
         accountJson.accounts.forEach(accountJson => {
-            fireStore.collection('accounts').add({
-                    created_time: new Date(),
-                    name: accountJson.name,
-                    account_key: accountJson.account_key,
-                    administrator: accountJson.administrator,
-                    wireframes: accountJson.wireframes,
-                }).then(() => {
-                    console.log("DATABASE RESET");
-                }).catch((err) => {
-                    console.log(err);
-                });
-        });
+        firebase.auth().createUserWithEmailAndPassword(
+            accountJson.email,
+            accountJson.password,
+        ).then(resp => fireStore.collection('accounts').doc(resp.user.uid).set({
+            created_time: new Date(),
+            name: accountJson.name,
+            email: accountJson.email,
+            account_key: accountJson.account_key,
+            administrator: accountJson.administrator,
+            wireframes: accountJson.wireframes,
+        }))
+    });
 
-        
+        // accountJson.accounts.forEach(accountJson => {
+        //     fireStore.collection('accounts').add({
+        //             created_time: new Date(),
+        //             name: accountJson.name,
+        //             email: accountJson.email,
+        //             account_key: accountJson.account_key,
+        //             administrator: accountJson.administrator,
+        //             wireframes: accountJson.wireframes,
+        //         }).then( () => {
+        //             this.setState({ email : accountJson.email});
+        //             this.setState({ firstName : accountJson.firstName});
+        //             this.setState({ lastName : accountJson.lastName});
+        //             this.setState({ password : accountJson.password});
+        //             // no password
+        //         }).catch((err) => {
+        //             console.log(err);
+        //         });
+        // });
 
+        // props.register(newUser, firebase);
+        // this.props.firebase.auth().createUserWithEmailAndPassword(
+        //     newUser.email,
+        //     newUser.password
+        // );
     }
 
     render() {
@@ -65,11 +98,17 @@ class DatabaseTester extends React.Component {
     }
 }
 
-const mapStateToProps = function (state) {
-    return {
-        auth: state.firebase.auth,
-        firebase: state.firebase
-    };
-}
+const mapStateToProps = state => ({
+    auth: state.firebase.auth,
+    authError: state.auth.authError,
+  });
 
-export default connect(mapStateToProps)(DatabaseTester);
+const mapDispatchToProps = dispatch => ({
+    register: (newUser, firebase) => dispatch(registerHandler(newUser, firebase)),
+  });
+  
+
+  export default compose(
+    firebaseConnect(),
+    connect(mapStateToProps, mapDispatchToProps),
+  )(DatabaseTester);
