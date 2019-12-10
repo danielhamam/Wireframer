@@ -250,14 +250,154 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   /* cursor:pointer; */
 }
   /* for the select: */
-.rectangle1, .rectangle2, .rectangle3, .rectangle4 {
-  height: 50px;
-  width: 50px;
-  color : white;
+.rectangle1_label, .rectangle2_label, .rectangle3_label, .rectangle4_label, .rectangle1_textfield, .rectangle2_textfield, .rectangle3_textfield, .rectangle4_textfield {
+  position:absolute;
+  z-index: 9999;
+  height: 10px;
+  width: 10px;
+  background-color : white;
+  border-color: black;
+  border-width: 0.5px;
+  border-style: solid;
+  border-radius : 2px;
 }
 
-.rectangle1 {
+.rectangle1_button, .rectangle2_button, .rectangle3_button, .rectangle4_button, .rectangle1_container, .rectangle2_container, .rectangle3_container, .rectangle4_container {
+  position:absolute;
+  z-index: 9999;
+  height: 10px;
+  width: 10px;
+  background-color : white;
+  border-color: black;
+  border-width: 0.5px;
+  border-style: solid;
+  border-radius : 2px;
+}
 
+.rectangle1_label {
+  /* bottom left */
+  position:relative;
+  float: left;
+  top : 70px;
+  right: 5px;
+}
+
+.rectangle2_label {
+  /* top right */
+  position:relative;
+  float: right;
+  left: 45px;
+  bottom: 15px;
+}
+
+.rectangle3_label {
+  /* top left */
+  position : relative;
+  float : left;
+  right: 50px;
+}
+
+.rectangle4_label {
+  /* bottom right */
+  position : relative;
+  float: right;
+  top: 63px;
+}
+
+.rectangle1_textfield {
+  /* bottom left */
+  position:relative;
+  float: left;
+  top : 30px;
+  left: 20px;
+}
+
+.rectangle2_textfield {
+  /* top right */
+  position:relative;
+  float: right;
+  left: 28px;
+  bottom: 28px;
+}
+
+.rectangle3_textfield {
+  /* top left */
+  position : relative;
+  float : left;
+  right: 199px;
+  bottom: 2px;
+}
+
+.rectangle4_textfield {
+  /* bottom right */
+  position : relative;
+  /* background-color: blue; */
+  float: right;
+  left: 1px;
+  top: 10px;
+}
+
+.rectangle1_container {
+  /* top left */
+  position:relative;
+  float: left;
+  left: 50px;
+  bottom: 18px;
+}
+
+.rectangle2_container {
+  /* top right */
+  position:relative;
+  float: right;
+  left: 58px;
+  bottom: 99px;
+}
+
+.rectangle3_container {
+  /* bottom left */
+  position : relative;
+  float : left;
+  top: 75px;
+  right: 139px;
+}
+
+.rectangle4_container {
+  /* bottom right */
+  position : relative;
+  float: right;
+  left: 1px;
+  top: 65px;
+}
+
+.rectangle1_button {
+  /* bottom left */
+  position:relative;
+  float: left;
+  left: 30px;
+  top: 35px;
+}
+
+.rectangle2_button {
+  /* top right */
+  position:relative;
+  float: right;
+  left: 38px;
+  bottom: 37px;
+}
+
+.rectangle3_button {
+  /* top left */
+  position : relative;
+  float : left;
+  right: 179px;
+}
+
+.rectangle4_button {
+  /* bottom right */
+  position : relative;
+  float: right;
+  left: 1px;
+  top: 18px;
 }
 
 #prompt_for_input {
@@ -302,7 +442,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   line-height: 0.1em;
 }
 
-.textfield_input {
+#textfield_input {
   position:relative;
     grid-column: 2;
     margin-top: 1%;
@@ -383,4 +523,16 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 #control_spawn, #control_move, .control_move  {
   cursor : move;
+}
+
+#movable {
+  position: absolute;
+}
+
+.visible_button1, .visible_button2, .visible_label1, .visible_label2 {
+  visibility : hidden;
+}
+
+#inner_label, #inner_textfield, #inner_button, #inner_container {
+  /* visibility: hidden; */
 }

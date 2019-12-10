@@ -169,7 +169,7 @@ body {
   font-weight: bold;
 }
 
-.textfield_input {
+#textfield_input {
   border-width: 1px;
   border-style: solid;
   border-radius: 2pt;
@@ -214,4 +214,8 @@ body {
   border-style: solid;
   border-radius: 2pt;
   border-color: black;
+}
+
+#inner_label, #inner_textfield, #inner_button, #inner_container {
+  /* display : none */
 }

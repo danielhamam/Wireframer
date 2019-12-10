@@ -7,26 +7,29 @@ import { getFirestore } from 'redux-firestore';
 import WireframeMiddle from './WireframeMiddle';
 
 class WireframeBox extends Component {
-    state = {
-        goHome : false,
-        old_name: "",
-      }
+  state = {
+    goHome : false,
+    old_name: "",
+    }
 
-    zoomIn = () => {
+zoomIn = () => {
 
     }
     
-    zoomOut = () => {
+zoomOut = () => {
     
-    }
+}
     
-    saveWork = () => {
+saveWork = () => {
     
-    }
-    
-    closeWork = () => {
-      this.setState({goHome : true});
-    }
+}
+closeWork = () => {
+    this.setState({goHome : true});
+}
+
+changeColor = (e) => {
+    document.getElementById("background_field").value = e.target.id;
+}
 
 render() {
 
@@ -83,13 +86,13 @@ return (
               <div className="labels_list"> 
                   <div className="properties_example">
                       <p id="properties_label" >Properties</p>
-                      <input type="input" className="textfield_input"/>
+                      <input type="input" id="textfield_input"/>
                   </div>
                   <div id="font_size_label"> Font Size: 
                       <input type="input" id="font_size_textfield"/>
                   </div>
                   <div id="background_label"> Background: 
-                      <input type="color" id="background_field" value="#000000" />
+                      <input type="color" id="background_field" onClick={this.changeColor}/>
                   </div>
                   <div id="border_color_label"> Border Color: 
                       <input type="color" id="border_color_field" value="#ff0000" />

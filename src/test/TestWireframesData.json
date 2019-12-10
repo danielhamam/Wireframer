@@ -108,12 +108,11 @@
                     "control_height" : 40,
                     "control_text" : "Create account",
                     "control_font_size" : "14",
-                    "control_background" : "grey",
+                    "control_background" : "#ff0080",
                     "control_border_color" : "",
                     "control_text_color" : "black",
                     "control_border_thickness" : 2,
-                    "control_border_radius" : 2,
-                    "selected_border" : ""
+                    "control_border_radius" : 2
                 }
             ]
         }
