@@ -45,31 +45,6 @@ class DatabaseTester extends React.Component {
             wireframes: accountJson.wireframes,
         }))
     });
-
-        // accountJson.accounts.forEach(accountJson => {
-        //     fireStore.collection('accounts').add({
-        //             created_time: new Date(),
-        //             name: accountJson.name,
-        //             email: accountJson.email,
-        //             account_key: accountJson.account_key,
-        //             administrator: accountJson.administrator,
-        //             wireframes: accountJson.wireframes,
-        //         }).then( () => {
-        //             this.setState({ email : accountJson.email});
-        //             this.setState({ firstName : accountJson.firstName});
-        //             this.setState({ lastName : accountJson.lastName});
-        //             this.setState({ password : accountJson.password});
-        //             // no password
-        //         }).catch((err) => {
-        //             console.log(err);
-        //         });
-        // });
-
-        // props.register(newUser, firebase);
-        // this.props.firebase.auth().createUserWithEmailAndPassword(
-        //     newUser.email,
-        //     newUser.password
-        // );
     }
 
     render() {

@@ -218,7 +218,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .container_example {
-
+  cursor: pointer;
 }
 
 .container_box {
@@ -241,6 +241,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   font-size: 12pt;
   /* left: 68px; */
   /* cursor:pointer; */
+}
+
+.prompt_text {
+  cursor: pointer;
 }
 
 .prompt_text2 {
@@ -276,9 +280,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 .rectangle1_label {
   /* bottom left */
-  position:relative;
+  /* position:relative; */
+  background-color : blue;
   float: left;
-  top : 70px;
+  top : 90px;
   right: 5px;
 }
 
@@ -419,6 +424,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 .button_submit {
   position : relative;
+  cursor: pointer;
   height: 33px;
   width: 180px;
   left: 35px;
@@ -439,6 +445,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 .properties_example {
   position:relative;
+  bottom: 15px;
   line-height: 0.1em;
 }
 
@@ -449,6 +456,16 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
     font-size: 12pt;
     width: 200px;
     left: 25px;
+}
+
+.textfield_input { 
+  position:relative;
+  cursor: pointer;
+  grid-column: 2;
+  margin-top: 1%;
+  font-size: 12pt;
+  width: 200px;
+  left: 25px;
 }
 
 #textfield_label {
@@ -470,7 +487,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   line-height: 4em;
 }
 
-#font_size_label, #background_label, #border_color_label, #border_thickness_label, #border_radius_label {
+#font_size_label, #background_label, #border_color_label, #border_thickness_label, #border_radius_label, #text_color_label {
   position : relative;
   font-size: 14pt;
   font-weight: bold;
@@ -491,7 +508,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   left: 15px;
 }
 
-#border_color_field {
+#border_color_field, #text_color_field {
   position:relative;
   left: 15px;
 }
@@ -511,7 +528,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 #name_of_wireframe {
   font-size: 14pt;
   position : relative;
-  top: 60px;
+  top: 20px;
   margin-left: 10%;
 }
 
@@ -521,8 +538,13 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   width: 150px;
 }
 
-#control_spawn, #control_move, .control_move  {
+#control_move, .control_move  {
   cursor : move;
+}
+
+#control_spawn {
+  position: relative;
+  top: 15px;
 }
 
 #movable {

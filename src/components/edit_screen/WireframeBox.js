@@ -10,6 +10,7 @@ class WireframeBox extends Component {
   state = {
     goHome : false,
     old_name: "",
+    rerender : false
     }
 
 zoomIn = () => {
@@ -21,14 +22,164 @@ zoomOut = () => {
 }
     
 saveWork = () => {
-    
+
+    const fireStore = getFirestore();
+    let {accounts} = this.props;
+    let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
+    let wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
+
+    // update the wireframe
+    // this.wireframe.items.control
+
+    let wireframes = accounts[index].wireframes;
+    fireStore.collection("todoLists").doc(accounts[index].id).update({ wireframes : this.wireframes});
+
+    // getFirestore().collection('todoLists').doc(this.props.todoList.id).update({
+    //     name: event.target.value,
+    //  });
+    // this.props.item.control_text,
+    // this.props.item.control_font_size,
+    // this.props.item.control_background,
+    // this.props.item.control_border_color,
+    // this.props.item.control_text_color,
+    // this.props.item.control_border_thickness,
+    // this.props.item.control_border_radius,
 }
 closeWork = () => {
     this.setState({goHome : true});
 }
 
-changeColor = (e) => {
-    document.getElementById("background_field").value = e.target.id;
+addTextfield = () => {
+    let fireStore = getFirestore();
+    let {accounts} = this.props;
+    let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
+    let wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
+    let wireframes = accounts[index].wireframes;
+
+    const new_item = {
+        control : "textfield",
+        control_width : "",
+        control_height: "",
+        control_text : "",
+        control_font_size : "",
+        control_background : "",
+        control_border_color : "",
+        control_text_color : "",
+        control_border_thickness : "",
+        control_border_radius : ""
+    }
+
+    wireframe.items.push(new_item);
+    this.setState({ rerender : true});
+}
+
+addLabel = () => {
+
+    let fireStore = getFirestore();
+    let {accounts} = this.props;
+    let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
+    let wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
+    let wireframes = accounts[index].wireframes;
+
+    const new_item = {
+        control : "label",
+        control_width : "",
+        control_height: "",
+        control_text : "Prompt for input",
+        control_font_size : "",
+        control_background : "",
+        control_border_color : "",
+        control_text_color : "",
+        control_border_thickness : "",
+        control_border_radius : ""
+    }
+
+    wireframe.items.push(new_item);
+    this.setState({ rerender : true});
+    // fireStore.collection("todoLists").doc(accounts[index].id).update({ 'wireframes' : wireframes});
+
+}
+
+addButton = () => {
+    let fireStore = getFirestore();
+    let {accounts} = this.props;
+    let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
+    let wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
+    let wireframes = accounts[index].wireframes;
+
+    const new_item = {
+        control : "button",
+        control_width : "",
+        control_height: "",
+        control_text : "Submit",
+        control_font_size : "",
+        control_background : "",
+        control_border_color : "",
+        control_text_color : "",
+        control_border_thickness : "",
+        control_border_radius : ""
+    }
+
+    wireframe.items.push(new_item);
+    this.setState({ rerender : true});
+}
+
+addContainer = () => {
+
+    let fireStore = getFirestore();
+    let {accounts} = this.props;
+    let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
+    let wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
+    let wireframes = accounts[index].wireframes;
+
+    const new_item = {
+        control : "container",
+        control_width : "20",
+        control_height: "30",
+        control_text : "",
+        control_font_size : "",
+        control_background : "",
+        control_border_color : "",
+        control_text_color : "",
+        control_border_thickness : "",
+        control_border_radius : ""
+    }
+
+    wireframe.items.push(new_item);
+    this.setState({ rerender : true});
+    // fireStore.collection("todoLists").doc(accounts[index].id).update({ 'wireframes' : wireframes});
+}
+
+handleChange_textColor = (e) => {
+    document.getElementById("text_color_field").value = e.target.value;
+}
+
+handleChange_borderColor = (e) => {
+    document.getElementById("border_color_field").value = e.target.value;
+}
+ 
+handleChange_backgroundColor = (e) => {
+    document.getElementById("background_field").value = e.target.value;
+}
+
+handleChange_wireframeName = (e) => {
+    document.getElementById("name_wireframe_field").defaultValue = e.target.value;
+}
+
+handleChange_text = (e) => {
+    document.getElementById("textfield_input").defaultValue = e.target.value;
+}
+
+handleChange_font_size = (e) => {
+    document.getElementById("font_size_textfield").defaultValue = e.target.value;
+}
+
+handleChange_border_thickness = (e) => {
+    document.getElementById("border_thickness_field").defaultValue = e.target.value;
+}
+
+handleChange_border_radius = (e) => {
+    document.getElementById("border_radius_field").defaultValue = e.target.value;
 }
 
 render() {
@@ -40,7 +191,6 @@ render() {
     const {accounts} = this.props;
     const index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
     const wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
-    let wireframe_new = wireframe;
     // this.setState({old_name : wireframe.name});
 
 return (
@@ -61,22 +211,22 @@ return (
                       </div>
                   </div>
                   <div className="container_example">
-                    <div className="container_box"> </div>
-                    <div id="container_text"> Container </div>
+                    <div className="container_box" onClick={this.addContainer} > </div>
+                    <div id="container_text" > Container </div>
                   </div>
                   < br />
                   <div id="prompt_for_input">
-                    <div className="prompt_text"> Prompt for input:</div>
+                    <div className="prompt_text" onClick={this.addLabel} > Prompt for input:</div>
                   </div>
                   <div id="label_text"> Label</div>
                   < br />
                   <div className="button_example">
-                    <button className="button_submit"> Submit</button>
+                    <button className="button_submit" onClick={this.addButton}> Submit</button>
                     <div id="button_text"> Button</div>
                   </div>
                   < br />
                   <div className="textfield_example">
-                    <input type="input" className="textfield_input" placeholder="Input"/>
+                    <input type="input" className="textfield_input" placeholder="Input" onClick={this.addTextfield} />
                     <p id="textfield_label" >Textfield</p>
                   </div>
               </div> 
@@ -86,22 +236,25 @@ return (
               <div className="labels_list"> 
                   <div className="properties_example">
                       <p id="properties_label" >Properties</p>
-                      <input type="input" id="textfield_input"/>
+                      <input type="input" id="textfield_input" onChange={(e) => this.handleChange_text(e)}/>
                   </div>
                   <div id="font_size_label"> Font Size: 
-                      <input type="input" id="font_size_textfield"/>
+                      <input type="input" id="font_size_textfield" onChange={(e) => this.handleChange_font_size(e)}/>
+                  </div>
+                  <div id="text_color_label"> Text Color: 
+                      <input type="color" id="text_color_field" onChange = {(e) => this.handleChange_textColor(e)} />
                   </div>
                   <div id="background_label"> Background: 
-                      <input type="color" id="background_field" onClick={this.changeColor}/>
+                      <input type="color" id="background_field" onChange={(e) => this.handleChange_backgroundColor(e)}/>
                   </div>
                   <div id="border_color_label"> Border Color: 
-                      <input type="color" id="border_color_field" value="#ff0000" />
+                      <input type="color" id="border_color_field" onChange = {(e) => this.handleChange_borderColor(e)} />
                   </div>
                   <div id="border_thickness_label"> Border Thickness:
-                      <input type="input" id="border_thickness_field"/>
+                      <input type="input" id="border_thickness_field" onChange = {(e) => this.handleChange_border_thickness(e)} />
                   </div>
                   <div id= "border_radius_label"> Border Radius:
-                      <input type="input" id="border_radius_field"/>
+                      <input type="input" id="border_radius_field" onChange = {(e) => this.handleChange_border_radius(e)} />
                   </div>
                   <div id= "name_of_wireframe"> Name:
                       <input type="input" id="name_wireframe_field" defaultValue={wireframe.name}/>
