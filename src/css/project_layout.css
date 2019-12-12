@@ -281,7 +281,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 .rectangle1_label {
   /* bottom left */
   /* position:relative; */
-  background-color : blue;
+  /* background-color : blue; */
   float: left;
   top : 90px;
   right: 5px;
@@ -289,7 +289,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 .rectangle2_label {
   /* top right */
-  position:relative;
+  /* position:relative; */
   float: right;
   left: 45px;
   bottom: 15px;
@@ -297,14 +297,14 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 .rectangle3_label {
   /* top left */
-  position : relative;
+  /* position : relative; */
   float : left;
   right: 50px;
 }
 
 .rectangle4_label {
   /* bottom right */
-  position : relative;
+  /* position : relative; */
   float: right;
   top: 63px;
 }
@@ -557,4 +557,16 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 #inner_label, #inner_textfield, #inner_button, #inner_container {
   /* visibility: hidden; */
+}
+
+.item_border {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2pt;
+  border-color: black;
+
+}
+
+.selected_item {
+  
 }

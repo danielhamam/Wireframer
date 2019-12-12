@@ -10,7 +10,8 @@ class WireframeBox extends Component {
   state = {
     goHome : false,
     old_name: "",
-    rerender : false
+    rerender : false,
+    wireframe_target : ""
     }
 
 zoomIn = () => {
@@ -20,19 +21,41 @@ zoomIn = () => {
 zoomOut = () => {
     
 }
+
+deleteItem = (item) => {
+
+    let {accounts} = this.props;
+    let index_acc = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
+    let wireframe = accounts && accounts[index_acc].wireframes[this.props.wireframe_key];
+
+    let index = wireframe.items.indexOf(item);
+    wireframe.items.splice( index, 1 ); // removed item
+    let x = wireframe.items;
+    this.setState({ rerender : true}); // rerender
+}
+
+duplicateItem = (item) => {
+
+    let {accounts} = this.props;
+    let index_acc = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
+    let wireframe = accounts && accounts[index_acc].wireframes[this.props.wireframe_key];
+
+    let item_duplicate = item;
+    wireframe.items.push( item_duplicate ); // add duplicated item item
+    this.setState({ rerender : true}); // rerender
+}
     
-saveWork = () => {
+saveWork = (new_wireframe) => {
 
     const fireStore = getFirestore();
     let {accounts} = this.props;
     let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
-    let wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
-
-    // update the wireframe
-    // this.wireframe.items.control
+    let wireframe_found = accounts && accounts[index].wireframes[this.props.wireframe_key];
+    // accounts[index].wireframes[this.props.wireframe_key] = new_wireframe; // saved work
 
     let wireframes = accounts[index].wireframes;
-    fireStore.collection("todoLists").doc(accounts[index].id).update({ wireframes : this.wireframes});
+    fireStore.collection("accounts").doc(accounts[index].id).update({ wireframes : wireframes});
+    // fireStore.collection("accounts").doc(account.id).update({ wireframes: account.wireframes});
 
     // getFirestore().collection('todoLists').doc(this.props.todoList.id).update({
     //     name: event.target.value,
@@ -44,6 +67,7 @@ saveWork = () => {
     // this.props.item.control_text_color,
     // this.props.item.control_border_thickness,
     // this.props.item.control_border_radius,
+    this.setState({goHome : true});
 }
 closeWork = () => {
     this.setState({goHome : true});
@@ -134,8 +158,8 @@ addContainer = () => {
 
     const new_item = {
         control : "container",
-        control_width : "20",
-        control_height: "30",
+        control_width : "140",
+        control_height: "80",
         control_text : "",
         control_font_size : "",
         control_background : "",
@@ -147,7 +171,6 @@ addContainer = () => {
 
     wireframe.items.push(new_item);
     this.setState({ rerender : true});
-    // fireStore.collection("todoLists").doc(accounts[index].id).update({ 'wireframes' : wireframes});
 }
 
 handleChange_textColor = (e) => {
@@ -264,7 +287,7 @@ return (
 
             <div className="middle_screen">
                 {wireframe.items && wireframe.items.map(item => (
-                    <WireframeMiddle item={item}/>
+                    <WireframeMiddle item={item} wireframe={wireframe} deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem}/>
                 ))}
             </div>
 

@@ -15,8 +15,8 @@
                 "items": [
                     {
                         "control" : "label",
-                        "control_width" : 20,
-                        "control_height" : 20,
+                        "control_width" : "",
+                        "control_height" : "",
                         "control_text" : "Enter your first name: ",
                         "control_font_size" : "14",
                         "control_background" : "",
@@ -27,15 +27,15 @@
                     },
                     {
                         "control" : "textfield",
-                        "control_width" : 20,
-                        "control_height" : 20,
+                        "control_width" : 200,
+                        "control_height" : 40,
                         "control_text" : "Gerald",
                         "control_font_size" : "14",
                         "control_background" : "#FFFFFF",
                         "control_border_color" : "#000000",
                         "control_text_color" : "#000000",
-                        "control_border_thickness" : 5,
-                        "control_border_radius" : 4
+                        "control_border_thickness" : 2,
+                        "control_border_radius" : 1
                     }
                 ]
             }
@@ -56,8 +56,8 @@
             "items": [
                 {
                     "control" : "label",
-                    "control_width" : 40,
-                    "control_height" : 40,
+                    "control_width" : "",
+                    "control_height" : "",
                     "control_text" : "Enter your email address: ",
                     "control_font_size" : "14",
                     "control_background" : "",
@@ -68,9 +68,9 @@
                 },
                 {
                     "control" : "textfield",
-                    "control_width" : 40,
-                    "control_height" : 40,
-                    "control_text" : "john_doe@live.com",
+                    "control_width" : 100,
+                    "control_height" : 50,
+                    "control_text" : "",
                     "control_font_size" : "14",
                     "control_background" : "#FFFFFF",
                     "control_border_color" : "#000000",
@@ -80,11 +80,11 @@
                 },
                 {
                     "control" : "label",
-                    "control_width" : 40,
-                    "control_height" : 40,
+                    "control_width" : "",
+                    "control_height" : "",
                     "control_text" : "Enter your password: ",
                     "control_font_size" : "14",
-                    "control_background" : "#080808",
+                    "control_background" : "",
                     "control_border_color" : "",
                     "control_text_color" : "#000000",
                     "control_border_thickness" : 0,
@@ -92,7 +92,7 @@
                 },
                 {
                     "control" : "textfield",
-                    "control_width" : 40,
+                    "control_width" : 140,
                     "control_height" : 40,
                     "control_text" : "",
                     "control_font_size" : "14",
@@ -104,10 +104,10 @@
                 },
                 {
                     "control" : "button",
-                    "control_width" : 40,
-                    "control_height" : 40,
+                    "control_width" : 150,
+                    "control_height" : 120,
                     "control_text" : "Create account",
-                    "control_font_size" : "14",
+                    "control_font_size" : "12",
                     "control_background" : "#a52a2a",
                     "control_border_color" : "#a52a2a",
                     "control_text_color" : "black",
@@ -145,8 +145,8 @@
                 },
                 {
                     "control" : "button",
-                    "control_width" : 50,
-                    "control_height" : 50,
+                    "control_width" : 150,
+                    "control_height" : 150,
                     "control_text" : "Click for magic",
                     "control_font_size" : "14",
                     "control_background" : "#080808",
