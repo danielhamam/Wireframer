@@ -36,7 +36,11 @@ class WireframeMiddle extends Component {
     isSelected : false,
     selected_name : "",
     deselect : false,
-    delete_item : false
+    delete_item : false,
+
+    top: 40, // drag bounds
+    left: 40 // drag bounds
+
   }
 
 checkKeyPress = (e) => {
@@ -426,8 +430,7 @@ checkControl = () => {
 
     return (
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds=".dimension">
-
+      <Draggable disabled={this.checkDraggable()} bounds="#dimension">
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}> 
 
         <div id={key2} > 
@@ -455,7 +458,7 @@ checkControl = () => {
     return (
 
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds=".dimension">
+      <Draggable disabled={this.checkDraggable()} bounds="#dimension">
 
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)} > 
 
@@ -464,7 +467,7 @@ checkControl = () => {
           <span id={inner2} />
         </div>
 
-          <input type="input" id={key} className={"textfield_input control_move"} placeholder="Input" 
+          <input type="input" id={key} className={"textfield_input2 control_move"} placeholder="Input" 
           style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
           fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, 
           borderColor: this.state.control_border_color, color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px",
@@ -486,7 +489,7 @@ checkControl = () => {
 
     return (
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds=".dimension" >
+      <Draggable disabled={this.checkDraggable()} bounds="#dimension">
 
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
 
@@ -497,7 +500,7 @@ checkControl = () => {
         <span id={inner2} />
       </div>
         
-        <button className={"button_submit control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
+        <button className={"button_submit2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
         fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
         color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
         id={key} onClick = {this.selectItem} onClickOut={this.selectItem}> {this.state.control_text} </button>
@@ -517,8 +520,8 @@ checkControl = () => {
     return (
 
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds=".dimension">
-
+      <Draggable disabled={this.checkDraggable()} bounds="#dimension">
+      {/* bounds={{left: -35 , top: 0, right: this.props.width - 217 , bottom: this.props.height - 30 }} */}
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>
         
         <div id={key2}> 
@@ -526,7 +529,7 @@ checkControl = () => {
           <span id={inner2} />
         </div>
 
-        <div className={"container_box control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
+        <div className={"container_box2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
         fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
         color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
         id={key} onClick = {this.selectItem}> {this.state.control_text} </div>
@@ -546,7 +549,6 @@ checkControl = () => {
 render() {
 
 return (
-
   <div id="control_spawn">
     <div id="resize_element"> 
       {this.checkControl()} 

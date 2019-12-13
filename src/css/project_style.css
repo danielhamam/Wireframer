@@ -161,6 +161,15 @@ body {
   /* cursor:pointer; */
 }
 
+.container_box2 {
+  background-color: white;
+  border-color: black;
+  border-width: 0.5px;
+  border-style: solid;
+  border-radius: 2pt;
+  /* cursor:pointer; */
+}
+
 #container_text {
   font-size: 16pt;
   /* cursor:pointer; */

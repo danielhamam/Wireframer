@@ -6,6 +6,7 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
 import WireframeMiddle from './WireframeMiddle';
 import DragResizeContainer from 'react-drag-resize';
+import Draggable from 'react-draggable';
 
 class WireframeBox extends Component {
   state = {
@@ -317,10 +318,10 @@ return (
             </div>
 
             <div id="middle_screen" className="middle_screen"> 
-                <div className="dimension" style={{width: this.state.width + "px", height: this.state.height + "px"}}>
+                <div id="dimension" className="dimension" style={{width: this.state.width + "px", height: this.state.height + "px"}}>
                     <div id="zoomable"> 
                 {wireframe.items && wireframe.items.map(item => (
-                    <WireframeMiddle item={item} wireframe={wireframe} deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut}/>
+                    <WireframeMiddle item={item} wireframe={wireframe} deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut} width={this.state.width} height={this.state.height}/>
                 ))}
                     </div>
                 </div>
@@ -330,11 +331,11 @@ return (
         <div id="wireframe_dimensions">
             <div id="wireframe_dimension_left" className="font_dimension"> 
                 <span id="dimension_width_label">Diagram Width: </span>
-                <input type="input" id="dimension_width" name="width" onChange = {(e) => this.handleChange_diagram_width(e)}/>
+                <input type="input" id="dimension_width" name="width" defaultValue={this.state.width} onChange = {(e) => this.handleChange_diagram_width(e)}/>
             </div>
             <div id="wireframe_dimension_right" className="font_dimension" > 
                 Diagram Height:
-                <input type="input" id="dimension_height" name="height" onChange = {(e) => this.handleChange_diagram_height(e)}/>
+                <input type="input" id="dimension_height" name="height" defaultValue={this.state.height} onChange = {(e) => this.handleChange_diagram_height(e)}/>
             </div>
         </div> 
 
