@@ -49,6 +49,8 @@ handleNewWireframe = () => {
       'wireframes': fireStore.FieldValue.arrayUnion({
         name: "Unknown",
         created_time: new Date(), // to later sort, the ones in json dont need a date. that order doesnt matter. 
+        width : 581, // default
+        height : 45, // default
         items: [],
         key : answer
       })
@@ -102,21 +104,20 @@ handleNewWireframe = () => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  // const { id } = state.firebase.auth.uid;
+  const { id } = state.firebase.auth.uid;
   const { accounts } = state.firestore.data;
-  // const account = state.account;
-  // account.id = id;
 
     return {
         // accounts, //.ordered something we can map through. 
         auth: state.firebase.auth,
-        accounts : state.firestore.ordered.accounts
+        accounts : state.firestore.ordered.accounts,
     }
 };
 
 export default compose(
-    connect(mapStateToProps),
-    firestoreConnect([
-      { collection: 'accounts' },
-    ]),
+  connect(mapStateToProps),
+  firestoreConnect([
+    { collection: 'accounts', field: 'wireframes', orderBy: ['created_time', 'desc']},
+  ]),
 )(HomeScreen);
+

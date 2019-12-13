@@ -12,6 +12,8 @@
         "wireframes": [
             {
                 "name": "What's your name?",
+                "width" : 581,
+                "height" : 45,
                 "key" : 0,
                 "items": [
                     {
@@ -54,6 +56,8 @@
         "wireframes": [
         {
             "name": "Let's create an account",
+            "width" : 581,
+            "height" : 45,
             "key" : 0,
             "items": [
                 {
@@ -133,6 +137,8 @@
     {
             "name": "My magical box",
             "key" : 0,
+            "width" : 581,
+            "height" : 45,
             "items": [
                 {
                     "control" : "container",

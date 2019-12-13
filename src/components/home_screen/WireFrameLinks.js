@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { getFirestore } from 'redux-firestore';
+import { firestoreConnect } from 'react-redux-firebase';
 
 import WireFrameCard from './WireFrameCard';
 
@@ -33,4 +34,4 @@ const mapStateToProps = (state) => { // Give me the following things from the da
     };
 };
 
-export default compose(connect(mapStateToProps))(WireFrameLinks); // makes todolist available as a prop.
+export default compose(connect(mapStateToProps))(WireFrameLinks); // makes available as a prop.

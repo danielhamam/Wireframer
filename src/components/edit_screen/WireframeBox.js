@@ -16,7 +16,12 @@ class WireframeBox extends Component {
     wireframe_target : "",
     scale: 1, 
     height : 460, // default
-    width : 500 // default
+    width : 500, // default
+    width_status : true,
+    height_status : true,
+    pending_width : 0,
+    pending_height : 0,
+    default_size : true
     }
 
 zoomIn = () => {
@@ -82,6 +87,8 @@ saveWork = (new_wireframe) => {
     let new_name = document.getElementById("name_wireframe_field").value;
     wireframe_found.name = new_name;
     // accounts[index].wireframes[this.props.wireframe_key] = new_wireframe; // saved work
+    wireframe_found.width = this.state.width;
+    wireframe_found.height = this.state.height;
 
     let wireframes = accounts[index].wireframes;
     fireStore.collection("accounts").doc(accounts[index].id).update({ wireframes : wireframes});
@@ -229,12 +236,32 @@ handleChange_border_radius = (e) => {
     document.getElementById("border_radius_field").defaultValue = e.target.value;
 }
 
-handleChange_diagram_width = (e) => {
-    this.setState({ width: e.target.value})
+handleChange_diagram_width = () => {
+        this.setState({ width: this.state.pending_width})
 }
 
-handleChange_diagram_height = (e) => {
-    this.setState({ height: e.target.value})
+handleChange_diagram_height = () => {
+        this.setState({ height: this.state.pending_height})
+    }
+
+checkWidth_diagram = (e) => {
+    if (e.target.value <= 5000 && e.target.value >= 1) {
+        this.setState({width_status : false});
+        this.setState({pending_width : e.target.value})
+    }
+    else {
+        this.setState({width_status : true});
+    }
+}
+
+checkHeight_diagram = (e) => {
+    if (e.target.value <= 5000 && e.target.value >= 1) {
+        this.setState({height_status : false});
+        this.setState({pending_height : e.target.value})
+    }
+    else {
+        this.setState({height_status : true});
+    }
 }
 
 render() {
@@ -246,7 +273,12 @@ render() {
     const {accounts} = this.props;
     const index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
     const wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
-    // this.setState({old_name : wireframe.name});
+
+    if (this.state.default_size) {
+        this.state.width =  wireframe.width;
+        this.state.height =  wireframe.height;
+        this.state.default_size = false;
+    }
 
 return (
 
@@ -330,12 +362,12 @@ return (
 
         <div id="wireframe_dimensions">
             <div id="wireframe_dimension_left" className="font_dimension"> 
-                <span id="dimension_width_label">Diagram Width: </span>
-                <input type="input" id="dimension_width" name="width" defaultValue={this.state.width} onChange = {(e) => this.handleChange_diagram_width(e)}/>
+                <button id="dimension_width_button" disabled={this.state.width_status} onClick={this.handleChange_diagram_width} >Update Width </button>
+                <input type="input" id="dimension_width" name="width" onChange ={(e) => this.checkWidth_diagram(e)}/>
             </div>
             <div id="wireframe_dimension_right" className="font_dimension" > 
-                Diagram Height:
-                <input type="input" id="dimension_height" name="height" defaultValue={this.state.height} onChange = {(e) => this.handleChange_diagram_height(e)}/>
+            <button id="dimension_height_button" disabled={this.state.height_status} onClick = {this.handleChange_diagram_height}>Update Height </button>
+                <input type="input" id="dimension_height" name="height" onChange ={(e) => this.checkHeight_diagram(e)}/>
             </div>
         </div> 
 
