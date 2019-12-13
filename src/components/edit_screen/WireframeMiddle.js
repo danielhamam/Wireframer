@@ -88,6 +88,7 @@ saveProps = () => {
   this.props.item.control_text_color = this.state.control_text_color;
   this.props.item.control_border_thickness = this.state.control_border_thickness;
   this.props.item.control_border_radius = this.state.control_border_radius;
+
   let pointer = document.getElementsByClassName("react-draggable-dragged");
 
   if (pointer.length > 0) {
@@ -102,11 +103,11 @@ saveProps = () => {
 
     this.state.control_x_position = substring[0];
     this.state.control_y_position = substring[2];
-    // this.props.item.control_x_position = substring[0];
-    // this.props.item.control_y_position = substring[2];
-  }
 
-  // this.props.saveWork(this.props.wireframe);
+    this.props.item.control_x_position = this.state.control_x_position; 
+    this.props.item.control_y_position = this.state.control_y_position; 
+
+  }
 }
 
 deselectItem = (e) => {
@@ -441,7 +442,7 @@ checkControl = () => {
 
     return (
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds="#dimension">
+      <Draggable disabled={this.checkDraggable()} bounds="#dimension" defaultPosition={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}>
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}> 
 
         <div id={key2} > 
@@ -469,7 +470,7 @@ checkControl = () => {
     return (
 
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds="#dimension">
+      <Draggable disabled={this.checkDraggable()} bounds="#dimension" defaultPosition={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}>
 
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)} > 
 
@@ -500,7 +501,7 @@ checkControl = () => {
 
     return (
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds="#dimension" defaultPosition={{x: this.state.control_x_position, y: this.state.control_y_position}}>
+      <Draggable disabled={this.checkDraggable()} bounds="#dimension" defaultPosition={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}>
 
       <div id="movable" className="position" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
 
@@ -531,7 +532,7 @@ checkControl = () => {
     return (
 
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds="#dimension">
+      <Draggable disabled={this.checkDraggable()} bounds="#dimension" defaultPosition={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}>
       {/* bounds={{left: -35 , top: 0, right: this.props.width - 217 , bottom: this.props.height - 30 }} */}
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>
         
