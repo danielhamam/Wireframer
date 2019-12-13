@@ -12,13 +12,13 @@
         "wireframes": [
             {
                 "name": "What's your name?",
-                "width" : 581,
-                "height" : 45,
+                "width" : 490,
+                "height" : 480,
                 "key" : 0,
                 "items": [
                     {
                         "control" : "label",
-                        "control_width" : "",
+                        "control_width" : "50",
                         "control_height" : "",
                         "control_text" : "Enter your first name: ",
                         "control_font_size" : "14",
@@ -27,8 +27,8 @@
                         "control_text_color" : "#000000",
                         "control_border_thickness" : 0,
                         "control_border_radius" : 0,
-                        "control_x_position" : 0,
-                        "control_y_position" : 0
+                        "control_x_position" : 93,
+                        "control_y_position" : 118
                     },
                     {
                         "control" : "textfield",
@@ -39,10 +39,10 @@
                         "control_background" : "#FFFFFF",
                         "control_border_color" : "#000000",
                         "control_text_color" : "#000000",
-                        "control_border_thickness" : 0,
+                        "control_border_thickness" : 1,
                         "control_border_radius" : 0,
-                        "control_x_position" : 0,
-                        "control_y_position" : 0
+                        "control_x_position" : 183,
+                        "control_y_position" : 155
                     }
                 ]
             }
@@ -60,8 +60,8 @@
         "wireframes": [
         {
             "name": "Let's create an account",
-            "width" : 581,
-            "height" : 45,
+            "width" : 490,
+            "height" : 480,
             "key" : 0,
             "items": [
                 {
@@ -75,22 +75,22 @@
                     "control_text_color" : "#000000",
                     "control_border_thickness" : 0,
                     "control_border_radius" : 0,
-                    "control_x_position" : 0,
-                    "control_y_position" : 0
+                    "control_x_position" : 100,
+                    "control_y_position" : 108
                 },
                 {
                     "control" : "textfield",
                     "control_width" : 200,
-                    "control_height" : 50,
+                    "control_height" : 30,
                     "control_text" : "",
-                    "control_font_size" : "14",
+                    "control_font_size" : "12",
                     "control_background" : "#FFFFFF",
                     "control_border_color" : "",
                     "control_text_color" : "#000000",
-                    "control_border_thickness" : 0,
+                    "control_border_thickness" : 1,
                     "control_border_radius" : 0,
-                    "control_x_position" : 0,
-                    "control_y_position" : 0
+                    "control_x_position" : 189,
+                    "control_y_position" : 115
                 },
                 {
                     "control" : "label",
@@ -103,27 +103,27 @@
                     "control_text_color" : "#000000",
                     "control_border_thickness" : 0,
                     "control_border_radius" : 0,
-                    "control_x_position" : 0,
-                    "control_y_position" : 0
+                    "control_x_position" : 94,
+                    "control_y_position" : 188
                 },
                 {
                     "control" : "textfield",
                     "control_width" : 200,
-                    "control_height" : 40,
+                    "control_height" : 30,
                     "control_text" : "",
                     "control_font_size" : "12",
-                    "control_background" : "#808080",
+                    "control_background" : "#ffffff",
                     "control_border_color" : "",
                     "control_text_color" : "#000000",
-                    "control_border_thickness" : 0,
+                    "control_border_thickness" : 1,
                     "control_border_radius" : 0,
-                    "control_x_position" : 0,
-                    "control_y_position" : 0
+                    "control_x_position" : 188,
+                    "control_y_position" : 183
                 },
                 {
                     "control" : "button",
-                    "control_width" : 33,
-                    "control_height" : 180,
+                    "control_width" : 180,
+                    "control_height" : 33,
                     "control_text" : "Create account",
                     "control_font_size" : "12",
                     "control_background" : "#a52a2a",
@@ -131,8 +131,8 @@
                     "control_text_color" : "black",
                     "control_border_thickness" : 2,
                     "control_border_radius" : 2,
-                    "control_x_position" : 0,
-                    "control_y_position" : 0
+                    "control_x_position" : 146,
+                    "control_y_position" : 276
                 }
             ]
         }
@@ -151,22 +151,22 @@
     {
             "name": "My magical box",
             "key" : 0,
-            "width" : 581,
-            "height" : 45,
+            "width" : 490,
+            "height" : 480,
             "items": [
                 {
                     "control" : "container",
                     "control_width" : 120,
                     "control_height" : 120,
-                    "control_text" : "",
+                    "control_text" : "This is my favorite trick...",
                     "control_font_size" : "18",
                     "control_background" : "#ffffff",
                     "control_border_color" : "",
                     "control_text_color" : "#000000",
                     "control_border_thickness" : 2,
                     "control_border_radius" : 2,
-                    "control_x_position" : 0,
-                    "control_y_position" : 0
+                    "control_x_position" : 30,
+                    "control_y_position" : 17
                 },
                 {
                     "control" : "button",
@@ -179,8 +179,8 @@
                     "control_text_color" : "0000FF",
                     "control_border_thickness" : 3,
                     "control_border_radius" : 3,
-                    "control_x_position" : 0,
-                    "control_y_position" : 0
+                    "control_x_position" : 161,
+                    "control_y_position" : 158
                 }
             ]
         }

@@ -112,7 +112,7 @@ saveProps = () => {
 
 deselectItem = (e) => {
 
-  if (e.target.className != "middle_screen") {
+  if (e.target.className != "middle_screen" && e.target.className != "dimension") {
     
     return;
   }

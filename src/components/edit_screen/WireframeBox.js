@@ -74,7 +74,13 @@ duplicateItem = (item) => {
     let wireframe = accounts && accounts[index_acc].wireframes[this.props.wireframe_key];
 
     let item_duplicate = item;
-    wireframe.items.push( item_duplicate ); // add duplicated item item
+    let control_x = parseInt(item.control_x_position, 10) + 100;
+    let control_y = parseInt(item.control_y_position, 10) + 100;
+
+    item_duplicate.control_x_position = control_x.toString();
+    item_duplicate.control_y_position = control_y.toString();
+
+    wireframe.items.push( item_duplicate ); // add duplicated item 
     this.setState({ rerender : true}); // rerender
 }
     

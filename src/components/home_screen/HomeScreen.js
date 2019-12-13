@@ -104,7 +104,7 @@ handleNewWireframe = () => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { id } = state.firebase.auth.uid;
+
   const { accounts } = state.firestore.data;
 
     return {
@@ -117,7 +117,7 @@ const mapStateToProps = (state, ownProps) => {
 export default compose(
   connect(mapStateToProps),
   firestoreConnect([
-    { collection: 'accounts', field: 'wireframes', orderBy: ['created_time', 'desc']},
+    { collection: 'accounts'},
   ]),
 )(HomeScreen);
 
