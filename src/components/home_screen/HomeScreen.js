@@ -49,8 +49,8 @@ handleNewWireframe = () => {
       'wireframes': fireStore.FieldValue.arrayUnion({
         name: "Unknown",
         created_time: new Date(), // to later sort, the ones in json dont need a date. that order doesnt matter. 
-        width : 581, // default
-        height : 45, // default
+        width : 490, // default
+        height : 480, // default
         items: [],
         key : answer
       })

@@ -21,7 +21,8 @@ import {Rnd} from 'react-rnd';
 class WireframeMiddle extends Component {
   state = {
     item : this.props.item,
-
+    control_x_position : this.props.item.control_x_position,
+    control_y_position : this.props.item.control_y_position,
     control_width: this.props.item.control_width,
     control_height : this.props.item.control_height,
     control_text : this.props.item.control_text,
@@ -87,15 +88,25 @@ saveProps = () => {
   this.props.item.control_text_color = this.state.control_text_color;
   this.props.item.control_border_thickness = this.state.control_border_thickness;
   this.props.item.control_border_radius = this.state.control_border_radius;
+  let pointer = document.getElementsByClassName("react-draggable-dragged");
+
+  if (pointer.length > 0) {
+
+    let string = pointer[0].style.transform;
+    let substring = string.substring(10); // skip past "translation("
+    substring = substring.replace(")", "");
+    substring = substring.replace(",", "");
+    substring = substring.replace("px", " ");
+    substring = substring.replace("px", " ");
+    substring = substring.split(" ");
+
+    this.state.control_x_position = substring[0];
+    this.state.control_y_position = substring[2];
+    // this.props.item.control_x_position = substring[0];
+    // this.props.item.control_y_position = substring[2];
+  }
 
   // this.props.saveWork(this.props.wireframe);
-}
-
-loadattributes = (key) => {
-  
-  document.getElementById(key).style.background = this.state.control_background;
-  document.getElementById(key).style.fontSize = this.state.control_font_size;
-
 }
 
 deselectItem = (e) => {
@@ -489,9 +500,9 @@ checkControl = () => {
 
     return (
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds="#dimension">
+      <Draggable disabled={this.checkDraggable()} bounds="#dimension" defaultPosition={{x: this.state.control_x_position, y: this.state.control_y_position}}>
 
-      <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
+      <div id="movable" className="position" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
 
 {/* <div className="resize_element" style={{width: this.state.control_width + "px", height: this.state.control_height + "px"}} >  */}
 
@@ -550,7 +561,7 @@ render() {
 
 return (
   <div id="control_spawn">
-    <div id="resize_element"> 
+    <div id="resize_element"  > 
       {this.checkControl()} 
     </div>
   </div>

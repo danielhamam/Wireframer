@@ -92,6 +92,7 @@ saveWork = (new_wireframe) => {
 
     let wireframes = accounts[index].wireframes;
     fireStore.collection("accounts").doc(accounts[index].id).update({ wireframes : wireframes});
+
     this.setState({goHome : true});
 }
 closeWork = () => {
@@ -115,7 +116,9 @@ addTextfield = () => {
         control_border_color : "",
         control_text_color : "",
         control_border_thickness : "",
-        control_border_radius : ""
+        control_border_radius : "",
+        control_x_position : 0,
+        control_y_position : 0
     }
 
     wireframe.items.push(new_item);
@@ -140,7 +143,9 @@ addLabel = () => {
         control_border_color : "",
         control_text_color : "",
         control_border_thickness : "",
-        control_border_radius : ""
+        control_border_radius : "",
+        control_x_position : 0,
+        control_y_position : 0
     }
 
     wireframe.items.push(new_item);
@@ -166,7 +171,9 @@ addButton = () => {
         control_border_color : "#000000",
         control_text_color : "#000000",
         control_border_thickness : "",
-        control_border_radius : ""
+        control_border_radius : "",
+        control_x_position : 0,
+        control_y_position : 0
     }
 
     wireframe.items.push(new_item);
@@ -191,7 +198,9 @@ addContainer = () => {
         control_border_color : "#000000",
         control_text_color : "",
         control_border_thickness : "1",
-        control_border_radius : "0"
+        control_border_radius : "0",
+        control_x_position : 0,
+        control_y_position : 0
     }
 
     wireframe.items.push(new_item);
