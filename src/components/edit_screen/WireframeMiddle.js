@@ -121,58 +121,63 @@ deselectItem = (e) => {
 
   if (this.props.item.control == "button" && this.state.isSelected) {
     
+    
+    let border = document.getElementsByClassName("item_border");
     let one = document.getElementsByClassName("rectangle1_button");
     let two = document.getElementsByClassName("rectangle2_button");
     let three = document.getElementsByClassName("rectangle3_button");
     let four = document.getElementsByClassName("rectangle4_button");
 
+    border[0].classList.remove("item_border");
     one[0].classList.remove('rectangle1_button');
     two[0].classList.remove('rectangle2_button');
     three[0].classList.remove('rectangle3_button');
     four[0].classList.remove('rectangle4_button');
-
   }
 
   else if (this.props.item.control == "label" && this.state.isSelected) {
     
+    let border = document.getElementsByClassName("item_border");
     let one = document.getElementsByClassName("rectangle1_label");
     let two = document.getElementsByClassName("rectangle2_label");
     let three = document.getElementsByClassName("rectangle3_label");
     let four = document.getElementsByClassName("rectangle4_label");
 
+    border[0].classList.remove("item_border");
     one[0].classList.remove('rectangle1_label');
     two[0].classList.remove('rectangle2_label');
     three[0].classList.remove('rectangle3_label');
     four[0].classList.remove('rectangle4_label');
-
   }
 
   else if (this.props.item.control == "textfield" && this.state.isSelected) {
     
+    let border = document.getElementsByClassName("item_border");
     let one = document.getElementsByClassName("rectangle1_textfield");
     let two = document.getElementsByClassName("rectangle2_textfield");
     let three = document.getElementsByClassName("rectangle3_textfield");
     let four = document.getElementsByClassName("rectangle4_textfield");
 
+    border[0].classList.remove("item_border");
     one[0].classList.remove('rectangle1_textfield');
     two[0].classList.remove('rectangle2_textfield');
     three[0].classList.remove('rectangle3_textfield');
     four[0].classList.remove('rectangle4_textfield');
-
   }
 
   else if (this.props.item.control == "container" && this.state.isSelected) {
     
+    let border = document.getElementsByClassName("item_border");
     let one = document.getElementsByClassName("rectangle1_container");
     let two = document.getElementsByClassName("rectangle2_container");
     let three = document.getElementsByClassName("rectangle3_container");
     let four = document.getElementsByClassName("rectangle4_container");
 
+    border[0].classList.remove("item_border");
     one[0].classList.remove('rectangle1_container');
     two[0].classList.remove('rectangle2_container');
     three[0].classList.remove('rectangle3_container');
     four[0].classList.remove('rectangle4_container');
-
   }
 
   this.setState({isSelected : false})
@@ -240,11 +245,11 @@ selectItem = (e) => {
     document.getElementsByClassName("rectangle1_container").length <= 0 ) {
     
     // Select 
-    document.getElementById(e.currentTarget.id).style.border  = "1px solid #000000";
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.id).classList.add("rectangle1_label");
-    document.getElementById(e.currentTarget.parentElement.lastElementChild.id).classList.add("rectangle2_label");
-    document.getElementById(e.currentTarget.nextElementSibling.firstElementChild.id).classList.add("rectangle3_label");
-    document.getElementById(e.currentTarget.nextElementSibling.lastElementChild.id).classList.add("rectangle4_label");
+    document.getElementById(e.currentTarget.id).classList.add("item_border"); 
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_label");
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_label");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_label");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_label");
 
     // Add properties
     document.getElementById("font_size_textfield").value = this.state.control_font_size;
@@ -259,11 +264,11 @@ selectItem = (e) => {
     else if (this.state.isSelected == true) {
 
     // Deselect
-    document.getElementById(e.currentTarget.id).style.border  = "";
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.id).classList.remove("rectangle1_label");
-    document.getElementById(e.currentTarget.parentElement.lastElementChild.id).classList.remove("rectangle2_label");
-    document.getElementById(e.currentTarget.nextElementSibling.firstElementChild.id).classList.remove("rectangle3_label");
-    document.getElementById(e.currentTarget.nextElementSibling.lastElementChild.id).classList.remove("rectangle4_label");
+    document.getElementById(e.currentTarget.id).classList.remove("item_border"); 
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.remove("rectangle1_label");
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.remove("rectangle2_label");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.remove("rectangle3_label");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.remove("rectangle4_label");
 
     // Remove properties
     this.state.control_text = document.getElementById("textfield_input").value;
@@ -290,11 +295,11 @@ selectItem = (e) => {
     document.getElementsByClassName("rectangle1_container").length <= 0 ) {
 
     // Select
-    document.getElementById(e.currentTarget.id).style.border  = "1px solid #000000";
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.id).classList.add("rectangle1_textfield");
-    document.getElementById(e.currentTarget.parentElement.lastElementChild.id).classList.add("rectangle2_textfield");
-    document.getElementById(e.currentTarget.nextElementSibling.firstElementChild.id).classList.add("rectangle3_textfield");
-    document.getElementById(e.currentTarget.nextElementSibling.lastElementChild.id).classList.add("rectangle4_textfield");
+    document.getElementById(e.currentTarget.id).classList.add("item_border"); 
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_textfield");
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_textfield");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_textfield");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_textfield");
 
     // Add Properties
     document.getElementById("font_size_textfield").value = this.state.control_font_size;
@@ -311,11 +316,11 @@ selectItem = (e) => {
     else if (this.state.isSelected == true) {
     
     // Deselect
-    document.getElementById(e.currentTarget.id).style.border  = "";
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.id).classList.remove("rectangle1_textfield");
-    document.getElementById(e.currentTarget.parentElement.lastElementChild.id).classList.remove("rectangle2_textfield");
-    document.getElementById(e.currentTarget.nextElementSibling.firstElementChild.id).classList.remove("rectangle3_textfield");
-    document.getElementById(e.currentTarget.nextElementSibling.lastElementChild.id).classList.remove("rectangle4_textfield");
+    document.getElementById(e.currentTarget.id).classList.remove("item_border"); 
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.remove("rectangle1_textfield");
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.remove("rectangle2_textfield");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.remove("rectangle3_textfield");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.remove("rectangle4_textfield");
 
     // Remove Properties 
     this.state.control_text = document.getElementById("textfield_input").value;
@@ -343,11 +348,11 @@ selectItem = (e) => {
     document.getElementsByClassName("rectangle1_container").length <= 0 ) {
 
     // Select Item
-    document.getElementById(e.currentTarget.id).style.border  = "1px solid #000000";
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.id).classList.add("rectangle1_container");
-    document.getElementById(e.currentTarget.parentElement.lastElementChild.id).classList.add("rectangle2_container");
-    document.getElementById(e.currentTarget.nextElementSibling.firstElementChild.id).classList.add("rectangle3_container");
-    document.getElementById(e.currentTarget.nextElementSibling.lastElementChild.id).classList.add("rectangle4_container");
+    document.getElementById(e.currentTarget.id).classList.add("item_border"); 
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_container");
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_container");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_container");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_container");
 
     // Add Properties
     document.getElementById("font_size_textfield").value = this.state.control_font_size;
@@ -364,11 +369,11 @@ selectItem = (e) => {
     else if (this.state.isSelected == true) {
 
     // Deselect
-    document.getElementById(e.currentTarget.id).style.border  = "";
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.id).classList.remove("rectangle1_container");
-    document.getElementById(e.currentTarget.parentElement.lastElementChild.id).classList.remove("rectangle2_container");
-    document.getElementById(e.currentTarget.nextElementSibling.firstElementChild.id).classList.remove("rectangle3_container");
-    document.getElementById(e.currentTarget.nextElementSibling.lastElementChild.id).classList.remove("rectangle4_container");
+    document.getElementById(e.currentTarget.id).classList.remove("item_border"); 
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.remove("rectangle1_container");
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.remove("rectangle2_container");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.remove("rectangle3_container");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.remove("rectangle4_container");
 
     // Remove properties 
     this.state.control_text = document.getElementById("textfield_input").value;
@@ -421,7 +426,8 @@ checkControl = () => {
 
     return (
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds="#middle_screen">
+      <Draggable disabled={this.checkDraggable()} bounds=".dimension">
+
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}> 
 
         <div id={key2} > 
@@ -438,6 +444,7 @@ checkControl = () => {
           <span id={inner3}/>
           <span id={inner4}/>
         </div>
+
       </div>
       </Draggable>
       </ClickOutHandler> 
@@ -448,9 +455,10 @@ checkControl = () => {
     return (
 
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds=".middle_screen">
+      <Draggable disabled={this.checkDraggable()} bounds=".dimension">
 
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)} > 
+
         <div id={key2} > 
           <span id={inner1} />
           <span id={inner2} />
@@ -461,12 +469,13 @@ checkControl = () => {
           fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, 
           borderColor: this.state.control_border_color, color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px",
            borderRadius: this.state.control_border_radius + "px"}}  onLoad={this.selectItem} onClick = {this.selectItem} 
-           onClickOut={this.deselectItem}/>
+           onClickOut={this.deselectItem} value={this.state.control_text} /> 
 
         <div id={key3}>
           <span id={inner3} />
           <span id={inner4} />
         </div>
+
       </div>
 
       </Draggable>
@@ -475,17 +484,9 @@ checkControl = () => {
   }
   else if (name == "button") {
 
-    const style = {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      border: "solid 1px #ddd",
-      background: "#f0f0f0"
-    } 
-
     return (
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds=".middle_screen" >
+      <Draggable disabled={this.checkDraggable()} bounds=".dimension" >
 
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
 
@@ -516,9 +517,10 @@ checkControl = () => {
     return (
 
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds=".middle_screen">
+      <Draggable disabled={this.checkDraggable()} bounds=".dimension">
 
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>
+        
         <div id={key2}> 
           <span id={inner1} />
           <span id={inner2} />
@@ -546,7 +548,7 @@ render() {
 return (
 
   <div id="control_spawn">
-    <div id="resize_element" > 
+    <div id="resize_element"> 
       {this.checkControl()} 
     </div>
   </div>

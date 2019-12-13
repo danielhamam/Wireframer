@@ -214,8 +214,6 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   left: 260px;
 }
 
-
-
 #zoom_buttons {
   cursor:pointer;
   position : relative;
@@ -284,7 +282,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .rectangle1_button, .rectangle2_button, .rectangle3_button, .rectangle4_button, .rectangle1_container, .rectangle2_container, .rectangle3_container, .rectangle4_container {
-  /* position:absolute; */
+  position:absolute;
   z-index: 9999;
   height: 10px;
   width: 10px;
@@ -296,136 +294,104 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .rectangle1_label {
-  /* bottom left */
-  /* position:relative; */
-  /* background-color : blue; */
-  float: left;
-  top : 90px;
-  right: 5px;
+  /* top left */
+  left: -5px;
+  top: -4px;
 }
 
 .rectangle2_label {
   /* top right */
-  /* position:relative; */
-  float: right;
-  left: 45px;
-  bottom: 15px;
+  margin-left: 44px;
+  top: -4px;
 }
 
 .rectangle3_label {
-  /* top left */
-  /* position : relative; */
-  float : left;
-  right: 50px;
+  /* bottom left */
+  top: 67px;
+  right: -5px;
 }
 
 .rectangle4_label {
   /* bottom right */
-  /* position : relative; */
-  float: right;
-  top: 63px;
+  top: 67px;
+  left: 45px;
 }
 
 .rectangle1_textfield {
   /* bottom left */
-  position:relative;
-  float: left;
-  top : 30px;
-  left: 20px;
+  top : 65%;
+  left: 10%;
 }
 
 .rectangle2_textfield {
   /* top right */
-  position:relative;
-  float: right;
-  left: 28px;
-  bottom: 28px;
+  left: 109%;
+  bottom: 59%;
 }
 
 .rectangle3_textfield {
   /* top left */
-  position : relative;
-  float : left;
-  right: 199px;
-  bottom: 2px;
+  left : 10%;
+  top : 5%;
 }
 
 .rectangle4_textfield {
   /* bottom right */
-  position : relative;
-  /* background-color: blue; */
-  float: right;
-  left: 1px;
-  top: 10px;
+  left: 109%;
+  top : 65%;
 }
 
 .rectangle1_container {
   /* top left */
-  position:relative;
-  float: left;
-  left: 50px;
-  bottom: 18px;
+  top: -23%;
+  right: 57%;
 }
 
 .rectangle2_container {
   /* top right */
-  position:relative;
-  float: right;
-  left: 58px;
-  bottom: 99px;
+  right: -43%;
+  bottom: 110%;
 }
 
 .rectangle3_container {
   /* bottom left */
-  position : relative;
-  float : left;
-  top: 75px;
-  right: 139px;
+  top: 75%;
+  right: 57%;
 }
 
 .rectangle4_container {
   /* bottom right */
-  position : relative;
   float: right;
-  left: 1px;
-  top: 65px;
+  right: -43%;
+  top: 72%;
 }
 
 .rectangle1_button {
   /* top left */
   position : absolute;
-  background-color : blue;
-  /* float: left; */
-  left: 20%;
-  /* margin-bottom: 9%; */
+  left: 18%;
+  top: -5%;
 }
 
 .rectangle2_button {
   /* top right */
   position: absolute;
-  /* float: right; */
-  /* right: -25%; */
-  margin-left: 117%;
-  bottom: 95%;
+  left: 116%;
+  top: -13%;
 }
 
 .rectangle3_button {
   /* bottom left */
   position : absolute;
-  float: left;
-  margin-left: 19%;
-  /* margin-top: -5%; */
-  /* left: 19%; */
-  bottom: 1%;
-  /* float : left; */
-  /* right: 179%; */
+  left: 18%;
+  bottom: -5%;
 }
 
 .rectangle4_button {
   /* bottom right */
   position : absolute;
-  left: 118%;
-  bottom: 0%;
+  left: 116%;
+  bottom: -5%;
 
 }
 
@@ -567,8 +533,9 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 #control_spawn {
-  position: relative;
-  top: 15px;
+  position: absolute;
+  top: 100%;
+  left: 100%;
 }
 
 #movable {
@@ -611,5 +578,61 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 #zoomable { 
-  position : fixed;
+  position : absolute;  
+}
+
+.dimension {
+  position: absolute;
+  border-color: black;
+  border-width: 1.5px;
+  border-style: solid;
+  border-radius: 4pt;
+  left: 40px;
+  top: 40px;
+  height: 460px;
+  width: 500px;
+}
+
+#wireframe_dimensions {
+  position: relative;
+  top: 100%;
+  left: 23.5%;
+  height: 45px;
+  width: 581px;
+}
+
+#dimension_width, #dimension_height {
+  margin-top: 7px;
+  margin-left: 15px;
+  width: 100px;
+  font-size: 14pt;
+}
+
+.font_dimension {
+  font-size: 18pt;
+}
+
+#wireframe_dimension_left {
+  /* width */
+  position: absolute;
+  text-align: center;
+  float: left;
+  width: 290px;
+  height: 45px;
+  border-color: black;
+  border-width: 0.5px;
+  border-style: solid;
+  
+}
+
+#wireframe_dimension_right {
+  /* height */
+  position: relative;
+  text-align: center;
+  float : right;
+  width: 291px;
+  height: 45px;
+  border-color: black;
+  border-width: 0.5px;
+  border-style: solid;
 }

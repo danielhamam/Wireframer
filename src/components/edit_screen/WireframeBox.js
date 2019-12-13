@@ -13,7 +13,9 @@ class WireframeBox extends Component {
     old_name: "",
     rerender : false,
     wireframe_target : "",
-    scale: 1
+    scale: 1, 
+    height : 460, // default
+    width : 500 // default
     }
 
 zoomIn = () => {
@@ -101,7 +103,7 @@ addTextfield = () => {
         control_height: "",
         control_text : "",
         control_font_size : "",
-        control_background : "",
+        control_background : "#ffffff",
         control_border_color : "",
         control_text_color : "",
         control_border_thickness : "",
@@ -126,7 +128,7 @@ addLabel = () => {
         control_height: "",
         control_text : "Prompt for input",
         control_font_size : "",
-        control_background : "",
+        control_background : "#ffffff",
         control_border_color : "",
         control_text_color : "",
         control_border_thickness : "",
@@ -226,7 +228,13 @@ handleChange_border_radius = (e) => {
     document.getElementById("border_radius_field").defaultValue = e.target.value;
 }
 
-prevent = (e) => {}
+handleChange_diagram_width = (e) => {
+    this.setState({ width: e.target.value})
+}
+
+handleChange_diagram_height = (e) => {
+    this.setState({ height: e.target.value})
+}
 
 render() {
 
@@ -309,14 +317,29 @@ return (
             </div>
 
             <div id="middle_screen" className="middle_screen"> 
-                <div id="zoomable" >
+                <div className="dimension" style={{width: this.state.width + "px", height: this.state.height + "px"}}>
+                    <div id="zoomable"> 
                 {wireframe.items && wireframe.items.map(item => (
                     <WireframeMiddle item={item} wireframe={wireframe} deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut}/>
                 ))}
+                    </div>
                 </div>
             </div>
 
+
+        <div id="wireframe_dimensions">
+            <div id="wireframe_dimension_left" className="font_dimension"> 
+                <span id="dimension_width_label">Diagram Width: </span>
+                <input type="input" id="dimension_width" name="width" onChange = {(e) => this.handleChange_diagram_width(e)}/>
+            </div>
+            <div id="wireframe_dimension_right" className="font_dimension" > 
+                Diagram Height:
+                <input type="input" id="dimension_height" name="height" onChange = {(e) => this.handleChange_diagram_height(e)}/>
+            </div>
+        </div> 
+
         </div>
+    
 
         );
     }
