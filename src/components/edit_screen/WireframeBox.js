@@ -5,21 +5,46 @@ import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
 import WireframeMiddle from './WireframeMiddle';
+import DragResizeContainer from 'react-drag-resize';
 
 class WireframeBox extends Component {
   state = {
     goHome : false,
     old_name: "",
     rerender : false,
-    wireframe_target : ""
+    wireframe_target : "",
+    scale: 1
     }
 
 zoomIn = () => {
 
-    }
+    let {accounts} = this.props;
+    let index_acc = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
+    let wireframe = accounts && accounts[index_acc].wireframes[this.props.wireframe_key];
+
+    this.setState({ scale : this.state.scale * 2});
+    let num = this.state.scale + "";
+    let string = "scale(" + num + ")";
+
+    {wireframe.items && wireframe.items.map( item => {
+        document.getElementById("zoomable").style.transform = string;
+    })}
+
+}
     
 zoomOut = () => {
-    
+
+    let {accounts} = this.props;
+    let index_acc = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
+    let wireframe = accounts && accounts[index_acc].wireframes[this.props.wireframe_key];
+
+    this.setState({ scale : this.state.scale / 2});
+    let num = this.state.scale + "";
+    let string = "scale(" + num + ")";
+
+    {wireframe.items && wireframe.items.map( item => {
+        document.getElementById("zoomable").style.transform = string;
+    })}
 }
 
 deleteItem = (item) => {
@@ -51,22 +76,12 @@ saveWork = (new_wireframe) => {
     let {accounts} = this.props;
     let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
     let wireframe_found = accounts && accounts[index].wireframes[this.props.wireframe_key];
+    let new_name = document.getElementById("name_wireframe_field").value;
+    wireframe_found.name = new_name;
     // accounts[index].wireframes[this.props.wireframe_key] = new_wireframe; // saved work
 
     let wireframes = accounts[index].wireframes;
     fireStore.collection("accounts").doc(accounts[index].id).update({ wireframes : wireframes});
-    // fireStore.collection("accounts").doc(account.id).update({ wireframes: account.wireframes});
-
-    // getFirestore().collection('todoLists').doc(this.props.todoList.id).update({
-    //     name: event.target.value,
-    //  });
-    // this.props.item.control_text,
-    // this.props.item.control_font_size,
-    // this.props.item.control_background,
-    // this.props.item.control_border_color,
-    // this.props.item.control_text_color,
-    // this.props.item.control_border_thickness,
-    // this.props.item.control_border_radius,
     this.setState({goHome : true});
 }
 closeWork = () => {
@@ -136,10 +151,10 @@ addButton = () => {
         control_width : "",
         control_height: "",
         control_text : "Submit",
-        control_font_size : "",
-        control_background : "",
-        control_border_color : "",
-        control_text_color : "",
+        control_font_size : "16",
+        control_background : "#DCDCDC",
+        control_border_color : "#000000",
+        control_text_color : "#000000",
         control_border_thickness : "",
         control_border_radius : ""
     }
@@ -162,15 +177,21 @@ addContainer = () => {
         control_height: "80",
         control_text : "",
         control_font_size : "",
-        control_background : "",
-        control_border_color : "",
+        control_background : "#FFFFFF",
+        control_border_color : "#000000",
         control_text_color : "",
-        control_border_thickness : "",
-        control_border_radius : ""
+        control_border_thickness : "1",
+        control_border_radius : "0"
     }
 
     wireframe.items.push(new_item);
     this.setState({ rerender : true});
+}
+
+handleChange_name = (e) => {
+    document.getElementById("name_wireframe_field").value = e.target.value;
+    e.stopPropagation();
+    e.preventDefault();
 }
 
 handleChange_textColor = (e) => {
@@ -204,6 +225,8 @@ handleChange_border_thickness = (e) => {
 handleChange_border_radius = (e) => {
     document.getElementById("border_radius_field").defaultValue = e.target.value;
 }
+
+prevent = (e) => {}
 
 render() {
 
@@ -280,15 +303,17 @@ return (
                       <input type="input" id="border_radius_field" onChange = {(e) => this.handleChange_border_radius(e)} />
                   </div>
                   <div id= "name_of_wireframe"> Name:
-                      <input type="input" id="name_wireframe_field" defaultValue={wireframe.name}/>
+                      <input type="input" id="name_wireframe_field" onClick={this.prevent} defaultValue={wireframe.name} onChange = {(e) => this.handleChange_name(e)} />
                   </div>
               </div>
             </div>
 
-            <div className="middle_screen">
+            <div id="middle_screen" className="middle_screen"> 
+                <div id="zoomable" >
                 {wireframe.items && wireframe.items.map(item => (
-                    <WireframeMiddle item={item} wireframe={wireframe} deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem}/>
+                    <WireframeMiddle item={item} wireframe={wireframe} deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut}/>
                 ))}
+                </div>
             </div>
 
         </div>

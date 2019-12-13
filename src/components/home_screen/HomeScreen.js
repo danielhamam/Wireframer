@@ -13,7 +13,31 @@ class HomeScreen extends Component {
     isNewWireframe : false,
     wireframe_id : 0,
     index_use : 0,
+    administrator: false,
+    goAdmin : false
   }
+
+checkAdministrator = () => {
+
+  const fireStore = getFirestore();
+  let reference = fireStore.collection('accounts').doc(this.props.auth.uid).get();
+  let boolean1 = "";
+
+  reference.then(
+  doc => {
+    let info = doc.data();
+    if (info.administrator === true) {
+      let boolean1 = true;
+      this.setState({ administrator : boolean1});
+      // this.setState({administrator : true});
+    }
+    else {
+      let boolean1 = false;
+      this.setState({ administrator : boolean1});
+    }
+    }
+  )
+}
 
 handleNewWireframe = () => {
 
@@ -38,16 +62,18 @@ handleNewWireframe = () => {
 
 }
     render() {
-
-    //   if (this.state.isNewWireframe) {
-    //     return <Redirect to={'/wireframe/' + this.state.index_use} />;
-    //  }
+    
       if (!this.props.auth.uid) {
         return <Redirect to="/login" />;
       }
+      if (this.state.administrator) {
+        return <Redirect to="/databaseTester" />;
+      }
+
         return (
             
             <div className="home_box">
+              
             <div className="row">
                 <div id="form_format"> 
               <form onSubmit={this.handleSubmit} className="col s4 white">
@@ -59,6 +85,9 @@ handleNewWireframe = () => {
               <div className="wireframer_text_box">
                   <div id="wireframe_text_box_text"> 
                      Wireframer™
+                  </div>
+                  <div id="is_administrator"> 
+                  <button id="admin_button" onClick={this.checkAdministrator}> Go to Admin Page </button>
                   </div>
             </div>
     

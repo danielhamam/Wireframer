@@ -88,6 +88,15 @@ body {
     border-radius: 4pt;
   }
 
+  #admin_button {
+    background-image: linear-gradient(to bottom,         
+    #ffffff, silver);
+    font-weight: bold;
+    box-shadow: 1px 2px;
+    font-size: 18pt;
+    border-radius: 4pt;
+  }
+
   #recent_work_text {
     font-size: 28pt;
     font-weight : bold;

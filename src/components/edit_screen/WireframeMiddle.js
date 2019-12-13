@@ -14,6 +14,9 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import ClickOutHandler from 'react-onclickout';
 import { ResizableBox } from 'react-resizable';
 import Resizable from 're-resizable';
+import DragResizeContainer from 'react-drag-resize';
+import { List } from 'react-movable';
+import {Rnd} from 'react-rnd';
 
 class WireframeMiddle extends Component {
   state = {
@@ -91,16 +94,91 @@ loadattributes = (key) => {
 
 }
 
-// deselectItem = () => {
-//   this.setState({des})
-// }
+deselectItem = (e) => {
+
+  if (e.target.className != "middle_screen") {
+    
+    return;
+  }
+
+  if (this.state.isSelected) {
+  this.state.control_text = document.getElementById("textfield_input").value;
+  this.state.control_font_size = document.getElementById("font_size_textfield").value;
+  this.state.control_text_color = document.getElementById("text_color_field").value;
+  this.state.control_background = document.getElementById("background_field").value;
+  this.state.control_border_color = document.getElementById("border_color_field").value;
+  this.state.control_border_thickness = document.getElementById("border_thickness_field").value;
+  this.state.control_border_radius = document.getElementById("border_radius_field").value;
+
+  document.getElementById("font_size_textfield").value = "";
+  document.getElementById("textfield_input").value = "";
+  document.getElementById("text_color_field").value = "#000000";
+  document.getElementById("background_field").value = "#000000";
+  document.getElementById("border_color_field").value = "#000000";
+  document.getElementById("border_thickness_field").value = "";
+  document.getElementById("border_radius_field").value = "";
+  }
+
+  if (this.props.item.control == "button" && this.state.isSelected) {
+    
+    let one = document.getElementsByClassName("rectangle1_button");
+    let two = document.getElementsByClassName("rectangle2_button");
+    let three = document.getElementsByClassName("rectangle3_button");
+    let four = document.getElementsByClassName("rectangle4_button");
+
+    one[0].classList.remove('rectangle1_button');
+    two[0].classList.remove('rectangle2_button');
+    three[0].classList.remove('rectangle3_button');
+    four[0].classList.remove('rectangle4_button');
+
+  }
+
+  else if (this.props.item.control == "label" && this.state.isSelected) {
+    
+    let one = document.getElementsByClassName("rectangle1_label");
+    let two = document.getElementsByClassName("rectangle2_label");
+    let three = document.getElementsByClassName("rectangle3_label");
+    let four = document.getElementsByClassName("rectangle4_label");
+
+    one[0].classList.remove('rectangle1_label');
+    two[0].classList.remove('rectangle2_label');
+    three[0].classList.remove('rectangle3_label');
+    four[0].classList.remove('rectangle4_label');
+
+  }
+
+  else if (this.props.item.control == "textfield" && this.state.isSelected) {
+    
+    let one = document.getElementsByClassName("rectangle1_textfield");
+    let two = document.getElementsByClassName("rectangle2_textfield");
+    let three = document.getElementsByClassName("rectangle3_textfield");
+    let four = document.getElementsByClassName("rectangle4_textfield");
+
+    one[0].classList.remove('rectangle1_textfield');
+    two[0].classList.remove('rectangle2_textfield');
+    three[0].classList.remove('rectangle3_textfield');
+    four[0].classList.remove('rectangle4_textfield');
+
+  }
+
+  else if (this.props.item.control == "container" && this.state.isSelected) {
+    
+    let one = document.getElementsByClassName("rectangle1_container");
+    let two = document.getElementsByClassName("rectangle2_container");
+    let three = document.getElementsByClassName("rectangle3_container");
+    let four = document.getElementsByClassName("rectangle4_container");
+
+    one[0].classList.remove('rectangle1_container');
+    two[0].classList.remove('rectangle2_container');
+    three[0].classList.remove('rectangle3_container');
+    four[0].classList.remove('rectangle4_container');
+
+  }
+
+  this.setState({isSelected : false})
+}
 
 selectItem = (e) => {
-  // Make 4 rectangles in corners pop up
-
-  // if (this.checkDraggable() == false) {
-  //   return;
-  // }
 
   if (this.props.item.control == "button") {
     
@@ -110,10 +188,10 @@ selectItem = (e) => {
 
     // Select
     document.getElementById(e.currentTarget.id).classList.add("item_border"); 
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.id).classList.add("rectangle1_button");
-    document.getElementById(e.currentTarget.parentElement.lastElementChild.id).classList.add("rectangle2_button");
-    document.getElementById(e.currentTarget.nextElementSibling.firstElementChild.id).classList.add("rectangle3_button");
-    document.getElementById(e.currentTarget.nextElementSibling.lastElementChild.id).classList.add("rectangle4_button");
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_button");
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_button");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_button");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_button");
 
     // Add properties
     
@@ -130,10 +208,10 @@ selectItem = (e) => {
 
     // Deselect
     document.getElementById(e.currentTarget.id).classList.remove("item_border");
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.id).classList.remove("rectangle1_button");
-    document.getElementById(e.currentTarget.parentElement.lastElementChild.id).classList.remove("rectangle2_button");
-    document.getElementById(e.currentTarget.nextElementSibling.firstElementChild.id).classList.remove("rectangle3_button");
-    document.getElementById(e.currentTarget.nextElementSibling.lastElementChild.id).classList.remove("rectangle4_button");
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.remove("rectangle1_button");
+    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.remove("rectangle2_button");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.remove("rectangle3_button");
+    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.remove("rectangle4_button");
 
     // Remove properties 
     this.state.control_text = document.getElementById("textfield_input").value;
@@ -342,9 +420,10 @@ checkControl = () => {
   if (name == "label") {
 
     return (
-      <Draggable disabled={this.checkDraggable}>
-      <div id="movable"> 
-        {/* <div id={"visible_label1"}>  */}
+      <ClickOutHandler onClickOut={this.deselectItem}>
+      <Draggable disabled={this.checkDraggable()} bounds="#middle_screen">
+      <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}> 
+
         <div id={key2} > 
           <span id={inner1}/>
           <span id={inner2}/>
@@ -361,14 +440,17 @@ checkControl = () => {
         </div>
       </div>
       </Draggable>
+      </ClickOutHandler> 
     )
   }
   else if (name == "textfield") {
 
     return (
-      <Draggable disabled={this.checkDraggable()}>
-      {/* <ClickOutHandler onClickOut={this.deselectItem} />  */}
-      <div id="movable" > 
+
+      <ClickOutHandler onClickOut={this.deselectItem}>
+      <Draggable disabled={this.checkDraggable()} bounds=".middle_screen">
+
+      <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)} > 
         <div id={key2} > 
           <span id={inner1} />
           <span id={inner2} />
@@ -386,18 +468,28 @@ checkControl = () => {
           <span id={inner4} />
         </div>
       </div>
-      {/* </ClickOutHandler> */}
+
       </Draggable>
+      </ClickOutHandler>
     )
   }
   else if (name == "button") {
 
+    const style = {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      border: "solid 1px #ddd",
+      background: "#f0f0f0"
+    } 
+
     return (
-      <Draggable disabled={this.checkDraggable()}  >
-      <ResizableBox defaultSize={{ width:200, height:500, }}>
-      <ClickOutHandler onClickOut={() => this.setState({ deselect: true })}>
+      <ClickOutHandler onClickOut={this.deselectItem}>
+      <Draggable disabled={this.checkDraggable()} bounds=".middle_screen" >
 
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
+
+{/* <div className="resize_element" style={{width: this.state.control_width + "px", height: this.state.control_height + "px"}} >  */}
 
       <div id={key2}> 
         <span id={inner1} />
@@ -415,17 +507,18 @@ checkControl = () => {
         </div>
 
         </div>
-        </ClickOutHandler>
-      </ResizableBox>
-    </Draggable>
+      </Draggable>
+      </ClickOutHandler>
     )
   }
   else if (name == "container") {
-    // it is a container
+    
     return (
-      <Draggable disabled={this.checkDraggable()}>
-      {/* <Resizable defaultSize={{ width:200, height:500, }}> */}
-      <div id="movable" >
+
+      <ClickOutHandler onClickOut={this.deselectItem}>
+      <Draggable disabled={this.checkDraggable()} bounds=".middle_screen">
+
+      <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>
         <div id={key2}> 
           <span id={inner1} />
           <span id={inner2} />
@@ -441,8 +534,9 @@ checkControl = () => {
           <span id={inner4} />
         </div>
       </div>
-      {/* </Resizable> */}
+
       </Draggable>
+      </ClickOutHandler>
   )
   }
 }
@@ -450,8 +544,9 @@ checkControl = () => {
 render() {
 
 return (
+
   <div id="control_spawn">
-    <div > 
+    <div id="resize_element" > 
       {this.checkControl()} 
     </div>
   </div>
