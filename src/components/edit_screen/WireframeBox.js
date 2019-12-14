@@ -88,7 +88,9 @@ duplicateItem = (item) => {
     item_duplicate.control_y_position = control_y.toString();
 
     wireframe.items.push( item_duplicate ); // add duplicated item 
+
     this.setState({ rerender : true}); // rerender
+    // return item_duplicate;
 }
     
 saveWork = (new_wireframe) => {
@@ -152,6 +154,7 @@ addTextfield = () => {
     }
 
     wireframe.items.push(new_item);
+    this.setState({prompt_save : true});
     this.setState({ rerender : true});
 }
 
@@ -179,6 +182,7 @@ addLabel = () => {
     }
 
     wireframe.items.push(new_item);
+    this.setState({prompt_save : true});
     this.setState({ rerender : true});
     // fireStore.collection("todoLists").doc(accounts[index].id).update({ 'wireframes' : wireframes});
 
@@ -207,6 +211,7 @@ addButton = () => {
     }
 
     wireframe.items.push(new_item);
+    this.setState({prompt_save : true});
     this.setState({ rerender : true});
 }
 
@@ -234,6 +239,7 @@ addContainer = () => {
     }
 
     wireframe.items.push(new_item);
+    this.setState({prompt_save : true});
     this.setState({ rerender : true});
 }
 
