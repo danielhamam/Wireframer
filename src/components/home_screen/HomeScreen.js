@@ -12,9 +12,9 @@ class HomeScreen extends Component {
   state = {
     isNewWireframe : false,
     wireframe_id : 0,
-    index_use : 0,
+    list_index : 0,
     administrator: false,
-    goAdmin : false
+    goAdmin : false,
   }
 
 checkAdministrator = () => {
@@ -54,14 +54,13 @@ handleNewWireframe = () => {
         items: [],
         key : answer
       })
-    }).then(ref => {
+    }).then(resp => {
       this.setState({isNewWireframe : true});
-      this.setState({keytoUse : answer});
-      // this.setState({index_use : }); 
   }).catch((error) => {
       console.log(error);
-  });
-
+  });  
+  let account_index = this.props.accounts && this.props.accounts.map(function (account) {return account.id;}).indexOf(this.props.auth.uid);
+  this.setState({ list_index : this.props.accounts[account_index].wireframes.length});
 }
 
     render() {
@@ -72,6 +71,10 @@ handleNewWireframe = () => {
       if (this.state.administrator) {
         return <Redirect to="/databaseTester" />;
       }
+
+      if (this.state.isNewWireframe) {
+        return <Redirect to={'/wireframe/' + this.state.list_index} />;
+     }
 
         return (
             
@@ -123,7 +126,7 @@ export default compose(
   firestoreConnect( props => [
       {
       collection: 'accounts',
-      doc: props.auth.uid,
+      // doc: props.auth.uid,
       // subcollections: [{ collection: 'wireframes', orderBy: ['created_time', 'desc']}],
       }
     ]),

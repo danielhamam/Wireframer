@@ -94,7 +94,6 @@ saveWork = (new_wireframe) => {
     let wireframe_found = accounts && accounts[index].wireframes[this.props.wireframe_key];
     let new_name = document.getElementById("name_wireframe_field").value;
     wireframe_found.name = new_name;
-    // accounts[index].wireframes[this.props.wireframe_key] = new_wireframe; // saved work
     wireframe_found.width = this.state.width;
     wireframe_found.height = this.state.height;
     wireframe_found.created_time = new Date(); // so it can be on top
