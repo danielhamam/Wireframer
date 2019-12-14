@@ -237,3 +237,13 @@ body {
 #inner_label, #inner_textfield, #inner_button, #inner_container {
   /* display : none */
 }
+
+#yes, #no {
+  position: relative;
+  bottom: 6%;
+  background-color: lightgray;
+  border: none;
+  color: black;
+  border: 1px solid black;
+  color: black;
+}

@@ -23,7 +23,8 @@ class WireframeBox extends Component {
     pending_height : 0,
     default_size : true,
     original_wireframes : this.props.accounts[this.props.accounts && this.props.accounts.map(function (account) {return account.id;}).indexOf(this.props.id)].wireframes,
-    updatedList : false
+    updatedList : false,
+    prompt_save : false
     }
 
 zoomIn = () => {
@@ -55,6 +56,10 @@ zoomOut = () => {
     {wireframe.items && wireframe.items.map( item => {
         document.getElementById("zoomable").style.transform = string;
     })}
+}
+
+setSave = () => {
+    this.setState({prompt_save : true});
 }
 
 deleteItem = (item) => {
@@ -110,7 +115,6 @@ saveWork = (new_wireframe) => {
 }
 closeWork = () => {
 
-    // Update the created_time so it can be on top
     const fireStore = getFirestore();
 
     let {accounts} = this.props;
@@ -120,7 +124,7 @@ closeWork = () => {
     this.state.original_wireframes[0] = this.state.original_wireframes[this.props.wireframe_key];
     this.state.original_wireframes[this.props.wireframe_key] = temp;
     
-    getFirestore().collection("accounts").doc(accounts[index].id).update({ wireframes : this.state.original_wireframes});    
+    getFirestore().collection("accounts").doc(accounts[index].id).update({ wireframes : this.state.original_wireframes}); 
 
     this.setState({goHome : true});
 }
@@ -299,6 +303,28 @@ checkHeight_diagram = (e) => {
     }
 }
 
+closeWork_check = () => {
+
+    if (this.state.prompt_save) {
+        this.toggleModal();
+    }
+    else {
+        this.closeWork();
+    }
+}
+
+toggleModal = () => {
+    let result = document.getElementById("my_modal");
+    if (result.style.display == "block") {
+        document.getElementById("my_modal").style.animation = "fadeout .6s";
+        result.style.visibility = "hidden";
+    } else {
+        result.style.visibility = "visible";
+        document.getElementById("my_modal").style.animation = "fadein .6s";
+        result.style.display = "block";
+    }
+}
+
 render() {
 
     if (this.state.goHome == true) {
@@ -328,7 +354,7 @@ return (
                       <div id="save_work" onClick={this.saveWork}> 
                         Save
                       </div>
-                      <div id="close_work" onClick={this.closeWork}>
+                      <div id="close_work" onClick={this.closeWork_check}>
                       Close
                       </div>
                   </div>
@@ -352,6 +378,17 @@ return (
                     <p id="textfield_label" >Textfield</p>
                   </div>
               </div> 
+
+              <div id="my_modal" class="modal">
+                    <div class="modal-content ">
+                        <h4>Save Wireframe?</h4>
+                        <br />
+                        <p> Would you like to save your progress? </p>
+                    </div>
+                        <button id="yes" onClick={this.saveWork} class="modal-close waves-effect waves-white btn-flat">Yes</button>
+                        <button id="no" onClick={this.closeWork} class="modal-close waves-effect waves-white btn-flat">No</button>
+                        <div id="last_line"> Without saving, all progress will be lost.</div>
+                </div>
 
               <div className = "right_screen">
               < br />
@@ -388,7 +425,7 @@ return (
                 <div id="dimension" className="dimension" style={{width: this.state.width + "px", height: this.state.height + "px"}}>
                     <div id="zoomable"> 
                 {wireframe.items && wireframe.items.map(item => (
-                    <WireframeMiddle item={item} wireframe={wireframe} deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut} width={this.state.width} height={this.state.height}/>
+                    <WireframeMiddle item={item} wireframe={wireframe} deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut} width={this.state.width} height={this.state.height} setSave={this.setSave}/>
                 ))}
                     </div>
                 </div>

@@ -86,6 +86,7 @@ saveProps = () => {
   this.props.item.control_text_color = this.state.control_text_color;
   this.props.item.control_border_thickness = this.state.control_border_thickness;
   this.props.item.control_border_radius = this.state.control_border_radius;
+  this.props.setSave();
 
   let pointer = document.getElementsByClassName("react-draggable-dragged");
 

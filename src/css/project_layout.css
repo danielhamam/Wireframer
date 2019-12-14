@@ -687,3 +687,42 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   border-width: 0.5px;
   border-style: solid;
 }
+
+
+#my_modal {
+  visibility : hidden;
+  /* display: none; hidden by default */
+  position: fixed; /* Stay in place front is invalid - may break your css so removed */  
+  z-index: 9999; /* to move in front of other elements. */
+  width: 300px;
+  opacity : 100%;
+  background-color: #E1E4CB;
+  text-align: center;
+}
+
+.modal_content {
+  color: #000;
+  text-decoration: none;
+}
+
+@keyframes fadein {
+	from {
+    visibility : hidden;
+    opacity:0;
+	}
+	to {
+    visibility : visible;
+    opacity:1;
+  }
+}
+
+@keyframes fadeout {
+	from {
+    visibility : visible;
+    opacity:1;
+	}
+	to {
+    visibility : hidden;
+    opacity:0;
+  }
+}
