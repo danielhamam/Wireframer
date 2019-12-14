@@ -208,6 +208,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .middle_screen {
+  overflow : auto;
   position : absolute;
   height: 548px;
   width: 580px;
@@ -430,6 +431,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 .button_submit2 {
 
+  /* overflow : auto; */
   cursor: pointer;
   height: 33px;
   width: 180px;
@@ -628,6 +630,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 #dimension { 
+  overflow : auto;
 }
 
 #wireframe_dimensions {
