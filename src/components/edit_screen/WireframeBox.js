@@ -21,7 +21,9 @@ class WireframeBox extends Component {
     height_status : true,
     pending_width : 0,
     pending_height : 0,
-    default_size : true
+    default_size : true,
+    original_wireframes : this.props.accounts[this.props.accounts && this.props.accounts.map(function (account) {return account.id;}).indexOf(this.props.id)].wireframes,
+    updatedList : false
     }
 
 zoomIn = () => {
@@ -114,16 +116,12 @@ closeWork = () => {
 
     let {accounts} = this.props;
     let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
-    let wireframes = this.props.accounts[index].wireframes;
-    let wireframe_found = accounts && accounts[index].wireframes[this.props.wireframe_key];
-      
-    wireframe_found.created_time = new Date();
-
-    var temp = wireframes[0];
-    wireframes[0] = wireframes[this.props.wireframe_key];
-    wireframes[this.props.wireframe_key] = temp;
-
-    fireStore.collection("accounts").doc(accounts[index].id).update({ wireframes : wireframes});
+        
+    var temp = this.state.original_wireframes[0];
+    this.state.original_wireframes[0] = this.state.original_wireframes[this.props.wireframe_key];
+    this.state.original_wireframes[this.props.wireframe_key] = temp;
+    
+    getFirestore().collection("accounts").doc(accounts[index].id).update({ wireframes : this.state.original_wireframes});    
 
     this.setState({goHome : true});
 }
