@@ -95,13 +95,36 @@ saveWork = (new_wireframe) => {
     // accounts[index].wireframes[this.props.wireframe_key] = new_wireframe; // saved work
     wireframe_found.width = this.state.width;
     wireframe_found.height = this.state.height;
+    wireframe_found.created_time = new Date(); // so it can be on top
 
     let wireframes = accounts[index].wireframes;
+    
+    var temp = wireframes[0];
+    wireframes[0] = wireframes[this.props.wireframe_key];
+    wireframes[this.props.wireframe_key] = temp;
+
     fireStore.collection("accounts").doc(accounts[index].id).update({ wireframes : wireframes});
 
     this.setState({goHome : true});
 }
 closeWork = () => {
+
+    // Update the created_time so it can be on top
+    const fireStore = getFirestore();
+
+    let {accounts} = this.props;
+    let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
+    let wireframes = this.props.accounts[index].wireframes;
+    let wireframe_found = accounts && accounts[index].wireframes[this.props.wireframe_key];
+      
+    wireframe_found.created_time = new Date();
+
+    var temp = wireframes[0];
+    wireframes[0] = wireframes[this.props.wireframe_key];
+    wireframes[this.props.wireframe_key] = temp;
+
+    fireStore.collection("accounts").doc(accounts[index].id).update({ wireframes : wireframes});
+
     this.setState({goHome : true});
 }
 

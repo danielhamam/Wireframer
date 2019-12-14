@@ -28,10 +28,13 @@ const authReducer = (state = initState, action) => {
     case actionCreators.REGISTER_ERROR:
       return {
         ...state,
-        authError: action.err.message,
+        authError: "Registration failed. Please check the field(s) again!",
       };
     default:
-      return state;
+      return {
+      ...state,
+      authError: null,
+      }
   }
 };
 

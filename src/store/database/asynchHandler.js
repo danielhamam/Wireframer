@@ -32,6 +32,6 @@ export const registerHandler = (newUser, firebase) => (dispatch, getState, { get
     })).then(() => {
         dispatch(actionCreators.registerSuccess);
     }).catch((err) => {
-        dispatch(actionCreators.registerError);
+      dispatch({ type: 'REGISTER_ERROR', err });
     });
 };

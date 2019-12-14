@@ -8,8 +8,6 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
 import ReactDOM from 'react-dom';
 import onClickOutside from 'react-onclickoutside';
-import onOutsideClick from 'react-onclickoutside';
-import OutsideClickHandler from 'react-outside-click-handler';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import ClickOutHandler from 'react-onclickout';
 import { ResizableBox } from 'react-resizable';
@@ -306,6 +304,9 @@ selectItem = (e) => {
   }
   else if (this.props.item.control == "textfield" ) {
 
+    e.stopPropagation();
+    e.preventDefault();
+
     if (this.state.isSelected == false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
     document.getElementsByClassName("rectangle1_label").length <= 0 && document.getElementsByClassName("rectangle1_textfield").length <= 0 &&
     document.getElementsByClassName("rectangle1_container").length <= 0 ) {
@@ -442,8 +443,12 @@ checkControl = () => {
 
     return (
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds="#dimension" defaultPosition={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}>
+
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}> 
+
+      <Rnd disableDragging={this.checkDraggable()} bounds="#dimension" size={{width: this.state.control_width, height:this.state.control_height}} 
+      onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
+      default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
 
         <div id={key2} > 
           <span id={inner1}/>
@@ -460,8 +465,9 @@ checkControl = () => {
           <span id={inner4}/>
         </div>
 
+      </Rnd>
+
       </div>
-      </Draggable>
       </ClickOutHandler> 
     )
   }
@@ -470,9 +476,12 @@ checkControl = () => {
     return (
 
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds="#dimension" defaultPosition={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}>
 
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)} > 
+
+      <Rnd disableDragging={this.checkDraggable()} bounds="#dimension" size={{width: this.state.control_width, height:this.state.control_height}} 
+      onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
+      default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
 
         <div id={key2} > 
           <span id={inner1} />
@@ -483,17 +492,17 @@ checkControl = () => {
           style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
           fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, 
           borderColor: this.state.control_border_color, color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px",
-           borderRadius: this.state.control_border_radius + "px"}}  onLoad={this.selectItem} onClick = {this.selectItem} 
-           onClickOut={this.deselectItem} value={this.state.control_text} /> 
+           borderRadius: this.state.control_border_radius + "px"}}  onLoad={this.selectItem} onClick = {this.selectItem}  value={this.state.control_text} /> 
 
         <div id={key3}>
           <span id={inner3} />
           <span id={inner4} />
         </div>
 
+      </Rnd>
+
       </div>
 
-      </Draggable>
       </ClickOutHandler>
     )
   }
@@ -501,11 +510,11 @@ checkControl = () => {
 
     return (
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds="#dimension" defaultPosition={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}>
-
       <div id="movable" className="position" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
 
-{/* <div className="resize_element" style={{width: this.state.control_width + "px", height: this.state.control_height + "px"}} >  */}
+      <Rnd  disableDragging={this.checkDraggable()} bounds="#dimension" size={{width: this.state.control_width, height:this.state.control_height}} 
+      onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
+      default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
 
       <div id={key2}> 
         <span id={inner1} />
@@ -522,8 +531,10 @@ checkControl = () => {
           <span id={inner4} />
         </div>
 
+        </Rnd>
+
         </div>
-      </Draggable>
+
       </ClickOutHandler>
     )
   }
@@ -532,9 +543,12 @@ checkControl = () => {
     return (
 
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <Draggable disabled={this.checkDraggable()} bounds="#dimension" defaultPosition={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}>
-      {/* bounds={{left: -35 , top: 0, right: this.props.width - 217 , bottom: this.props.height - 30 }} */}
+
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>
+
+      <Rnd  disableDragging={this.checkDraggable()} bounds="#dimension" size={{width: this.state.control_width, height:this.state.control_height}} 
+      onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
+      default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
         
         <div id={key2}> 
           <span id={inner1} />
@@ -550,9 +564,11 @@ checkControl = () => {
           <span id={inner3} />
           <span id={inner4} />
         </div>
+      
+      </Rnd>
+
       </div>
 
-      </Draggable>
       </ClickOutHandler>
   )
   }
@@ -562,7 +578,7 @@ render() {
 
 return (
   <div id="control_spawn">
-    <div id="resize_element"  > 
+    <div id="resize_element"> 
       {this.checkControl()} 
     </div>
   </div>

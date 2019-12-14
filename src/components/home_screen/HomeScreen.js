@@ -63,6 +63,7 @@ handleNewWireframe = () => {
   });
 
 }
+
     render() {
     
       if (!this.props.auth.uid) {
@@ -80,7 +81,9 @@ handleNewWireframe = () => {
                 <div id="form_format"> 
               <form onSubmit={this.handleSubmit} className="col s4 white">
                 <h5 id="login_text">Recent Work</h5>
+                <div onClick={this.updateList} >
                 < WireFrameLinks accounts={this.props.accounts}/>
+                </div>
               </form>
               </div>
     
@@ -106,6 +109,7 @@ handleNewWireframe = () => {
 const mapStateToProps = (state, ownProps) => {
 
   const { accounts } = state.firestore.data;
+  const {auth} = state.firebase.auth;
 
     return {
         // accounts, //.ordered something we can map through. 
@@ -116,8 +120,12 @@ const mapStateToProps = (state, ownProps) => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([
-    { collection: 'accounts'},
-  ]),
+  firestoreConnect( props => [
+      {
+      collection: 'accounts',
+      doc: props.auth.uid,
+      // subcollections: [{ collection: 'wireframes', orderBy: ['created_time', 'desc']}],
+      }
+    ]),
 )(HomeScreen);
 

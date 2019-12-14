@@ -429,6 +429,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .button_submit2 {
+
   cursor: pointer;
   height: 33px;
   width: 180px;
@@ -584,11 +585,19 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .resize_element {
-
-  /* z-index: 9999; */
+  z-index: 99999;
   resize: both;
   overflow: hidden;
   border: 1px solid black;
+}
+
+.resizable {
+  z-index : 9999;
+}
+
+.resize_element {
+  resize: inherit;
+  overflow: hidden;
 }
 
 .zoomIn {

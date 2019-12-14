@@ -3,6 +3,11 @@ import { NavLink } from 'react-router-dom';
 
 class LoggedOutLinks extends React.Component {
   render() {
+
+    if (this) {
+      
+    }
+
     return (
       <ul className = "right" >
         <li ><NavLink to="/register">
