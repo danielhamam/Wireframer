@@ -29,7 +29,10 @@ class RegisterScreen extends Component {
     const { firebase } = props;
     const newUser = { ...state };
 
-    props.register(newUser, firebase);
+    if (this.state.firstName != '' && this.state.lastName != '' && 
+    this.state.email != '' && this.state.password != '') {
+      props.register(newUser, firebase);
+    }
   }
 
   render() {

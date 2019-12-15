@@ -1,19 +1,5 @@
 import React, { Component } from 'react';
-import Draggable from 'react-draggable';
-import { SelectableGroup , createSelectable } from 'react-selectable';
-import { Redirect } from 'react-router-dom'
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
-import { getFirestore } from 'redux-firestore';
-import ReactDOM from 'react-dom';
-import onClickOutside from 'react-onclickoutside';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import ClickOutHandler from 'react-onclickout';
-import { ResizableBox } from 'react-resizable';
-import Resizable from 're-resizable';
-import DragResizeContainer from 'react-drag-resize';
-import { List } from 'react-movable';
 import {Rnd} from 'react-rnd';
 
 class WireframeMiddle extends Component {
@@ -46,13 +32,11 @@ class WireframeMiddle extends Component {
 checkKeyPress = (e) => {
   e.preventDefault();
   if (this.state.isSelected) {
+
     if (e.keyCode == 8 || e.key === "Delete") {
-    e.preventDefault();
+
     this.props.deleteItem(this.props.item);
-    // let index = this.props.wireframe.items.indexOf(this.props.item);
-    // this.setState({delete_item : true});
-    // this.props.wireframe.items.splice( index, 1 );
-    // let x = this.props.wireframe.items;
+
     document.getElementById("font_size_textfield").value = "";
     document.getElementById("textfield_input").value = "";
     document.getElementById("text_color_field").value = "#000000";
@@ -64,10 +48,96 @@ checkKeyPress = (e) => {
   else if (e.keyCode == 68 && e.ctrlKey) {
     e.preventDefault();
     this.props.duplicateItem(this.props.item);
-    // this.setState({ duplicated : true});
+    this.postDuplicate();
+    this.saveProps();
   }
 }
 }
+
+postDuplicate = () => {
+
+  if (this.state.isSelected) {
+    this.state.control_text = document.getElementById("textfield_input").value;
+    this.state.control_font_size = document.getElementById("font_size_textfield").value;
+    this.state.control_text_color = document.getElementById("text_color_field").value;
+    this.state.control_background = document.getElementById("background_field").value;
+    this.state.control_border_color = document.getElementById("border_color_field").value;
+    this.state.control_border_thickness = document.getElementById("border_thickness_field").value;
+    this.state.control_border_radius = document.getElementById("border_radius_field").value;
+  
+    document.getElementById("font_size_textfield").value = "";
+    document.getElementById("textfield_input").value = "";
+    document.getElementById("text_color_field").value = "#000000";
+    document.getElementById("background_field").value = "#000000";
+    document.getElementById("border_color_field").value = "#000000";
+    document.getElementById("border_thickness_field").value = "";
+    document.getElementById("border_radius_field").value = "";
+    }
+  
+    if (this.props.item.control == "button" && this.state.isSelected) {
+      
+      
+      let border = document.getElementsByClassName("item_border");
+      let one = document.getElementsByClassName("rectangle1_button");
+      let two = document.getElementsByClassName("rectangle2_button");
+      let three = document.getElementsByClassName("rectangle3_button");
+      let four = document.getElementsByClassName("rectangle4_button");
+  
+      border[0].classList.remove("item_border");
+      one[0].classList.remove('rectangle1_button');
+      two[0].classList.remove('rectangle2_button');
+      three[0].classList.remove('rectangle3_button');
+      four[0].classList.remove('rectangle4_button');
+    }
+  
+    else if (this.props.item.control == "label" && this.state.isSelected) {
+      
+      let border = document.getElementsByClassName("item_border");
+      let one = document.getElementsByClassName("rectangle1_label");
+      let two = document.getElementsByClassName("rectangle2_label");
+      let three = document.getElementsByClassName("rectangle3_label");
+      let four = document.getElementsByClassName("rectangle4_label");
+  
+      border[0].classList.remove("item_border");
+      one[0].classList.remove('rectangle1_label');
+      two[0].classList.remove('rectangle2_label');
+      three[0].classList.remove('rectangle3_label');
+      four[0].classList.remove('rectangle4_label');
+    }
+  
+    else if (this.props.item.control == "textfield" && this.state.isSelected) {
+      
+      let border = document.getElementsByClassName("item_border");
+      let one = document.getElementsByClassName("rectangle1_textfield");
+      let two = document.getElementsByClassName("rectangle2_textfield");
+      let three = document.getElementsByClassName("rectangle3_textfield");
+      let four = document.getElementsByClassName("rectangle4_textfield");
+  
+      border[0].classList.remove("item_border");
+      one[0].classList.remove('rectangle1_textfield');
+      two[0].classList.remove('rectangle2_textfield');
+      three[0].classList.remove('rectangle3_textfield');
+      four[0].classList.remove('rectangle4_textfield');
+    }
+  
+    else if (this.props.item.control == "container" && this.state.isSelected) {
+      
+      let border = document.getElementsByClassName("item_border");
+      let one = document.getElementsByClassName("rectangle1_container");
+      let two = document.getElementsByClassName("rectangle2_container");
+      let three = document.getElementsByClassName("rectangle3_container");
+      let four = document.getElementsByClassName("rectangle4_container");
+  
+      border[0].classList.remove("item_border");
+      one[0].classList.remove('rectangle1_container');
+      two[0].classList.remove('rectangle2_container');
+      three[0].classList.remove('rectangle3_container');
+      four[0].classList.remove('rectangle4_container');
+    }
+  
+    this.setState({isSelected : false})
+    this.saveProps();
+  }
 
 checkDraggable = () => {
   
@@ -233,6 +303,12 @@ deselectItem = (e) => {
 }
 
 selectItem = (e) => {
+
+
+  // check if duplicate
+  // if (this.props.item.is_duplicate) {
+  //   this.setState({ item : this.props.item});
+  // }
 
   if (this.props.item.control == "button") {
     

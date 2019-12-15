@@ -76,7 +76,6 @@ deleteItem = (item) => {
 
     let index = wireframe.items.indexOf(item);
     wireframe.items.splice( index, 1 ); // removed item
-    let x = wireframe.items;
     this.setState({ rerender : true}); // rerender
 }
 
@@ -86,16 +85,28 @@ duplicateItem = (item) => {
     let index_acc = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
     let wireframe = accounts && accounts[index_acc].wireframes[this.props.wireframe_key];
 
-    let item_duplicate = item;
     let control_x = parseInt(item.control_x_position, 10) + 100;
     let control_y = parseInt(item.control_y_position, 10) + 100;
 
-    item_duplicate.control_x_position = control_x.toString();
-    item_duplicate.control_y_position = control_y.toString();
+    const item_duplicate = {
+        control : item.control,
+        control_width : item.control_width,
+        control_height: item.control_height,
+        control_text: item.control_text,
+        control_font_size : item.control_font_size,
+        control_background : item.control_background,
+        control_border_color : item.control_border_color,
+        control_text_color : item.control_text_color,
+        control_border_thickness : item.control_border_thickness,
+        control_border_radius : item.control_border_radius,
+        control_x_position : control_x.toString(),
+        control_y_position : control_y.toString(),
+        is_duplicate : true
+    }
 
     wireframe.items.push( item_duplicate ); // add duplicated item 
-
     this.setState({ rerender : true}); // rerender
+    return item_duplicate;
     // return item_duplicate;
 }
     
