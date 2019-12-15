@@ -36,6 +36,7 @@ class WireframeMiddle extends Component {
     selected_name : "",
     deselect : false,
     delete_item : false,
+    // duplicated : false,
 
     top: 40, // drag bounds
     left: 40 // drag bounds
@@ -44,7 +45,8 @@ class WireframeMiddle extends Component {
 
 checkKeyPress = (e) => {
   e.preventDefault();
-  if (e.keyCode == 8 || e.key === "Delete") {
+  if (this.state.isSelected) {
+    if (e.keyCode == 8 || e.key === "Delete") {
     e.preventDefault();
     this.props.deleteItem(this.props.item);
     // let index = this.props.wireframe.items.indexOf(this.props.item);
@@ -62,7 +64,9 @@ checkKeyPress = (e) => {
   else if (e.keyCode == 68 && e.ctrlKey) {
     e.preventDefault();
     this.props.duplicateItem(this.props.item);
+    // this.setState({ duplicated : true});
   }
+}
 }
 
 checkDraggable = () => {
@@ -72,6 +76,36 @@ checkDraggable = () => {
   }
   else {
     return true;
+  }
+}
+
+checkResizable = () => {
+
+if (!this.state.isSelected) {
+  const returnable = {
+    bottom: false,
+    bottomLeft: false,
+    bottomRight: false,
+    left: false,
+    right: false,
+    top: false,
+    topLeft: false,
+    topRight: false
+    } 
+  return returnable;
+  }
+else {
+    const returnable2 = {
+      bottom: false,
+      bottomLeft: true,
+      bottomRight: true,
+      left: false,
+      right: false,
+      top: false,
+      topLeft: true,
+      topRight: true
+      } 
+  return returnable2;
   }
 }
 
@@ -444,7 +478,7 @@ checkControl = () => {
 
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}> 
 
-      <Rnd disableDragging={this.checkDraggable()} bounds="#dimension" size={{width: this.state.control_width, height:this.state.control_height}} 
+      <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
       onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
       default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
 
@@ -476,8 +510,8 @@ checkControl = () => {
       <ClickOutHandler onClickOut={this.deselectItem}>
 
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)} > 
-      {/* size={{width: this.state.control_width, height:this.state.control_height}}  */}
-      <Rnd disableDragging={this.checkDraggable()} bounds="#dimension" 
+
+      <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
       onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
       default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
 
@@ -510,7 +544,7 @@ checkControl = () => {
       <ClickOutHandler onClickOut={this.deselectItem}>
       <div id="movable" className="position" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
 
-      <Rnd  disableDragging={this.checkDraggable()} bounds="#dimension" size={{width: this.state.control_width, height:this.state.control_height}} 
+      <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
       onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
       default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
 
@@ -544,7 +578,7 @@ checkControl = () => {
 
       <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>
 
-      <Rnd  disableDragging={this.checkDraggable()} bounds="#dimension" size={{width: this.state.control_width, height:this.state.control_height}} 
+      <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
       onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
       default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
         

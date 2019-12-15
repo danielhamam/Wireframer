@@ -38,8 +38,12 @@ zoomIn = () => {
     let string = "scale(" + num + ")";
 
     {wireframe.items && wireframe.items.map( item => {
-        document.getElementById("zoomable").style.transform = string;
+        document.getElementById("dimension").style.transform = string;
+        // item.control_x_position = item.control_x_position * 2;
+        // item.control_y_position = item.control_x_position * 2;
     })}
+
+
 
 }
     
@@ -54,7 +58,9 @@ zoomOut = () => {
     let string = "scale(" + num + ")";
 
     {wireframe.items && wireframe.items.map( item => {
-        document.getElementById("zoomable").style.transform = string;
+        document.getElementById("dimension").style.transform = string;
+        // item.control_x_position = item.control_x_position / 2;
+        // item.control_y_position = item.control_x_position / 2;
     })}
 }
 
