@@ -1,6 +1,6 @@
 {
   "homepage": "https://danielhamam.github.io/Wireframer-Project/",
-  "name": "Wireframer-Project",
+  "name": "wireframer",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
