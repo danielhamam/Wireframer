@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Wireframer-Project/precache-manifest.9dec86d04a0f0af06a884a752b1e7eff.js"
+  "/Wireframer-Project/precache-manifest.3aaf53b959752743cf252285a71d10ff.js"
 );
 
 self.addEventListener('message', (event) => {

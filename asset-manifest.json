@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/Wireframer-Project/static/css/main.2b3f34b8.chunk.css",
-    "main.js": "/Wireframer-Project/static/js/main.1f9108be.chunk.js",
-    "main.js.map": "/Wireframer-Project/static/js/main.1f9108be.chunk.js.map",
+    "main.js": "/Wireframer-Project/static/js/main.60ec9467.chunk.js",
+    "main.js.map": "/Wireframer-Project/static/js/main.60ec9467.chunk.js.map",
     "runtime-main.js": "/Wireframer-Project/static/js/runtime-main.cbecc9a5.js",
     "runtime-main.js.map": "/Wireframer-Project/static/js/runtime-main.cbecc9a5.js.map",
-    "static/js/2.d2487aff.chunk.js": "/Wireframer-Project/static/js/2.d2487aff.chunk.js",
-    "static/js/2.d2487aff.chunk.js.map": "/Wireframer-Project/static/js/2.d2487aff.chunk.js.map",
+    "static/js/2.5a14bdf9.chunk.js": "/Wireframer-Project/static/js/2.5a14bdf9.chunk.js",
+    "static/js/2.5a14bdf9.chunk.js.map": "/Wireframer-Project/static/js/2.5a14bdf9.chunk.js.map",
     "index.html": "/Wireframer-Project/index.html",
-    "precache-manifest.9dec86d04a0f0af06a884a752b1e7eff.js": "/Wireframer-Project/precache-manifest.9dec86d04a0f0af06a884a752b1e7eff.js",
+    "precache-manifest.3aaf53b959752743cf252285a71d10ff.js": "/Wireframer-Project/precache-manifest.3aaf53b959752743cf252285a71d10ff.js",
     "service-worker.js": "/Wireframer-Project/service-worker.js",
     "static/css/main.2b3f34b8.chunk.css.map": "/Wireframer-Project/static/css/main.2b3f34b8.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.cbecc9a5.js",
-    "static/js/2.d2487aff.chunk.js",
+    "static/js/2.5a14bdf9.chunk.js",
     "static/css/main.2b3f34b8.chunk.css",
-    "static/js/main.1f9108be.chunk.js"
+    "static/js/main.60ec9467.chunk.js"
   ]
 }
