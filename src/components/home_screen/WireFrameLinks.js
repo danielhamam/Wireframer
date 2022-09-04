@@ -1,9 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { getFirestore } from 'redux-firestore';
-import { firestoreConnect } from 'react-redux-firebase';
 
 import WireFrameCard from './WireFrameCard';
 
@@ -24,7 +21,6 @@ class WireFrameLinks extends React.Component {
 
 // Each component is deciding which things it wants from the store, and we're deciding it right here. 
 const mapStateToProps = (state) => { // Give me the following things from the database: 
-    const { id } = state.firebase.auth.uid;
     let accounts = state.firestore.ordered.accounts;
     // const index = accounts.map(function (account) {return account.id;}).indexOf(id);
     // const account = accounts[index]

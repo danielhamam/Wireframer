@@ -20,7 +20,7 @@ deleteWireframe = (wire_key) => {
     render() {
 
         const { account } = this.props;
-        if (account.id != this.props.id) {
+        if (account.id !== this.props.id) {
             return null;
         }
         else {

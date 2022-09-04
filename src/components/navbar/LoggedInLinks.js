@@ -14,7 +14,6 @@ class LoggedInLinks extends React.Component {
   }
 
   render() {
-    const { profile } = this.props;
     return (
       <ul className="right">
         <li><NavLink to="/" onClick={this.handleLogout}>

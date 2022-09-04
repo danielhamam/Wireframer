@@ -57,13 +57,13 @@ checkKeyPress = (e) => {
 postDuplicate = () => {
 
   if (this.state.isSelected) {
-    this.state.control_text = document.getElementById("textfield_input").value;
-    this.state.control_font_size = document.getElementById("font_size_textfield").value;
-    this.state.control_text_color = document.getElementById("text_color_field").value;
-    this.state.control_background = document.getElementById("background_field").value;
-    this.state.control_border_color = document.getElementById("border_color_field").value;
-    this.state.control_border_thickness = document.getElementById("border_thickness_field").value;
-    this.state.control_border_radius = document.getElementById("border_radius_field").value;
+    this.setState(document.getElementById("textfield_input").value);
+    this.setState(document.getElementById("font_size_textfield").value);
+    this.setState(document.getElementById("text_color_field").value);
+    this.setState(document.getElementById("background_field").value);
+    this.setState(document.getElementById("border_color_field").value);
+    this.setState(document.getElementById("border_thickness_field").value);
+    this.setState(document.getElementById("border_radius_field").value);
   
     document.getElementById("font_size_textfield").value = "";
     document.getElementById("textfield_input").value = "";

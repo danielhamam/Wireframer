@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
 
@@ -110,9 +110,6 @@ handleNewWireframe = () => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-
-  const { accounts } = state.firestore.data;
-  const {auth} = state.firebase.auth;
 
     return {
         // accounts, //.ordered something we can map through. 

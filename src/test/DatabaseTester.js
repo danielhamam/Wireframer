@@ -32,7 +32,7 @@ class DatabaseTester extends React.Component {
                 reference.then(
                     doc => {
                       let info = doc.data();
-                      if (info.administrator != true) {
+                      if (info.administrator !== true) {
                         fireStore.collection('accounts').doc(doc.id).delete();
                       }
             })
@@ -42,8 +42,7 @@ class DatabaseTester extends React.Component {
 
     handleReset = () => {
         const fireStore = getFirestore();
-        const { props, state } = this;
-        const { firebase } = props;
+        const { props } = this;
 
         accountJson.accounts.forEach(accountJson => {
         fireStore.collection('accounts').doc(accountJson.account_id).set({
