@@ -126,12 +126,14 @@ body {
   border-width: 0.5px;
   border-style: solid;
   border-radius: 2pt;
+  border-bottom: 0px;
+  border-left: 0px;
+  border-top: 0px;
 }
 
 .top_left {
-  border-width: 0.5px;
-  border-style: solid;
-  border-radius: 2pt;
+  border-bottom: 3px solid black;
+  border-radius: 3pt;
   background-color : whitesmoke;
 }
 
@@ -141,6 +143,9 @@ body {
   border-style: solid;
   background-color : whitesmoke;
   border-radius: 2pt;
+  border-bottom: 0px;
+  border-right: 0px;
+  border-top: 0px;
 }
 
 #zoom_buttons {

@@ -59,6 +59,7 @@ handleNewWireframe = () => {
   }).catch((error) => {
       console.log(error);
   });  
+  debugger;
   let account_index = this.props.accounts && this.props.accounts.map(function (account) {return account.id;}).indexOf(this.props.auth.uid);
   this.setState({ list_index : this.props.accounts[account_index].wireframes.length});
 }

@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
 import WireframeMiddle from './WireframeMiddle';
-import DragResizeContainer from 'react-drag-resize';
-import Draggable from 'react-draggable';
 
 class WireframeBox extends Component {
   state = {
@@ -366,107 +361,104 @@ render() {
 
 return (
 
-        <div className = "inner_edit_box">
+<div className = "inner_edit_box">
 
-              <div className = "left_screen">
-                  <div className = "top_left">
-                      <div id="zoom_buttons" > 
-                          <i class="material-icons medium" onClick={this.zoomIn}> zoom_in</i>
-                          <i class="material-icons medium" onClick={this.zoomOut}> zoom_out</i>
-                      </div>
-                      <div id="save_work" onClick={this.saveWork}> 
-                        Save
-                      </div>
-                      <div id="close_work" onClick={this.closeWork_check}>
-                      Close
-                      </div>
-                  </div>
-                  <div className="container_example">
-                    <div className="container_box" onClick={this.addContainer} > </div>
-                    <div id="container_text" > Container </div>
-                  </div>
-                  < br />
-                  <div id="prompt_for_input">
-                    <div className="prompt_text" onClick={this.addLabel} > Prompt for input:</div>
-                  </div>
-                  <div id="label_text"> Label</div>
-                  < br />
-                  <div className="button_example">
-                    <button className="button_submit" onClick={this.addButton}> Submit</button>
-                    <div id="button_text"> Button</div>
-                  </div>
-                  < br />
-                  <div className="textfield_example">
-                    <input type="input" className="textfield_input" placeholder="Input" onClick={this.addTextfield} />
-                    <p id="textfield_label" >Textfield</p>
-                  </div>
-              </div> 
-
-              <div id="my_modal" class="modal">
-                    <div class="modal-content ">
-                        <h4>Save Wireframe?</h4>
-                        <br />
-                        <p> Would you like to save your progress? </p>
-                    </div>
-                        <button id="yes" onClick={this.saveWork} class="modal-close waves-effect waves-white btn-flat">Yes</button>
-                        <button id="no" onClick={this.closeWork} class="modal-close waves-effect waves-white btn-flat">No</button>
-                        <div id="last_line"> Without saving, all progress will be lost.</div>
-                </div>
-
-              <div className = "right_screen">
-              < br />
-              <div className="labels_list"> 
-                  <div className="properties_example">
-                      <p id="properties_label" >Properties</p>
-                      <input type="input" id="textfield_input" onChange={(e) => this.handleChange_text(e)}/>
-                  </div>
-                  <div id="font_size_label"> Font Size: 
-                      <input type="input" id="font_size_textfield" onChange={(e) => this.handleChange_font_size(e)}/>
-                  </div>
-                  <div id="text_color_label"> Text Color: 
-                      <input type="color" id="text_color_field" onChange = {(e) => this.handleChange_textColor(e)} />
-                  </div>
-                  <div id="background_label"> Background: 
-                      <input type="color" id="background_field" onChange={(e) => this.handleChange_backgroundColor(e)}/>
-                  </div>
-                  <div id="border_color_label"> Border Color: 
-                      <input type="color" id="border_color_field" onChange = {(e) => this.handleChange_borderColor(e)} />
-                  </div>
-                  <div id="border_thickness_label"> Border Thickness:
-                      <input type="input" id="border_thickness_field" onChange = {(e) => this.handleChange_border_thickness(e)} />
-                  </div>
-                  <div id= "border_radius_label"> Border Radius:
-                      <input type="input" id="border_radius_field" onChange = {(e) => this.handleChange_border_radius(e)} />
-                  </div>
-                  <div id= "name_of_wireframe"> Name:
-                      <input type="input" id="name_wireframe_field" onClick={this.prevent} defaultValue={wireframe.name} onChange = {(e) => this.handleChange_name(e)} />
-                  </div>
-              </div>
+    <div className = "left_screen">
+        <div className = "top_left">
+            <div id="zoom_buttons" > 
+                <i class="material-icons medium" onClick={this.zoomIn}> zoom_in</i>
+                <i class="material-icons medium" onClick={this.zoomOut}> zoom_out</i>
             </div>
-
-            <div id="middle_screen" className="middle_screen"> 
-                <div id="dimension" className="dimension" style={{width: this.state.width + "px", height: this.state.height + "px"}}>
-                    <div id="zoomable"> 
-                {wireframe.items && wireframe.items.map(item => (
-                    <WireframeMiddle item={item} wireframe={wireframe} deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut} width={this.state.width} height={this.state.height} setSave={this.setSave}/>
-                ))}
-                    </div>
-                </div>
+            <div id="save_work" onClick={this.saveWork}> 
+            Save
             </div>
-
-
-        <div id="wireframe_dimensions">
-            <div id="wireframe_dimension_left" className="font_dimension"> 
-                <button id="dimension_width_button" disabled={this.state.width_status} onClick={this.handleChange_diagram_width} >Update Width </button>
-                <input type="input" id="dimension_width" name="width" onChange ={(e) => this.checkWidth_diagram(e)}/>
-            </div>
-            <div id="wireframe_dimension_right" className="font_dimension" > 
-            <button id="dimension_height_button" disabled={this.state.height_status} onClick = {this.handleChange_diagram_height}>Update Height </button>
-                <input type="input" id="dimension_height" name="height" onChange ={(e) => this.checkHeight_diagram(e)}/>
-            </div>
-        </div> 
-
+            <div id="close_work" onClick={this.closeWork_check}> Close </div>
         </div>
+        <div id="bottom_left"> 
+            <div className="container_example">
+                <div className="container_box" onClick={this.addContainer} > </div>
+                <div id="container_text" > Container </div>
+            </div>
+            < br />
+            <div id="prompt_for_input">
+                <div className="prompt_text" onClick={this.addLabel} > Prompt for input:</div>
+                <div id="label_text">Label</div>
+            </div>
+            <div className="button_example">
+                <button className="button_submit" onClick={this.addButton}> Submit</button>
+                <div id="button_text"> Button</div>
+            </div>
+            < br />
+            <div className="textfield_example">
+                <input type="input" className="textfield_input" placeholder="Input" onClick={this.addTextfield} />
+                <p id="textfield_label" >Textfield</p>
+            </div>
+        </div>
+    </div> 
+
+    <div id="middle_screen" className="middle_screen"> 
+        <div id="dimension" className="dimension" style={{width: this.state.width + "px", height: this.state.height + "px"}}>
+            <div id="zoomable"> 
+                {wireframe.items && wireframe.items.map(item => (
+                <WireframeMiddle item={item} wireframe={wireframe} deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut} width={this.state.width} height={this.state.height} setSave={this.setSave}/>
+                ))}
+            </div>
+        </div>
+    </div>
+
+    <div className = "right_screen">
+        <div className="labels_list"> 
+            <div className="properties_example">
+                <p id="properties_label" >Properties</p>
+                <input type="input" id="textfield_input" onChange={(e) => this.handleChange_text(e)}/>
+            </div>
+            <div id="font_size_label"> Font Size: 
+                <input type="input" id="font_size_textfield" onChange={(e) => this.handleChange_font_size(e)}/>
+            </div>
+            <div id="text_color_label"> Text Color: 
+                <input type="color" id="text_color_field" onChange = {(e) => this.handleChange_textColor(e)} />
+            </div>
+            <div id="background_label"> Background: 
+                <input type="color" id="background_field" onChange={(e) => this.handleChange_backgroundColor(e)}/>
+            </div>
+            <div id="border_color_label"> Border Color: 
+                <input type="color" id="border_color_field" onChange = {(e) => this.handleChange_borderColor(e)} />
+            </div>
+            <div id="border_thickness_label"> Border Thickness:
+                <input type="input" id="border_thickness_field" onChange = {(e) => this.handleChange_border_thickness(e)} />
+            </div>
+            <div id= "border_radius_label"> Border Radius:
+                <input type="input" id="border_radius_field" onChange = {(e) => this.handleChange_border_radius(e)} />
+            </div>
+            <div id= "name_of_wireframe"> Name:
+                <input type="input" id="name_wireframe_field" onClick={this.prevent} defaultValue={wireframe.name} onChange = {(e) => this.handleChange_name(e)} />
+            </div>
+        </div>
+    </div>
+
+    <div id="my_modal" class="modal">
+        <div class="modal-content ">
+            <h4>Save Wireframe?</h4>
+            <br />
+            <p> Would you like to save your progress? </p>
+        </div>
+        <button id="yes" onClick={this.saveWork} class="modal-close waves-effect waves-white btn-flat">Yes</button>
+        <button id="no" onClick={this.closeWork} class="modal-close waves-effect waves-white btn-flat">No</button>
+        <div id="last_line"> Without saving, all progress will be lost.</div>
+    </div>
+
+    <div id="wireframe_dimensions">
+        <div id="wireframe_dimension_left" className="font_dimension"> 
+            <button id="dimension_width_button" disabled={this.state.width_status} onClick={this.handleChange_diagram_width} >Update Width </button>
+            <input type="input" id="dimension_width" name="width" onChange ={(e) => this.checkWidth_diagram(e)}/>
+        </div>
+        <div id="wireframe_dimension_right" className="font_dimension"> 
+            <button id="dimension_height_button" disabled={this.state.height_status} onClick = {this.handleChange_diagram_height}>Update Height </button>
+            <input type="input" id="dimension_height" name="height" onChange ={(e) => this.checkHeight_diagram(e)}/>
+        </div>
+    </div> 
+
+</div>
     
 
         );

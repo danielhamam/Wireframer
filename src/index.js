@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 
 import './css/project_layout.css'
 import './css/project_style.css'
-import * as serviceWorker from './serviceWorker';
 
 import ReactReduxFirebaseApp from './store/ReactReduxFirebaseApp'
 
