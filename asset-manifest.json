@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/Wireframer-Project/static/css/main.13307dfa.chunk.css",
-    "main.js": "/Wireframer-Project/static/js/main.97f022f0.chunk.js",
-    "main.js.map": "/Wireframer-Project/static/js/main.97f022f0.chunk.js.map",
+    "main.css": "/Wireframer-Project/static/css/main.2e2579da.chunk.css",
+    "main.js": "/Wireframer-Project/static/js/main.c4d7f629.chunk.js",
+    "main.js.map": "/Wireframer-Project/static/js/main.c4d7f629.chunk.js.map",
     "runtime-main.js": "/Wireframer-Project/static/js/runtime-main.cbecc9a5.js",
     "runtime-main.js.map": "/Wireframer-Project/static/js/runtime-main.cbecc9a5.js.map",
-    "static/js/2.4fb38171.chunk.js": "/Wireframer-Project/static/js/2.4fb38171.chunk.js",
-    "static/js/2.4fb38171.chunk.js.map": "/Wireframer-Project/static/js/2.4fb38171.chunk.js.map",
+    "static/js/2.ff279034.chunk.js": "/Wireframer-Project/static/js/2.ff279034.chunk.js",
+    "static/js/2.ff279034.chunk.js.map": "/Wireframer-Project/static/js/2.ff279034.chunk.js.map",
     "index.html": "/Wireframer-Project/index.html",
-    "precache-manifest.124f60f4a58586d23b38a693a1a9952c.js": "/Wireframer-Project/precache-manifest.124f60f4a58586d23b38a693a1a9952c.js",
+    "precache-manifest.0cfbf838da1ba0bbf3b253442cb12f13.js": "/Wireframer-Project/precache-manifest.0cfbf838da1ba0bbf3b253442cb12f13.js",
     "service-worker.js": "/Wireframer-Project/service-worker.js",
-    "static/css/main.13307dfa.chunk.css.map": "/Wireframer-Project/static/css/main.13307dfa.chunk.css.map"
+    "static/css/main.2e2579da.chunk.css.map": "/Wireframer-Project/static/css/main.2e2579da.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.cbecc9a5.js",
-    "static/js/2.4fb38171.chunk.js",
-    "static/css/main.13307dfa.chunk.css",
-    "static/js/main.97f022f0.chunk.js"
+    "static/js/2.ff279034.chunk.js",
+    "static/css/main.2e2579da.chunk.css",
+    "static/js/main.c4d7f629.chunk.js"
   ]
 }
