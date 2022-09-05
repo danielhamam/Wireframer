@@ -65,7 +65,7 @@ body {
     font-size: 50pt;
   }
 
-  .login_box, .register_box, .home_box {
+  .login_box, .register_box, .home_wrapper {
   border-color: black;
   border-width: 2px;
   border-style: solid;
@@ -83,7 +83,6 @@ body {
   /* HOME SCREEN */   /* HOME SCREEN */   /* HOME SCREEN */ 
 
   #create_wireframe_button {
-    box-shadow: 1px 2px;
     font-size: 28pt;
     border-radius: 4pt;
   }

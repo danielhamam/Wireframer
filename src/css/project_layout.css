@@ -26,6 +26,16 @@ body {
   padding-right: 40px;
 }
 
+.home-content {
+  /* margin-left: auto;
+  margin-right: auto; */
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  height: 80%;
+  width: 100%;
+}
+
 input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]),
 input[type=password]:not(.browser-default):focus:not([readonly]),
@@ -61,15 +71,26 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 .wireframer_text_box {
   position: relative;
+  display: inline-block;
+  vertical-align: top;
   height: 400px;
   width: 500px;
-  float: right;
-  right: 90px;
-  top: 50px;
+  margin-right: 90px;
+  margin-top: 50px;
 }
 
 .login_box, .register_box {
+  position: relative;
   height: 500px;
+}
+
+
+.login-content {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 #login_text, #register_text {
@@ -78,9 +99,13 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 #form_format {
+  vertical-align: top;
   position: relative;
-  top: 70px;
-  left: 60px;
+  display: inline;
+  vertical-align: top;
+  margin-top: 70px;
+  margin-left: 80px;
+  width: 400px;
 }
 
   /* --------------------------------------------- */ 
@@ -98,27 +123,47 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   position : relative;
   height : 89px;
   width: 300px;
-  top: 50px;
-  left: 95px;
+  margin-top: 50px;
+  margin-left: 95px;
+  cursor: pointer;
+}
+
+#admin_button:hover {
+  opacity: 0.6;
 }
 
 #delete_icon {
   position: relative;
   float:right;
-  top: 3px;
+  margin-top: 3px;
   z-index: 9999; /* to move in front of other elements. */
   cursor:pointer;
 }
 
-#create_wireframe_button {
-  position : relative;
-  height : 100px;
-  width: 400px;
-  top: 50px;
-  left: 610px;
+#delete-icon:hover {
+  color: red;
 }
 
-.home_box {
+#create_wireframe {
+  position: absolute;
+  bottom: 0px;
+  right: 135px;
+}
+
+#create_wireframe_button {
+  position: relative;
+  height: 100px;
+  width: 400px;
+  bottom: 22px;
+  cursor: pointer;
+}
+
+#create_wireframe_button:hover {
+  opacity: 0.6;
+}
+
+.home_wrapper {
+  position: relative;
   height: 600px;
 }
 
@@ -131,6 +176,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 .wireframe_card {
   width: 300px;
   font-size: 16pt;
+}
+
+.wireframe_card:hover {
+  opacity: 0.6;
 }
 
   /* --------------------------------------------- */ 

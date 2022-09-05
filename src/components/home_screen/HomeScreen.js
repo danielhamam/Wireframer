@@ -14,6 +14,7 @@ class HomeScreen extends Component {
     wireframe_id : 0,
     list_index : 0,
     administrator: false,
+    adminRedirect: false,
     goAdmin : false,
   }
 
@@ -21,19 +22,15 @@ checkAdministrator = () => {
 
   const fireStore = getFirestore();
   let reference = fireStore.collection('accounts').doc(this.props.auth.uid).get();
-  let boolean1 = "";
 
   reference.then(
   doc => {
     let info = doc.data();
-    if (info.administrator === true) {
-      let boolean1 = true;
-      this.setState({ administrator : boolean1});
-      // this.setState({administrator : true});
+    if (info && info.administrator === true) {
+      this.setState({ administrator : true});
     }
     else {
-      let boolean1 = false;
-      this.setState({ administrator : boolean1});
+      this.setState({ administrator : false});
     }
     }
   )
@@ -59,9 +56,13 @@ handleNewWireframe = () => {
   }).catch((error) => {
       console.log(error);
   });  
-  debugger;
   let account_index = this.props.accounts && this.props.accounts.map(function (account) {return account.id;}).indexOf(this.props.auth.uid);
   this.setState({ list_index : this.props.accounts[account_index].wireframes.length});
+}
+
+componentDidMount() {
+  // Check if user is an administrator
+  this.checkAdministrator()
 }
 
     render() {
@@ -69,7 +70,7 @@ handleNewWireframe = () => {
       if (!this.props.auth.uid) {
         return <Redirect to="/login" />;
       }
-      if (this.state.administrator) {
+      if (this.state.adminRedirect) {
         return <Redirect to="/databaseTester" />;
       }
 
@@ -78,33 +79,35 @@ handleNewWireframe = () => {
      }
 
         return (
-            
-            <div className="home_box">
-              
-            <div className="row">
-                <div id="form_format"> 
-              <form onSubmit={this.handleSubmit} className="col s4 white">
-                <h5 id="login_text">Recent Work</h5>
-                <div onClick={this.updateList} >
-                < WireFrameLinks accounts={this.props.accounts}/>
-                </div>
-              </form>
+          
+          <div className="home_wrapper">
+            {/* Flexbox Starts */}
+            <div className="home-content">
+              <div id="form_format"> 
+                <form onSubmit={this.handleSubmit} className="">
+                  <h5 id="login_text">Recent Work</h5>
+                  <div onClick={this.updateList} >
+                    < WireFrameLinks accounts={this.props.accounts}/>
+                  </div>
+                </form>
               </div>
-    
               <div className="wireframer_text_box">
-                  <div id="wireframe_text_box_text"> 
-                     Wireframer™
-                  </div>
-                  <div id="is_administrator"> 
-                  <button id="admin_button" onClick={this.checkAdministrator}> Go to Admin Page </button>
-                  </div>
+                <div id="wireframe_text_box_text"> 
+                  Wireframer™
+                </div>
+                {/* Display admin button only if user is an administrator */}
+                {this.state.administrator === true ? 
+                <div id="is_administrator"> 
+                  <button id="admin_button" onClick={() => this.setState({adminRedirect: true})}> Go to Admin Page </button>
+                </div> : ''}
+              </div>
             </div>
-    
+            {/* Flexbox Ends */}
+            <div id="create_wireframe">
+              <button id="create_wireframe_button" onClick={this.handleNewWireframe}>
+              Create New Wireframe
+              </button>
             </div>
-                                    
-                <button id="create_wireframe_button" onClick={this.handleNewWireframe}>
-                    Create New Wireframe
-                </button>
           </div>
         );
     }

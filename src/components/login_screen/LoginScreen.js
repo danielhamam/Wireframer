@@ -45,32 +45,32 @@ class LoginScreen extends Component {
 
     return (
       <div className="login_box">
-        <div className="row">
-            <div id="form_format"> 
-          <form onSubmit={this.handleSubmit} className="col s4 white">
-            <h5 id="login_text">Login</h5>
-            < br /> 
-            <div className="input-field">
-              <label htmlFor="email">Email</label>
-              <input className="active" type="email" name="email" id="email" onChange={this.handleChange} />
-            </div>
-            <div className="input-field">
-              <label htmlFor="password">Password</label>
-              <input className="active" type="password" name="password" id="password" onChange={this.handleChange} />
-            </div>
-            <div className="input-field">
-              <button type="submit" className="btn pink lighten-1 z-depth-0">Login</button>
-              {authError ? <div className="red-text center"><p>{authError}</p></div> : null}
-            </div>
-          </form>
-          </div>
-
-          <div className="wireframer_text_box">
-              <div id="wireframe_text_box_text"> 
-                 Wireframer™
+        <div className="login-content">
+          {/* Flexbox Starts */}
+          <div id="form_format"> 
+            <form onSubmit={this.handleSubmit} id="login-form">
+              <h5 id="login_text">Login</h5>
+              < br /> 
+              <div className="input-field">
+                <label htmlFor="email">Email</label>
+                <input className="active" type="email" name="email" id="email" onChange={this.handleChange} />
               </div>
-        </div>
-
+              <div className="input-field">
+                <label htmlFor="password">Password</label>
+                <input className="active" type="password" name="password" id="password" onChange={this.handleChange} />
+              </div>
+              <div className="input-field">
+                <button type="submit" className="btn pink lighten-1 z-depth-0">Login</button>
+                {authError ? <div className="red-text center"><p>{authError}</p></div> : null}
+              </div>
+            </form>
+          </div>
+          <div className="wireframer_text_box">
+            <div id="wireframe_text_box_text"> 
+              Wireframer™
+            </div>
+          </div>
+          {/* Flexbox Ends */}
         </div>
       </div>
     );

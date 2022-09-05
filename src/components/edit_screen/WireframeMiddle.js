@@ -33,7 +33,7 @@ checkKeyPress = (e) => {
   e.preventDefault();
   if (this.state.isSelected) {
 
-    if (e.keyCode == 8 || e.key === "Delete") {
+    if (e.keyCode === 8 || e.key === "Delete") {
 
     this.props.deleteItem(this.props.item);
 
@@ -45,7 +45,7 @@ checkKeyPress = (e) => {
     document.getElementById("border_thickness_field").value = "";
     document.getElementById("border_radius_field").value = "";
   }
-  else if (e.keyCode == 68 && e.ctrlKey) {
+  else if (e.keyCode === 68 && e.ctrlKey) {
     e.preventDefault();
     this.props.duplicateItem(this.props.item);
     this.postDuplicate();
@@ -57,13 +57,13 @@ checkKeyPress = (e) => {
 postDuplicate = () => {
 
   if (this.state.isSelected) {
-    this.setState(document.getElementById("textfield_input").value);
-    this.setState(document.getElementById("font_size_textfield").value);
-    this.setState(document.getElementById("text_color_field").value);
-    this.setState(document.getElementById("background_field").value);
-    this.setState(document.getElementById("border_color_field").value);
-    this.setState(document.getElementById("border_thickness_field").value);
-    this.setState(document.getElementById("border_radius_field").value);
+    this.setState({control_text : document.getElementById("textfield_input").value});
+    this.setState({control_font_size : document.getElementById("font_size_textfield").value});
+    this.setState({control_text_color : document.getElementById("text_color_field").value});
+    this.setState({control_background : document.getElementById("background_field").value});
+    this.setState({control_border_color : document.getElementById("border_color_field").value});
+    this.setState({control_border_thickness : document.getElementById("border_thickness_field").value});
+    this.setState({control_border_radius : document.getElementById("border_radius_field").value});
   
     document.getElementById("font_size_textfield").value = "";
     document.getElementById("textfield_input").value = "";
@@ -74,7 +74,7 @@ postDuplicate = () => {
     document.getElementById("border_radius_field").value = "";
     }
   
-    if (this.props.item.control == "button" && this.state.isSelected) {
+    if (this.props.item.control === "button" && this.state.isSelected) {
       
       
       let border = document.getElementsByClassName("item_border");
@@ -90,7 +90,7 @@ postDuplicate = () => {
       four[0].classList.remove('rectangle4_button');
     }
   
-    else if (this.props.item.control == "label" && this.state.isSelected) {
+    else if (this.props.item.control === "label" && this.state.isSelected) {
       
       let border = document.getElementsByClassName("item_border");
       let one = document.getElementsByClassName("rectangle1_label");
@@ -105,7 +105,7 @@ postDuplicate = () => {
       four[0].classList.remove('rectangle4_label');
     }
   
-    else if (this.props.item.control == "textfield" && this.state.isSelected) {
+    else if (this.props.item.control === "textfield" && this.state.isSelected) {
       
       let border = document.getElementsByClassName("item_border");
       let one = document.getElementsByClassName("rectangle1_textfield");
@@ -120,7 +120,7 @@ postDuplicate = () => {
       four[0].classList.remove('rectangle4_textfield');
     }
   
-    else if (this.props.item.control == "container" && this.state.isSelected) {
+    else if (this.props.item.control === "container" && this.state.isSelected) {
       
       let border = document.getElementsByClassName("item_border");
       let one = document.getElementsByClassName("rectangle1_container");
@@ -204,8 +204,8 @@ saveProps = () => {
     substring = substring.replace("px", " ");
     substring = substring.split(" ");
 
-    this.state.control_x_position = substring[0];
-    this.state.control_y_position = substring[2];
+    this.setState({control_x_position : substring[0]});
+    this.setState({control_y_position : substring[2]});
 
     this.props.item.control_x_position = this.state.control_x_position; 
     this.props.item.control_y_position = this.state.control_y_position; 
@@ -215,19 +215,19 @@ saveProps = () => {
 
 deselectItem = (e) => {
 
-  if (e.target.className != "middle_screen" && e.target.className != "dimension") {
+  if (e.target.className !== "middle_screen" && e.target.className !== "dimension") {
     
     return;
   }
 
   if (this.state.isSelected) {
-  this.state.control_text = document.getElementById("textfield_input").value;
-  this.state.control_font_size = document.getElementById("font_size_textfield").value;
-  this.state.control_text_color = document.getElementById("text_color_field").value;
-  this.state.control_background = document.getElementById("background_field").value;
-  this.state.control_border_color = document.getElementById("border_color_field").value;
-  this.state.control_border_thickness = document.getElementById("border_thickness_field").value;
-  this.state.control_border_radius = document.getElementById("border_radius_field").value;
+    this.setState({control_text : document.getElementById("textfield_input").value}); 
+    this.setState({control_font_size : document.getElementById("font_size_textfield").value}); 
+    this.setState({control_text_color : document.getElementById("text_color_field").value}); 
+    this.setState({control_background : document.getElementById("background_field").value}); 
+    this.setState({control_border_color : document.getElementById("border_color_field").value}); 
+    this.setState({control_border_thickness : document.getElementById("border_thickness_field").value}); 
+    this.setState({control_border_radius : document.getElementById("border_radius_field").value}); 
 
   document.getElementById("font_size_textfield").value = "";
   document.getElementById("textfield_input").value = "";
@@ -238,7 +238,7 @@ deselectItem = (e) => {
   document.getElementById("border_radius_field").value = "";
   }
 
-  if (this.props.item.control == "button" && this.state.isSelected) {
+  if (this.props.item.control === "button" && this.state.isSelected) {
     
     
     let border = document.getElementsByClassName("item_border");
@@ -254,7 +254,7 @@ deselectItem = (e) => {
     four[0].classList.remove('rectangle4_button');
   }
 
-  else if (this.props.item.control == "label" && this.state.isSelected) {
+  else if (this.props.item.control === "label" && this.state.isSelected) {
     
     let border = document.getElementsByClassName("item_border");
     let one = document.getElementsByClassName("rectangle1_label");
@@ -269,7 +269,7 @@ deselectItem = (e) => {
     four[0].classList.remove('rectangle4_label');
   }
 
-  else if (this.props.item.control == "textfield" && this.state.isSelected) {
+  else if (this.props.item.control === "textfield" && this.state.isSelected) {
     
     let border = document.getElementsByClassName("item_border");
     let one = document.getElementsByClassName("rectangle1_textfield");
@@ -284,7 +284,7 @@ deselectItem = (e) => {
     four[0].classList.remove('rectangle4_textfield');
   }
 
-  else if (this.props.item.control == "container" && this.state.isSelected) {
+  else if (this.props.item.control === "container" && this.state.isSelected) {
     
     let border = document.getElementsByClassName("item_border");
     let one = document.getElementsByClassName("rectangle1_container");
@@ -310,9 +310,9 @@ selectItem = (e) => {
   //   this.setState({ item : this.props.item});
   // }
 
-  if (this.props.item.control == "button") {
+  if (this.props.item.control === "button") {
     
-    if (this.state.isSelected == false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
+    if (this.state.isSelected === false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
     document.getElementsByClassName("rectangle1_label").length <= 0 && document.getElementsByClassName("rectangle1_textfield").length <= 0 &&
     document.getElementsByClassName("rectangle1_container").length <= 0 ) {
 
@@ -334,7 +334,7 @@ selectItem = (e) => {
     document.getElementById("border_radius_field").value = this.state.control_border_radius;
     this.setState({isSelected : true});
   }
-  else if (this.state.isSelected == true || this.state.delete_item) {
+  else if (this.state.isSelected === true || this.state.delete_item) {
 
     // Deselect
     document.getElementById(e.currentTarget.id).classList.remove("item_border");
@@ -344,13 +344,13 @@ selectItem = (e) => {
     document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.remove("rectangle4_button");
 
     // Remove properties 
-    this.state.control_text = document.getElementById("textfield_input").value;
-    this.state.control_font_size = document.getElementById("font_size_textfield").value;
-    this.state.control_text_color = document.getElementById("text_color_field").value;
-    this.state.control_background = document.getElementById("background_field").value;
-    this.state.control_border_color = document.getElementById("border_color_field").value;
-    this.state.control_border_thickness = document.getElementById("border_thickness_field").value;
-    this.state.control_border_radius = document.getElementById("border_radius_field").value;
+    this.setState({control_text : document.getElementById("textfield_input").value}); 
+    this.setState({control_font_size : document.getElementById("font_size_textfield").value}); 
+    this.setState({control_text_color : document.getElementById("text_color_field").value}); 
+    this.setState({control_background : document.getElementById("background_field").value}); 
+    this.setState({control_border_color : document.getElementById("border_color_field").value}); 
+    this.setState({control_border_thickness : document.getElementById("border_thickness_field").value}); 
+    this.setState({control_border_radius : document.getElementById("border_radius_field").value}); 
     document.getElementById("font_size_textfield").value = "";
     document.getElementById("textfield_input").value = "";
     document.getElementById("text_color_field").value = "#000000";
@@ -363,9 +363,9 @@ selectItem = (e) => {
   }
 }
   
-  else if (this.props.item.control == "label" ) {
+  else if (this.props.item.control === "label" ) {
 
-    if (this.state.isSelected == false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
+    if (this.state.isSelected === false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
     document.getElementsByClassName("rectangle1_label").length <= 0 && document.getElementsByClassName("rectangle1_textfield").length <= 0 &&
     document.getElementsByClassName("rectangle1_container").length <= 0 ) {
     
@@ -386,7 +386,7 @@ selectItem = (e) => {
     document.getElementById("border_radius_field").value = this.state.control_border_radius;
     this.setState({isSelected : true});
     }
-    else if (this.state.isSelected == true) {
+    else if (this.state.isSelected === true) {
 
     // Deselect
     document.getElementById(e.currentTarget.id).classList.remove("item_border"); 
@@ -396,13 +396,13 @@ selectItem = (e) => {
     document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.remove("rectangle4_label");
 
     // Remove properties
-    this.state.control_text = document.getElementById("textfield_input").value;
-    this.state.control_font_size = document.getElementById("font_size_textfield").value;
-    this.state.control_text_color = document.getElementById("text_color_field").value;
-    this.state.control_background = document.getElementById("background_field").value;
-    this.state.control_border_color = document.getElementById("border_color_field").value;
-    this.state.control_border_thickness = document.getElementById("border_thickness_field").value;
-    this.state.control_border_radius = document.getElementById("border_radius_field").value;
+    this.setState({control_text : document.getElementById("textfield_input").value}); 
+    this.setState({control_font_size : document.getElementById("font_size_textfield").value}); 
+    this.setState({control_text_color : document.getElementById("text_color_field").value}); 
+    this.setState({control_background : document.getElementById("background_field").value}); 
+    this.setState({control_border_color : document.getElementById("border_color_field").value}); 
+    this.setState({control_border_thickness : document.getElementById("border_thickness_field").value}); 
+    this.setState({control_border_radius : document.getElementById("border_radius_field").value}); 
     document.getElementById("font_size_textfield").value = "";
     document.getElementById("textfield_input").value = "";
     document.getElementById("text_color_field").value = "#000000";
@@ -413,9 +413,9 @@ selectItem = (e) => {
     this.setState({isSelected : false});
     }
   }
-  else if (this.props.item.control == "textfield" ) {
+  else if (this.props.item.control === "textfield" ) {
 
-    if (this.state.isSelected == false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
+    if (this.state.isSelected === false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
     document.getElementsByClassName("rectangle1_label").length <= 0 && document.getElementsByClassName("rectangle1_textfield").length <= 0 &&
     document.getElementsByClassName("rectangle1_container").length <= 0 ) {
 
@@ -438,7 +438,7 @@ selectItem = (e) => {
     this.setState({isSelected : true});
 
     }
-    else if (this.state.isSelected == true) {
+    else if (this.state.isSelected === true) {
     
     // Deselect
     document.getElementById(e.currentTarget.id).classList.remove("item_border"); 
@@ -448,13 +448,13 @@ selectItem = (e) => {
     document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.remove("rectangle4_textfield");
 
     // Remove Properties 
-    this.state.control_text = document.getElementById("textfield_input").value;
-    this.state.control_font_size = document.getElementById("font_size_textfield").value;
-    this.state.control_text_color = document.getElementById("text_color_field").value;
-    this.state.control_background = document.getElementById("background_field").value;
-    this.state.control_border_color = document.getElementById("border_color_field").value;
-    this.state.control_border_thickness = document.getElementById("border_thickness_field").value;
-    this.state.control_border_radius = document.getElementById("border_radius_field").value;
+    this.setState({control_text : document.getElementById("textfield_input").value}); 
+    this.setState({control_font_size : document.getElementById("font_size_textfield").value}); 
+    this.setState({control_text_color : document.getElementById("text_color_field").value}); 
+    this.setState({control_background : document.getElementById("background_field").value}); 
+    this.setState({control_border_color : document.getElementById("border_color_field").value}); 
+    this.setState({control_border_thickness : document.getElementById("border_thickness_field").value}); 
+    this.setState({control_border_radius : document.getElementById("border_radius_field").value}); 
     document.getElementById("font_size_textfield").value = "";
     document.getElementById("textfield_input").value = "";
     document.getElementById("text_color_field").value = "#000000";
@@ -466,9 +466,9 @@ selectItem = (e) => {
     this.setState({isSelected : false});
     }
   }
-  else if (this.props.item.control == "container" ) {
+  else if (this.props.item.control === "container" ) {
     // container
-    if (this.state.isSelected == false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
+    if (this.state.isSelected === false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
     document.getElementsByClassName("rectangle1_label").length <= 0 && document.getElementsByClassName("rectangle1_textfield").length <= 0 &&
     document.getElementsByClassName("rectangle1_container").length <= 0 ) {
 
@@ -491,7 +491,7 @@ selectItem = (e) => {
     this.setState({isSelected : true});
     }
 
-    else if (this.state.isSelected == true) {
+    else if (this.state.isSelected === true) {
 
     // Deselect
     document.getElementById(e.currentTarget.id).classList.remove("item_border"); 
@@ -501,13 +501,13 @@ selectItem = (e) => {
     document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.remove("rectangle4_container");
 
     // Remove properties 
-    this.state.control_text = document.getElementById("textfield_input").value;
-    this.state.control_font_size = document.getElementById("font_size_textfield").value;
-    this.state.control_text_color = document.getElementById("text_color_field").value;
-    this.state.control_background = document.getElementById("background_field").value;
-    this.state.control_border_color = document.getElementById("border_color_field").value;
-    this.state.control_border_thickness = document.getElementById("border_thickness_field").value;
-    this.state.control_border_radius = document.getElementById("border_radius_field").value;
+    this.setState({control_text : document.getElementById("textfield_input").value}); 
+    this.setState({control_font_size : document.getElementById("font_size_textfield").value}); 
+    this.setState({control_text_color : document.getElementById("text_color_field").value}); 
+    this.setState({control_background : document.getElementById("background_field").value}); 
+    this.setState({control_border_color : document.getElementById("border_color_field").value}); 
+    this.setState({control_border_thickness : document.getElementById("border_thickness_field").value}); 
+    this.setState({control_border_radius : document.getElementById("border_radius_field").value}); 
     document.getElementById("font_size_textfield").value = "";
     document.getElementById("textfield_input").value = "";
     document.getElementById("text_color_field").value = "#000000";
@@ -547,7 +547,7 @@ checkControl = () => {
   let inner3 = generating6 + "";
   let inner4 = generating7 + "";
 
-  if (name == "label") {
+  if (name === "label") {
 
     return (
       <ClickOutHandler onClickOut={this.deselectItem}>
@@ -579,7 +579,7 @@ checkControl = () => {
       </ClickOutHandler> 
     )
   }
-  else if (name == "textfield") {
+  else if (name === "textfield") {
 
     return (
 
@@ -614,7 +614,7 @@ checkControl = () => {
       </ClickOutHandler>
     )
   }
-  else if (name == "button") {
+  else if (name === "button") {
 
     return (
       <ClickOutHandler onClickOut={this.deselectItem}>
@@ -646,7 +646,7 @@ checkControl = () => {
       </ClickOutHandler>
     )
   }
-  else if (name == "container") {
+  else if (name === "container") {
     
     return (
 

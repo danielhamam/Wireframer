@@ -23,7 +23,6 @@ class WireframeBox extends Component {
     }
 
 zoomIn = () => {
-
     let {accounts} = this.props;
     let index_acc = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
     let wireframe = accounts && accounts[index_acc].wireframes[this.props.wireframe_key];
@@ -32,18 +31,14 @@ zoomIn = () => {
     let num = this.state.scale + "";
     let string = "scale(" + num + ")";
 
-    {wireframe.items && wireframe.items.map( item => {
-        document.getElementById("dimension").style.transform = string;
+    wireframe.items && wireframe.items.forEach(item => {
+        document.getElementById("dimension").style.transform = string
         // item.control_x_position = item.control_x_position * 2;
         // item.control_y_position = item.control_x_position * 2;
-    })}
-
-
-
+    })
 }
     
 zoomOut = () => {
-
     let {accounts} = this.props;
     let index_acc = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
     let wireframe = accounts && accounts[index_acc].wireframes[this.props.wireframe_key];
@@ -52,11 +47,11 @@ zoomOut = () => {
     let num = this.state.scale + "";
     let string = "scale(" + num + ")";
 
-    {wireframe.items && wireframe.items.map( item => {
-        document.getElementById("dimension").style.transform = string;
+    wireframe.items && wireframe.items.forEach( item => {
+        document.getElementById("dimension").style.transform = string
         // item.control_x_position = item.control_x_position / 2;
         // item.control_y_position = item.control_x_position / 2;
-    })}
+    })
 }
 
 setSave = () => {
@@ -129,12 +124,12 @@ saveWork = (new_wireframe) => {
 }
 closeWork = () => {
 
-    const fireStore = getFirestore();
-
     let {accounts} = this.props;
     let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
         
     var temp = this.state.original_wireframes[0];
+    // this.setState({original_wireframes : this.state.original_wireframes[this.props.wireframe_key]});
+    // this.setState({original_wireframes[this.props.wireframe_key] : temp});
     this.state.original_wireframes[0] = this.state.original_wireframes[this.props.wireframe_key];
     this.state.original_wireframes[this.props.wireframe_key] = temp;
     
@@ -144,11 +139,9 @@ closeWork = () => {
 }
 
 addTextfield = () => {
-    let fireStore = getFirestore();
     let {accounts} = this.props;
     let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
     let wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
-    let wireframes = accounts[index].wireframes;
 
     const new_item = {
         control : "textfield",
@@ -172,11 +165,9 @@ addTextfield = () => {
 
 addLabel = () => {
 
-    let fireStore = getFirestore();
     let {accounts} = this.props;
     let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
     let wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
-    let wireframes = accounts[index].wireframes;
 
     const new_item = {
         control : "label",
@@ -201,11 +192,9 @@ addLabel = () => {
 }
 
 addButton = () => {
-    let fireStore = getFirestore();
     let {accounts} = this.props;
     let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
     let wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
-    let wireframes = accounts[index].wireframes;
 
     const new_item = {
         control : "button",
@@ -229,11 +218,9 @@ addButton = () => {
 
 addContainer = () => {
 
-    let fireStore = getFirestore();
     let {accounts} = this.props;
     let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
     let wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
-    let wireframes = accounts[index].wireframes;
 
     const new_item = {
         control : "container",
@@ -333,7 +320,7 @@ closeWork_check = () => {
 
 toggleModal = () => {
     let result = document.getElementById("my_modal");
-    if (result.style.display == "block") {
+    if (result.style.display === "block") {
         document.getElementById("my_modal").style.animation = "fadeout .6s";
         result.style.visibility = "hidden";
     } else {
@@ -345,7 +332,7 @@ toggleModal = () => {
 
 render() {
 
-    if (this.state.goHome == true) {
+    if (this.state.goHome === true) {
         return <Redirect to={"/"} />
     }
 
@@ -354,9 +341,9 @@ render() {
     const wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
 
     if (this.state.default_size) {
-        this.state.width =  wireframe.width;
-        this.state.height =  wireframe.height;
-        this.state.default_size = false;
+        this.setState({width: wireframe.width});
+        this.setState({height: wireframe.height});
+        this.setState({default_size: false});
     }
 
 return (

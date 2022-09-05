@@ -42,7 +42,6 @@ class DatabaseTester extends React.Component {
 
     handleReset = () => {
         const fireStore = getFirestore();
-        const { props } = this;
 
         accountJson.accounts.forEach(accountJson => {
         fireStore.collection('accounts').doc(accountJson.account_id).set({
@@ -60,19 +59,16 @@ class DatabaseTester extends React.Component {
 
         const fireStore = getFirestore();
         let reference = fireStore.collection('accounts').doc(this.props.auth.uid).get();
-        let boolean1 = "";
       
         reference.then(
         doc => {
           let info = doc.data();
           if (info.administrator === true) {
-            let boolean1 = true;
-            this.setState({ administrator : boolean1});
+            this.setState({ administrator : true});
             // this.setState({administrator : true});
           }
           else {
-            let boolean1 = false;
-            this.setState({ administrator : boolean1});
+            this.setState({ administrator : false});
           }
           }
         )
@@ -88,8 +84,8 @@ class DatabaseTester extends React.Component {
             return <Redirect to="/" />;
         }
 
-        {this.checkAdministrator()}
-        if (this.state.administrator == false) {
+        this.checkAdministrator()
+        if (this.state.administrator === false) {
             return <Redirect to="/" />;
         }
 
