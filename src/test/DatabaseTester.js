@@ -89,31 +89,26 @@ class DatabaseTester extends React.Component {
             return <Redirect to="/" />;
         }
 
-        return (
-            
-            <div>
-                <br />
-                <br /> 
-                <br /> 
-                <button id="return_home" className="handle_button" onClick={this.goHome}> Return Home </button>
-                <br /> 
-                <button className="handle_button" onClick={this.handleClear}>Clear Database</button>
-                <button className="handle_button" onClick={this.handleReset}>Reset Database</button>
-                <br /> 
-                <br /> 
-                <br />
-                <br />
-                <div> 
-                    NOTE: This page is for administators only. Please be cautious when clearing
-                    the database, it will clear the data of NON-ADMINS as dictated in the firestore. As for 
-                    the Reset button, default users will be loaded into the database for testing
-                    purposes. For any questions, please contact daniel.hamam@stonybrook.edu. Enjoy the
+        return ( 
+            <div id="admin_wrapper">
+                <div id="admin_options">
+                  <button id="return_home" className="handle_button" onClick={this.goHome}> Return Home </button>
+                  <button id="clear_database" className="handle_button" onClick={this.handleClear}>Clear Database</button>
+                  <button id="reset_database" className="handle_button" onClick={this.handleReset}>Reset Database</button>
+                </div>
+                <div id="admin_notes"> 
+                    THIS PAGE IS FOR ADMINISTRATORS ONLY!
+                    <br/>
+                    <br/>
+                    Please be cautious when clearing the database. It will wipe the data of NON-ADMINS as dictated in the firestore. 
+                    <br/>
+                    <br/>
+                    As for the Reset button, default users will be loaded into the database for testing purposes. 
+                    <br/>
+                    <br/>
+                    For any questions, please contact danielhamam@outlook.com. Enjoy the
                     use of your controls as an administrative designer!
                 </div>
-                <br /> 
-                <br />
-                <br />
-
             </div>)
     }
 }
