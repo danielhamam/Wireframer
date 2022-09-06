@@ -98,7 +98,7 @@ componentDidMount() {
                 {/* Display admin button only if user is an administrator */}
                 {this.state.administrator === true ? 
                 <div id="is_administrator"> 
-                  <button id="admin_button" onClick={() => this.setState({adminRedirect: true})}> Go to Admin Page </button>
+                  <button id="admin_button" onClick={() => this.setState({adminRedirect: true})}> Go to Admin Page 🔐</button>
                 </div> : ''}
               </div>
             </div>

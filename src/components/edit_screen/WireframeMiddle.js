@@ -45,7 +45,7 @@ checkKeyPress = (e) => {
     document.getElementById("border_thickness_field").value = "";
     document.getElementById("border_radius_field").value = "";
   }
-  else if (e.keyCode === 68 && e.ctrlKey) {
+  else if (e.keyCode === 68 && e.ctrlKey) { // Ctrl + d to duplicate
     e.preventDefault();
     this.props.duplicateItem(this.props.item);
     this.postDuplicate();
@@ -181,19 +181,12 @@ else {
 
 saveProps = () => {
 
-  this.props.item.control_width = this.state.control_width;
-  this.props.item.control_height = this.state.control_height; 
-  this.props.item.control_text = this.state.control_text;
-  this.props.item.control_font_size = this.state.control_font_size;
-  this.props.item.control_background = this.state.control_background; 
-  this.props.item.control_border_color = this.state.control_border_color; 
-  this.props.item.control_text_color = this.state.control_text_color;
-  this.props.item.control_border_thickness = this.state.control_border_thickness;
-  this.props.item.control_border_radius = this.state.control_border_radius;
-  this.props.setSave();
+  this.props.setItemProps(this.props.item, this.state.control_width, this.state.control_height, this.state.control_text, this.state.control_font_size,
+                          this.state.control_background, this.state.control_border_color, this.state.control_text_color, this.state.control_border_thickness,
+                          this.state.control_border_radius);
 
   let pointer = document.getElementsByClassName("react-draggable-dragged");
-
+  console.log('WireframeMiddle.saveProps(): pointer = ', pointer);
   if (pointer.length > 0) {
 
     let string = pointer[0].style.transform;
@@ -204,13 +197,17 @@ saveProps = () => {
     substring = substring.replace("px", " ");
     substring = substring.split(" ");
 
-    this.setState({control_x_position : substring[0]});
-    this.setState({control_y_position : substring[2]});
+    let xPos = substring[0];
+    let yPos = substring[2];
 
-    this.props.item.control_x_position = this.state.control_x_position; 
-    this.props.item.control_y_position = this.state.control_y_position; 
+    this.setState({control_x_position : xPos});
+    this.setState({control_y_position : yPos});
+
+    this.props.item.control_x_position = xPos;
+    this.props.item.control_y_position = yPos;
 
   }
+  this.props.setSave();
 }
 
 deselectItem = (e) => {
@@ -219,8 +216,8 @@ deselectItem = (e) => {
     
     return;
   }
-
-  if (this.state.isSelected) {
+  if (this.state.isSelected) 
+  {
     this.setState({control_text : document.getElementById("textfield_input").value}); 
     this.setState({control_font_size : document.getElementById("font_size_textfield").value}); 
     this.setState({control_text_color : document.getElementById("text_color_field").value}); 
@@ -229,18 +226,17 @@ deselectItem = (e) => {
     this.setState({control_border_thickness : document.getElementById("border_thickness_field").value}); 
     this.setState({control_border_radius : document.getElementById("border_radius_field").value}); 
 
-  document.getElementById("font_size_textfield").value = "";
-  document.getElementById("textfield_input").value = "";
-  document.getElementById("text_color_field").value = "#000000";
-  document.getElementById("background_field").value = "#000000";
-  document.getElementById("border_color_field").value = "#000000";
-  document.getElementById("border_thickness_field").value = "";
-  document.getElementById("border_radius_field").value = "";
+    document.getElementById("font_size_textfield").value = "";
+    document.getElementById("textfield_input").value = "";
+    document.getElementById("text_color_field").value = "#000000";
+    document.getElementById("background_field").value = "#000000";
+    document.getElementById("border_color_field").value = "#000000";
+    document.getElementById("border_thickness_field").value = "";
+    document.getElementById("border_radius_field").value = "";
   }
 
-  if (this.props.item.control === "button" && this.state.isSelected) {
-    
-    
+  if (this.props.item.control === "button" && this.state.isSelected) 
+  {
     let border = document.getElementsByClassName("item_border");
     let one = document.getElementsByClassName("rectangle1_button");
     let two = document.getElementsByClassName("rectangle2_button");
@@ -298,7 +294,7 @@ deselectItem = (e) => {
     three[0].classList.remove('rectangle3_container');
     four[0].classList.remove('rectangle4_container');
   }
-
+  this.saveProps(); // they all access this
   this.setState({isSelected : false})
 }
 
@@ -310,32 +306,32 @@ selectItem = (e) => {
   //   this.setState({ item : this.props.item});
   // }
 
-  if (this.props.item.control === "button") {
+  if (this.props.item.control === "button") 
+  {
     
     if (this.state.isSelected === false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
     document.getElementsByClassName("rectangle1_label").length <= 0 && document.getElementsByClassName("rectangle1_textfield").length <= 0 &&
-    document.getElementsByClassName("rectangle1_container").length <= 0 ) {
+    document.getElementsByClassName("rectangle1_container").length <= 0 ) 
+    {
+      // Select
+      document.getElementById(e.currentTarget.id).classList.add("item_border"); 
+      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_button");
+      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_button");
+      document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_button");
+      document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_button");
 
-    // Select
-    document.getElementById(e.currentTarget.id).classList.add("item_border"); 
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_button");
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_button");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_button");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_button");
-
-    // Add properties
-    
-    document.getElementById("font_size_textfield").value = this.state.control_font_size;
-    document.getElementById("textfield_input").value = this.state.control_text;
-    document.getElementById("text_color_field").value = this.state.control_text_color;
-    document.getElementById("background_field").value = this.state.control_background; // background color
-    document.getElementById("border_color_field").value = this.state.control_border_color; // background color
-    document.getElementById("border_thickness_field").value = this.state.control_border_thickness;
-    document.getElementById("border_radius_field").value = this.state.control_border_radius;
-    this.setState({isSelected : true});
+      // Add properties
+      document.getElementById("font_size_textfield").value = this.state.control_font_size;
+      document.getElementById("textfield_input").value = this.state.control_text;
+      document.getElementById("text_color_field").value = this.state.control_text_color;
+      document.getElementById("background_field").value = this.state.control_background; // background color
+      document.getElementById("border_color_field").value = this.state.control_border_color; // background color
+      document.getElementById("border_thickness_field").value = this.state.control_border_thickness;
+      document.getElementById("border_radius_field").value = this.state.control_border_radius;
+      this.setState({isSelected : true});
   }
-  else if (this.state.isSelected === true || this.state.delete_item) {
-
+  else if (this.state.isSelected === true || this.state.delete_item) 
+  {
     // Deselect
     document.getElementById(e.currentTarget.id).classList.remove("item_border");
     document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.remove("rectangle1_button");
@@ -363,30 +359,32 @@ selectItem = (e) => {
   }
 }
   
-  else if (this.props.item.control === "label" ) {
+  else if (this.props.item.control === "label" ) 
+  {
 
     if (this.state.isSelected === false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
     document.getElementsByClassName("rectangle1_label").length <= 0 && document.getElementsByClassName("rectangle1_textfield").length <= 0 &&
-    document.getElementsByClassName("rectangle1_container").length <= 0 ) {
-    
-    // Select 
-    document.getElementById(e.currentTarget.id).classList.add("item_border"); 
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_label");
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_label");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_label");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_label");
+    document.getElementsByClassName("rectangle1_container").length <= 0 ) 
+    {
+      // Select 
+      document.getElementById(e.currentTarget.id).classList.add("item_border"); 
+      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_label");
+      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_label");
+      document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_label");
+      document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_label");
 
-    // Add properties
-    document.getElementById("font_size_textfield").value = this.state.control_font_size;
-    document.getElementById("textfield_input").value = this.state.control_text;
-    document.getElementById("text_color_field").value = this.state.control_text_color;
-    document.getElementById("background_field").value = this.state.control_background; // background color
-    document.getElementById("border_color_field").value = this.state.control_border_color; // background color
-    document.getElementById("border_thickness_field").value = this.state.control_border_thickness;
-    document.getElementById("border_radius_field").value = this.state.control_border_radius;
-    this.setState({isSelected : true});
+      // Add properties
+      document.getElementById("font_size_textfield").value = this.state.control_font_size;
+      document.getElementById("textfield_input").value = this.state.control_text;
+      document.getElementById("text_color_field").value = this.state.control_text_color;
+      document.getElementById("background_field").value = this.state.control_background; // background color
+      document.getElementById("border_color_field").value = this.state.control_border_color; // background color
+      document.getElementById("border_thickness_field").value = this.state.control_border_thickness;
+      document.getElementById("border_radius_field").value = this.state.control_border_radius;
+      this.setState({isSelected : true});
     }
-    else if (this.state.isSelected === true) {
+    else if (this.state.isSelected === true) 
+    {
 
     // Deselect
     document.getElementById(e.currentTarget.id).classList.remove("item_border"); 
@@ -417,81 +415,86 @@ selectItem = (e) => {
 
     if (this.state.isSelected === false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
     document.getElementsByClassName("rectangle1_label").length <= 0 && document.getElementsByClassName("rectangle1_textfield").length <= 0 &&
-    document.getElementsByClassName("rectangle1_container").length <= 0 ) {
+    document.getElementsByClassName("rectangle1_container").length <= 0 ) 
+    {
 
-    // Select
-    document.getElementById(e.currentTarget.id).classList.add("item_border"); 
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_textfield");
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_textfield");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_textfield");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_textfield");
+      // Select
+      document.getElementById(e.currentTarget.id).classList.add("item_border"); 
+      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_textfield");
+      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_textfield");
+      document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_textfield");
+      document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_textfield");
 
-    // Add Properties
-    document.getElementById("font_size_textfield").value = this.state.control_font_size;
-    document.getElementById("textfield_input").value = this.state.control_text;
-    document.getElementById("text_color_field").value = this.state.control_text_color;
-    document.getElementById("background_field").value = this.state.control_background; // background color
-    document.getElementById("border_color_field").value = this.state.control_border_color; // background color
-    document.getElementById("border_thickness_field").value = this.state.control_border_thickness;
-    document.getElementById("border_radius_field").value = this.state.control_border_radius;
+      // Add Properties
+      document.getElementById("font_size_textfield").value = this.state.control_font_size;
+      document.getElementById("textfield_input").value = this.state.control_text;
+      document.getElementById("text_color_field").value = this.state.control_text_color;
+      document.getElementById("background_field").value = this.state.control_background; // background color
+      document.getElementById("border_color_field").value = this.state.control_border_color; // background color
+      document.getElementById("border_thickness_field").value = this.state.control_border_thickness;
+      document.getElementById("border_radius_field").value = this.state.control_border_radius;
 
-    this.setState({isSelected : true});
+      this.setState({isSelected : true});
 
     }
-    else if (this.state.isSelected === true) {
+    else if (this.state.isSelected === true) 
+    {
     
-    // Deselect
-    document.getElementById(e.currentTarget.id).classList.remove("item_border"); 
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.remove("rectangle1_textfield");
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.remove("rectangle2_textfield");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.remove("rectangle3_textfield");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.remove("rectangle4_textfield");
+      // Deselect
+      document.getElementById(e.currentTarget.id).classList.remove("item_border"); 
+      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.remove("rectangle1_textfield");
+      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.remove("rectangle2_textfield");
+      document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.remove("rectangle3_textfield");
+      document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.remove("rectangle4_textfield");
 
-    // Remove Properties 
-    this.setState({control_text : document.getElementById("textfield_input").value}); 
-    this.setState({control_font_size : document.getElementById("font_size_textfield").value}); 
-    this.setState({control_text_color : document.getElementById("text_color_field").value}); 
-    this.setState({control_background : document.getElementById("background_field").value}); 
-    this.setState({control_border_color : document.getElementById("border_color_field").value}); 
-    this.setState({control_border_thickness : document.getElementById("border_thickness_field").value}); 
-    this.setState({control_border_radius : document.getElementById("border_radius_field").value}); 
-    document.getElementById("font_size_textfield").value = "";
-    document.getElementById("textfield_input").value = "";
-    document.getElementById("text_color_field").value = "#000000";
-    document.getElementById("background_field").value = "#000000";
-    document.getElementById("border_color_field").value = "#000000";
-    document.getElementById("border_thickness_field").value = "";
-    document.getElementById("border_radius_field").value = "";
+      // Remove Properties 
+      this.setState({control_text : document.getElementById("textfield_input").value}); 
+      this.setState({control_font_size : document.getElementById("font_size_textfield").value}); 
+      this.setState({control_text_color : document.getElementById("text_color_field").value}); 
+      this.setState({control_background : document.getElementById("background_field").value}); 
+      this.setState({control_border_color : document.getElementById("border_color_field").value}); 
+      this.setState({control_border_thickness : document.getElementById("border_thickness_field").value}); 
+      this.setState({control_border_radius : document.getElementById("border_radius_field").value}); 
+      document.getElementById("font_size_textfield").value = "";
+      document.getElementById("textfield_input").value = "";
+      document.getElementById("text_color_field").value = "#000000";
+      document.getElementById("background_field").value = "#000000";
+      document.getElementById("border_color_field").value = "#000000";
+      document.getElementById("border_thickness_field").value = "";
+      document.getElementById("border_radius_field").value = "";
 
-    this.setState({isSelected : false});
+      this.setState({isSelected : false});
     }
   }
-  else if (this.props.item.control === "container" ) {
+  else if (this.props.item.control === "container" ) 
+  {
     // container
     if (this.state.isSelected === false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
     document.getElementsByClassName("rectangle1_label").length <= 0 && document.getElementsByClassName("rectangle1_textfield").length <= 0 &&
-    document.getElementsByClassName("rectangle1_container").length <= 0 ) {
+    document.getElementsByClassName("rectangle1_container").length <= 0 ) 
+    {
 
-    // Select Item
-    document.getElementById(e.currentTarget.id).classList.add("item_border"); 
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_container");
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_container");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_container");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_container");
+      // Select Item
+      document.getElementById(e.currentTarget.id).classList.add("item_border"); 
+      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_container");
+      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_container");
+      document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_container");
+      document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_container");
 
-    // Add Properties
-    document.getElementById("font_size_textfield").value = this.state.control_font_size;
-    document.getElementById("textfield_input").value = this.state.control_text;
-    document.getElementById("text_color_field").value = this.state.control_text_color;
-    document.getElementById("background_field").value = this.state.control_background; // background color
-    document.getElementById("border_color_field").value = this.state.control_border_color; // background color
-    document.getElementById("border_thickness_field").value = this.state.control_border_thickness;
-    document.getElementById("border_radius_field").value = this.state.control_border_radius;
+      // Add Properties
+      document.getElementById("font_size_textfield").value = this.state.control_font_size;
+      document.getElementById("textfield_input").value = this.state.control_text;
+      document.getElementById("text_color_field").value = this.state.control_text_color;
+      document.getElementById("background_field").value = this.state.control_background; // background color
+      document.getElementById("border_color_field").value = this.state.control_border_color; // background color
+      document.getElementById("border_thickness_field").value = this.state.control_border_thickness;
+      document.getElementById("border_radius_field").value = this.state.control_border_radius;
 
-    this.setState({isSelected : true});
+      this.setState({isSelected : true});
     }
 
-    else if (this.state.isSelected === true) {
+    else if (this.state.isSelected === true) 
+    {
 
     // Deselect
     document.getElementById(e.currentTarget.id).classList.remove("item_border"); 

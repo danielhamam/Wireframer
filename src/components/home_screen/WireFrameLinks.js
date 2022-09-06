@@ -9,6 +9,7 @@ class WireFrameLinks extends React.Component {
     render() {
 
         const { accounts } = this.props;
+
             return (
               <div className="wireframes section">
                 {accounts && accounts.map(account => (

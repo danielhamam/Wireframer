@@ -10,14 +10,14 @@ class WireframeBox extends Component {
     rerender : false,
     wireframe_target : "",
     scale: 1, 
-    height : 460, // default
-    width : 500, // default
+    height : this.props.accounts && this.props.wireframe_key && this.props.id ? this.props.accounts[this.props.accounts.map(function (account) {return account.id;}).indexOf(this.props.id)].wireframes[this.props.wireframe_key].height : 460,
+    width : this.props.accounts && this.props.wireframe_key && this.props.id ? this.props.accounts[this.props.accounts.map(function (account) {return account.id;}).indexOf(this.props.id)].wireframes[this.props.wireframe_key].width : 500,
     width_status : true,
     height_status : true,
     pending_width : 0,
     pending_height : 0,
     default_size : true,
-    original_wireframes : this.props.accounts[this.props.accounts && this.props.accounts.map(function (account) {return account.id;}).indexOf(this.props.id)].wireframes,
+    original_wireframes : this.props.accounts ? this.props.accounts[this.props.accounts.map(function (account) {return account.id;}).indexOf(this.props.id)].wireframes : '',
     updatedList : false,
     prompt_save : false
     }
@@ -54,9 +54,25 @@ zoomOut = () => {
     })
 }
 
+// If prompt_save is true, will prompt user if he/she would like to save when closing work.
 setSave = () => {
     this.setState({prompt_save : true});
 }
+
+setItemProps = (item, new_control_width, new_control_height, new_control_text, new_control_font_size, new_control_background, 
+                new_control_border_color, new_control_text_color, new_control_border_thickness, new_control_border_radius) => 
+    {
+        console.log("WireframeBox.setItemProps: Saving Item Props for....", item)
+        item.control_width = new_control_width;
+        item.control_height = new_control_height;
+        item.control_text =  new_control_text;
+        item.control_font_size=  new_control_font_size;
+        item.control_background = new_control_background;
+        item.control_border_color=  new_control_border_color;
+        item.control_text_color=  new_control_text_color;
+        item.control_border_thickness=  new_control_border_thickness;
+        item.control_border_radius = new_control_border_radius;
+    }
 
 deleteItem = (item) => {
 
@@ -100,7 +116,7 @@ duplicateItem = (item) => {
     // return item_duplicate;
 }
     
-saveWork = (new_wireframe) => {
+saveWork = () => {
 
     const fireStore = getFirestore();
     let {accounts} = this.props;
@@ -119,111 +135,39 @@ saveWork = (new_wireframe) => {
     wireframes[this.props.wireframe_key] = temp;
 
     fireStore.collection("accounts").doc(accounts[index].id).update({ wireframes : wireframes});
-
     this.setState({goHome : true});
 }
 closeWork = () => {
 
     let {accounts} = this.props;
     let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
-        
-    var temp = this.state.original_wireframes[0];
-    // this.setState({original_wireframes : this.state.original_wireframes[this.props.wireframe_key]});
-    // this.setState({original_wireframes[this.props.wireframe_key] : temp});
-    this.state.original_wireframes[0] = this.state.original_wireframes[this.props.wireframe_key];
-    this.state.original_wireframes[this.props.wireframe_key] = temp;
-    
-    getFirestore().collection("accounts").doc(accounts[index].id).update({ wireframes : this.state.original_wireframes}); 
 
+    if (this.state.original_wireframes) {
+        var temp = this.state.original_wireframes[0];
+        // this.setState({original_wireframes : this.state.original_wireframes[this.props.wireframe_key]});
+        // this.setState({original_wireframes[this.props.wireframe_key] : temp});
+        this.state.original_wireframes[0] = this.state.original_wireframes[this.props.wireframe_key];
+        this.state.original_wireframes[this.props.wireframe_key] = temp;
+        
+        getFirestore().collection("accounts").doc(accounts[index].id).update({ wireframes : this.state.original_wireframes}); 
+    }
     this.setState({goHome : true});
 }
 
-addTextfield = () => {
-    let {accounts} = this.props;
-    let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
-    let wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
+addNewItem(itemType) {
 
-    const new_item = {
-        control : "textfield",
-        control_width : "",
-        control_height: "",
-        control_text : "",
-        control_font_size : "",
-        control_background : "#ffffff",
-        control_border_color : "",
-        control_text_color : "",
-        control_border_thickness : "",
-        control_border_radius : "",
-        control_x_position : 0,
-        control_y_position : 0
+    if (itemType != "container" && itemType != 'button' && itemType != 'label' && itemType != 'textfield') {
+        console.log("WireframeBox.addNewItem: cannot add new item as it is incorrect type...");
+        return;
     }
 
-    wireframe.items.push(new_item);
-    this.setState({prompt_save : true});
-    this.setState({ rerender : true});
-}
-
-addLabel = () => {
-
     let {accounts} = this.props;
     let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
     let wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
 
     const new_item = {
-        control : "label",
-        control_width : "",
-        control_height: "",
-        control_text : "Prompt for input",
-        control_font_size : "",
-        control_background : "#ffffff",
-        control_border_color : "",
-        control_text_color : "",
-        control_border_thickness : "",
-        control_border_radius : "",
-        control_x_position : 0,
-        control_y_position : 0
-    }
-
-    wireframe.items.push(new_item);
-    this.setState({prompt_save : true});
-    this.setState({ rerender : true});
-    // fireStore.collection("todoLists").doc(accounts[index].id).update({ 'wireframes' : wireframes});
-
-}
-
-addButton = () => {
-    let {accounts} = this.props;
-    let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
-    let wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
-
-    const new_item = {
-        control : "button",
-        control_width : "",
-        control_height: "",
-        control_text : "Submit",
-        control_font_size : "16",
-        control_background : "#DCDCDC",
-        control_border_color : "#000000",
-        control_text_color : "#000000",
-        control_border_thickness : "",
-        control_border_radius : "",
-        control_x_position : 0,
-        control_y_position : 0
-    }
-
-    wireframe.items.push(new_item);
-    this.setState({prompt_save : true});
-    this.setState({ rerender : true});
-}
-
-addContainer = () => {
-
-    let {accounts} = this.props;
-    let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
-    let wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
-
-    const new_item = {
-        control : "container",
+        id : Math.floor(100000 + Math.random() * 900000),
+        control : itemType,
         control_width : "140",
         control_height: "80",
         control_text : "",
@@ -236,7 +180,6 @@ addContainer = () => {
         control_x_position : 0,
         control_y_position : 0
     }
-
     wireframe.items.push(new_item);
     this.setState({prompt_save : true});
     this.setState({ rerender : true});
@@ -340,11 +283,11 @@ render() {
     const index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
     const wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
 
-    if (this.state.default_size) {
-        this.setState({width: wireframe.width});
-        this.setState({height: wireframe.height});
-        this.setState({default_size: false});
-    }
+    // if (wireframe && this.state.default_size) {
+    //     this.setState({width: wireframe.width});
+    //     this.setState({height: wireframe.height});
+    //     this.setState({default_size: false});
+    // }
 
 return (
 
@@ -353,8 +296,8 @@ return (
     <div className = "left_screen">
         <div className = "top_left">
             <div id="zoom_buttons" > 
-                <i class="material-icons medium" onClick={this.zoomIn}> zoom_in</i>
-                <i class="material-icons medium" onClick={this.zoomOut}> zoom_out</i>
+                <i className="material-icons medium" onClick={this.zoomIn}> zoom_in</i>
+                <i className="material-icons medium" onClick={this.zoomOut}> zoom_out</i>
             </div>
             <div id="save_work" onClick={this.saveWork}> 
             Save
@@ -363,21 +306,21 @@ return (
         </div>
         <div id="bottom_left"> 
             <div className="container_example">
-                <div className="container_box" onClick={this.addContainer} > </div>
+                <div className="container_box" onClick={() => this.addNewItem('container')} > </div>
                 <div id="container_text" > Container </div>
             </div>
             < br />
             <div id="prompt_for_input">
-                <div className="prompt_text" onClick={this.addLabel} > Prompt for input:</div>
+                <div className="prompt_text" onClick={() => this.addNewItem('label')} > Prompt for input:</div>
                 <div id="label_text">Label</div>
             </div>
             <div className="button_example">
-                <button className="button_submit" onClick={this.addButton}> Submit</button>
+                <button className="button_submit" onClick={() => this.addNewItem('button')}> Submit</button>
                 <div id="button_text"> Button</div>
             </div>
             < br />
             <div className="textfield_example">
-                <input type="input" className="textfield_input" placeholder="Input" onClick={this.addTextfield} />
+                <input type="input" className="textfield_input" placeholder="Input" onClick={() => this.addNewItem('textfield')} />
                 <p id="textfield_label" >Textfield</p>
             </div>
         </div>
@@ -386,8 +329,8 @@ return (
     <div id="middle_screen" className="middle_screen"> 
         <div id="dimension" className="dimension" style={{width: this.state.width + "px", height: this.state.height + "px"}}>
             <div id="zoomable"> 
-                {wireframe.items && wireframe.items.map(item => (
-                <WireframeMiddle item={item} wireframe={wireframe} deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut} width={this.state.width} height={this.state.height} setSave={this.setSave}/>
+                {wireframe && wireframe.items && wireframe.items.map(item => (
+                <WireframeMiddle item={item} key={item.id} wireframe={wireframe} setItemProps={this.setItemProps} deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut} width={this.state.width} height={this.state.height} setSave={this.setSave}/>
                 ))}
             </div>
         </div>
@@ -418,20 +361,20 @@ return (
                 <input type="input" id="border_radius_field" onChange = {(e) => this.handleChange_border_radius(e)} />
             </div>
             <div id= "name_of_wireframe"> Name:
-                <input type="input" id="name_wireframe_field" onClick={this.prevent} defaultValue={wireframe.name} onChange = {(e) => this.handleChange_name(e)} />
+                <input type="input" id="name_wireframe_field" onClick={this.prevent} defaultValue={wireframe && wireframe.name} onChange = {(e) => this.handleChange_name(e)} />
             </div>
         </div>
     </div>
 
-    <div id="my_modal" class="modal">
-        <div class="modal-content ">
+    <div id="my_modal" className="modal">
+        <div className="modal-content ">
             <h4>Save Wireframe?</h4>
             <br />
             <p> Would you like to save your progress? </p>
         </div>
-        <button id="yes" onClick={this.saveWork} class="modal-close waves-effect waves-white btn-flat">Yes</button>
-        <button id="no" onClick={this.closeWork} class="modal-close waves-effect waves-white btn-flat">No</button>
-        <div id="last_line"> Without saving, all progress will be lost.</div>
+        <button id="yes" onClick={this.saveWork} className="modal-close waves-effect waves-white btn-flat">Yes</button>
+        <button id="no" onClick={this.closeWork} className="modal-close waves-effect waves-white btn-flat">No</button>
+        <div id="last_line"> Without saving, all rogress will be lost.</div>
     </div>
 
     <div id="wireframe_dimensions">
