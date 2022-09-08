@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
-import { firestoreConnect } from 'react-redux-firebase';
+import { firestoreConnect } from 'react-redux-firebase'; // use this as a higher order component to connect cmp with firestore data
 import { getFirestore } from 'redux-firestore';
 
 import WireFrameLinks from './WireFrameLinks';
@@ -19,21 +19,22 @@ class HomeScreen extends Component {
   }
 
 checkAdministrator = () => {
-
-  const fireStore = getFirestore();
-  let reference = fireStore.collection('accounts').doc(this.props.auth.uid).get();
-
-  reference.then(
-  doc => {
-    let info = doc.data();
-    if (info && info.administrator === true) {
-      this.setState({ administrator : true});
-    }
-    else {
-      this.setState({ administrator : false});
-    }
-    }
-  )
+  // debugger;
+  if (this.props.auth.uid) {
+    const fireStore = getFirestore();
+    let reference = fireStore.collection('accounts').doc(this.props.auth.uid).get();
+    reference.then(
+    doc => {
+      let info = doc.data();
+      if (info && info.administrator === true) {
+        this.setState({ administrator : true});
+      }
+      else {
+        this.setState({ administrator : false});
+      }
+      }
+    )
+  }
 }
 
 handleNewWireframe = () => {
@@ -83,7 +84,7 @@ componentDidMount() {
           <div className="home_wrapper">
             {/* Flexbox Starts */}
             <div className="home-content">
-              <div id="form_format"> 
+              <div className="form_format"> 
                 <form onSubmit={this.handleSubmit} className="">
                   <h5 id="login_text">Recent Work</h5>
                   <div onClick={this.updateList} >
@@ -114,22 +115,17 @@ componentDidMount() {
 }
 
 const mapStateToProps = (state, ownProps) => {
-
+    // console.log("HomeScreen.js State: ", state);
     return {
         // accounts, //.ordered something we can map through. 
         auth: state.firebase.auth,
-        accounts : state.firestore.ordered.accounts,
+        accounts : state.firestore.ordered.accounts // retrieve correct data via firestore connect
     }
 };
 
-export default compose(
+export default compose( // compose is a redux function
   connect(mapStateToProps),
-  firestoreConnect( props => [
-      {
-      collection: 'accounts',
-      // doc: props.auth.uid,
-      // subcollections: [{ collection: 'wireframes', orderBy: ['created_time', 'desc']}],
-      }
-    ]),
+  firestoreConnect([
+      { collection: 'accounts' } // When component is active, I want to connect to accounts collection
+    ])
 )(HomeScreen);
-

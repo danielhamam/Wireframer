@@ -31,8 +31,8 @@ deleteWireframe = (wire_key) => {
                     <span className="card-title"> 
 
                         {wireframes && wireframes.map(wireframe => (
-                            <div className="wireframe_card">
-                                <div id="delete_icon" class="material-icons small" onClick={ () => {this.deleteWireframe(wireframe.key)}} > delete</div>
+                            <div className="wireframe_card" key={wireframe.key}>
+                                <div id="delete_icon" className="material-icons small" onClick={ () => {this.deleteWireframe(wireframe.key)}} > delete</div>
                                 <Link to={'/wireframe/' + wireframes.map(function (wireframe) {return wireframe.key;}).indexOf(wireframe.key)} >
                                     <div id = "wireframe_name">
                                         {wireframe.name}

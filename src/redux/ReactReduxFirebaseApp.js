@@ -9,6 +9,8 @@ import firebase from '../config/firebaseConfig';
 import rootReducer from './reducers/rootReducer';
 import App from '../App';
 
+
+// Configs out Firebase/Firestore credentials with React/Redux
 class ReactReduxFirebaseApp extends React.Component {
     constructor(props) {
         super(props);
@@ -32,7 +34,7 @@ class ReactReduxFirebaseApp extends React.Component {
         );
 
         const rrfProps = {
-            firebase,
+            firebase, // config
             config: rrfConfig,
             dispatch: store.dispatch,
             createFirestoreInstance, // Create firestore instead of craete it in fbConfig.js

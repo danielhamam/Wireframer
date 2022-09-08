@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
-import { register } from '../../redux/actions/actionCreators'
+import { registerHandler } from '../../redux/reducers/authReducer/authReducerHelpers'
+import { getFirestore } from 'redux-firestore';
 
 class RegisterScreen extends Component {
   state = {
@@ -92,7 +93,7 @@ const mapStateToProps = state => ({
 // mapDispatchToProps = Component to Redux (calling an action, writing to the store)
 // Will map a function, "register", to a dispatcher
 const mapDispatchToProps = dispatch => ({
-  registerUser: (user, firebase) => dispatch(register(user, firebase)),
+  registerUser: (user, firebase) => dispatch(registerHandler(user, firebase, getFirestore)),
 });
 
 export default compose(

@@ -6,12 +6,11 @@
 // REDUCER, WHICH ADVANCES STATE
 
 // THESE ARE ALL THE TYPE OF ACTIONS WE'LL BE CREATING
-export const REGISTER = 'REGISTER';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_ERROR = 'REGISTER_ERROR';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_ERROR = 'LOGIN_ERROR';
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const REGISTER_STARTED = 'REGISTER_STARTED';
+export const REGISTER_SUCCEEDED = 'REGISTER_SUCCESS';
+export const REGISTER_ERRORED = 'REGISTER_ERROR';
+export const LOGIN_SUCCEEDED = 'LOGIN_SUCCESS';
+export const LOGIN_ERRORED = 'LOGIN_ERROR';
 
 // THESE CREATORS MAKE ACTIONS ASSOCIATED WITH USER ACCOUNTS
 
@@ -20,31 +19,29 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 * WHERE IS IT USED?: Used in userActions functions / mapDispatchtoProps
 ************************************************************************/
 
-export const register = (newUser, firebaseRef) => {
+export const registerStarted = () => {
     return { 
-        type: 'REGISTER', 
-        user : newUser,
-        firebase : firebaseRef 
+        type: 'REGISTER_STARTED'
     }
 };
 
-export const registerSuccess = (newUser) => {
+export const registerSucceeded = (newUser) => {
     return { 
-        type: 'REGISTER_SUCCESS',
+        type: 'REGISTER_SUCCEEDED',
         user: newUser
     }
 };
-export function registerError(error) { 
-    return { type: 'REGISTER_ERROR', error }
+export function registerErrored(error) { 
+    return { type: 'REGISTER_ERRORED', error }
 };
-export function loginSuccess() {
-    return { type: 'LOGIN_SUCCESS' }
+export function loginSucceeded() {
+    return { type: 'LOGIN_SUCCEEDED' }
 };
-export function loginError(error) {
-    return { type: 'LOGIN_ERROR', error }
+export function loginErrored(error) {
+    return { type: 'LOGIN_ERRORED', error }
 };
-export function logoutSuccess() {
-    return { type: 'LOGOUT_SUCCESS' }
+export function logoutSucceeded() {
+    return { type: 'LOGOUT_SUCCEEDED' }
 };
 
 // THESE CREATORS MAKE ACTIONS FOR ASYNCHRONOUS WIREFRAME UPDATES

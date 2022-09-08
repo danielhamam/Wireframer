@@ -4,7 +4,7 @@ import { firebaseConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
 
-import { loginHandler } from '../../store/database/userActions'
+import { loginHandler } from '../../redux/reducers/authReducer/authReducerHelpers'
 
 class LoginScreen extends Component {
   state = {

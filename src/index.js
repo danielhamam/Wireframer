@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import './css/project_layout.css'
 import './css/project_style.css'
 
-import ReactReduxFirebaseApp from './store/ReactReduxFirebaseApp'
+import ReactReduxFirebaseApp from './redux/ReactReduxFirebaseApp'
 
 ReactDOM.render(
   <ReactReduxFirebaseApp />, document.getElementById('root')
