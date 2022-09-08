@@ -1,5 +1,5 @@
 import * as actionCreators from '../actions/actionCreators'
-import { registerHandler } from '../../store/database/asynchHandler'
+import { registerHandler } from '../database/userActions'
 import { getFirestore } from 'redux-firestore';
 
 // REDUCERS ARE CALLED WHEN AN ACTION IS DISPATCHED,
@@ -8,6 +8,7 @@ import { getFirestore } from 'redux-firestore';
 
 const initState = {};
 
+// UPDATES REDUX STATE
 const authReducer = (state = initState, action) => {
   console.log("authReducer: Beginning mapping of type " + action.type + " to corresponding handler");
   switch (action.type) {
@@ -26,7 +27,7 @@ const authReducer = (state = initState, action) => {
     case actionCreators.REGISTER:
       console.log("authReducer: Mapped to " + actionCreators.REGISTER);
       // debugger;
-      return registerHandler(action.user, action.firebase)(getFirestore); // function to handle registering account
+      return registerHandler(action.user, action.firebase)(dispatch, getFirestore); // function to handle registering account
     case actionCreators.REGISTER_SUCCESS:
       console.log("authReducer: Mapped to " + actionCreators.REGISTER_SUCCESS);
       return {

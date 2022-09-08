@@ -17,7 +17,7 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 /*********************************************************************
 * PURPOSE: When called, returns object with required information
-* WHERE IS IT USED?: Used in asyncHandler functions / mapDispatchtoProps
+* WHERE IS IT USED?: Used in userActions functions / mapDispatchtoProps
 ************************************************************************/
 
 export const register = (newUser, firebaseRef) => {

@@ -4,7 +4,7 @@ import accountJson from './TestWireframesData.json'
 import { getFirestore } from 'redux-firestore';
 import { firebaseConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
-import { registerHandler } from '../store/database/asynchHandler';
+import { registerHandler } from '../store/database/userActions';
 import { Redirect } from 'react-router-dom';
 
 class DatabaseTester extends React.Component {

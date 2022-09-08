@@ -18,8 +18,8 @@ export const logoutHandler = (firebase) => (dispatch, getState) => {
     });
 };
 
-export const registerHandler = (newUser, firebase) => (dispatch, getFirestore) => {
-    console.log("asynchHandler.registerHandler: Beginning registerHandler with user: " + newUser);
+export const registerHandler = (newUser, firebase, getFirestore) => (dispatch) => {
+    console.log("userActions.registerHandler: Beginning registerHandler with user: " + newUser);
     const firestore = getFirestore();
     firebase.auth().createUserWithEmailAndPassword(
         newUser.email,
@@ -31,7 +31,7 @@ export const registerHandler = (newUser, firebase) => (dispatch, getFirestore) =
         administrator: false,
         wireframes: []
     })).then((resp) => {
-        console.log("asynchHandler.registerHandler: RESP is ", resp);
+        console.log("userActions.registerHandler: RESP is ", resp);
         dispatch(actionCreators.registerSuccess(resp));
     }).catch((err) => {
       dispatch({ type: 'REGISTER_ERROR', err });

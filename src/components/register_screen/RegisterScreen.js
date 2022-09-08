@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
-import { register } from '../../store/actions/actionCreators'
+import { register } from '../../redux/actions/actionCreators'
 
 class RegisterScreen extends Component {
   state = {
