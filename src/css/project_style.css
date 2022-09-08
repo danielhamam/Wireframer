@@ -47,16 +47,16 @@ body {
   }
 
   .register_text {
-    color: black;
+    /* color: black; */
     font-family: 'Roboto';
   }
 
-  .wireframer_text_box {
+  .wireframer_text_box, .register-wireframer-text-box {
     background-image: linear-gradient(to bottom,         
     #b8b808, beige);
-  border-color: black;
-  border-width: 2px;
-  border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
   }
 
   #wireframe_text_box_text {

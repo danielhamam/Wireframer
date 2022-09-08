@@ -18,7 +18,8 @@ export const logoutHandler = (firebase) => (dispatch, getState) => {
     });
 };
 
-export const registerHandler = (newUser, firebase) => (dispatch, getState, { getFirestore }) => {
+export const registerHandler = (newUser, firebase) => (dispatch, getFirestore) => {
+    console.log("asynchHandler.registerHandler: Beginning registerHandler with user: " + newUser);
     const firestore = getFirestore();
     firebase.auth().createUserWithEmailAndPassword(
         newUser.email,
@@ -29,8 +30,9 @@ export const registerHandler = (newUser, firebase) => (dispatch, getState, { get
         account_key: Math.floor(Math.random() * 1000) + 100,
         administrator: false,
         wireframes: []
-    })).then(() => {
-        dispatch(actionCreators.registerSuccess);
+    })).then((resp) => {
+        console.log("asynchHandler.registerHandler: RESP is ", resp);
+        dispatch(actionCreators.registerSuccess(resp));
     }).catch((err) => {
       dispatch({ type: 'REGISTER_ERROR', err });
     });

@@ -47,7 +47,7 @@ class LoginScreen extends Component {
       <div className="login_box">
         <div className="login-content">
           {/* Flexbox Starts */}
-          <div id="form_format"> 
+          <div className="form_format"> 
             <form onSubmit={this.handleSubmit} id="login-form">
               <h5 id="login_text">Login</h5>
               < br /> 

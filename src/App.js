@@ -39,6 +39,7 @@ class App extends Component {
   }
 }
 
+// mapStateToProps = Redux to Component (reading from the store)
 const mapStateToProps = state => ({
   auth: state.firebase.auth,
 });

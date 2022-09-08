@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
 import { getFirestore } from 'redux-firestore';
 import WireframeMiddle from './WireframeMiddle';
-
+import constants from '../../config/constants';
 class WireframeBox extends Component {
   state = {
     goHome : false,
@@ -156,33 +157,31 @@ closeWork = () => {
 
 addNewItem(itemType) {
 
-    if (itemType != "container" && itemType != 'button' && itemType != 'label' && itemType != 'textfield') {
+    if (itemType !== 'container' && itemType !== 'button' && itemType !== 'label' && itemType !== 'textfield') {
         console.log("WireframeBox.addNewItem: cannot add new item as it is incorrect type...");
         return;
     }
-
     let {accounts} = this.props;
     let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
-    let wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
+    let wireframe = this.props.account.wireframes[this.props.wireframe_key];
 
     const new_item = {
         id : Math.floor(100000 + Math.random() * 900000),
         control : itemType,
-        control_width : "140",
-        control_height: "80",
-        control_text : "",
-        control_font_size : "",
-        control_background : "#FFFFFF",
-        control_border_color : "#000000",
-        control_text_color : "",
-        control_border_thickness : "1",
-        control_border_radius : "0",
-        control_x_position : 0,
-        control_y_position : 0
+        control_width : constants.newItemProps[itemType]['control_width'],
+        control_height: constants.newItemProps[itemType]['control_height'],
+        control_text : constants.newItemProps[itemType]['control_text'],
+        control_font_size : constants.newItemProps[itemType]['control_font_size'],
+        control_background : constants.newItemProps[itemType]['control_background'],
+        control_border_color : constants.newItemProps[itemType]['control_border_color'],
+        control_text_color :constants.newItemProps[itemType]['control_text_color'],
+        control_border_thickness : constants.newItemProps[itemType]['control_border_thickness'],
+        control_border_radius : constants.newItemProps[itemType]['control_border_radius'],
+        control_x_position : constants.newItemProps[itemType]['control_x_position'],
+        control_y_position : constants.newItemProps[itemType]['control_y_position']
     }
     wireframe.items.push(new_item);
     this.setState({prompt_save : true});
-    this.setState({ rerender : true});
 }
 
 handleChange_name = (e) => {
@@ -395,4 +394,13 @@ return (
     }
 }
 
-export default WireframeBox;
+// mapStateToProps = Redux to Component (reading from the store)
+const mapStateToProps = (state) => {
+    // console.log("wireframebox, state: ", state);
+    return {
+      auth: state.firebase.auth,
+      accounts : state.firestore.ordered.accounts,
+     }
+  };
+
+  export default connect(mapStateToProps) (WireframeBox);

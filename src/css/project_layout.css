@@ -64,11 +64,6 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   font-size: 18pt;
 }
 
-.register_text {
-  float:right;
-  font-size: 18pt;
-}
-
 .wireframer_text_box {
   position: relative;
   display: inline-block;
@@ -79,7 +74,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   margin-top: 50px;
 }
 
-.login_box, .register_box {
+.login_box {
   position: relative;
   height: 500px;
 }
@@ -98,7 +93,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   font-size: 25pt;
 }
 
-#form_format {
+.form_format {
   vertical-align: top;
   position: relative;
   display: inline;
@@ -187,16 +182,49 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   /* REGISTER SCREEN */   /* REGISTER SCREEN */   /* REGISTER SCREEN */ 
   /* REGISTER SCREEN */   /* REGISTER SCREEN */   /* REGISTER SCREEN */ 
 
+.register_box {
+    position: relative;
+    height: 600px;
+  }
+
 #register_form {
-  position:absolute;
-  top: 90px;
-  left: 20px;
+  vertical-align: top;
+  position: relative;
+  display: inline;
+  vertical-align: top;
+  margin-top: 50px;
+  margin-left: 60px;
+  /* width: 400px; */
 }
 
-.input-field2 {
+.register_text {
+  float:right;
+  font-size: 18pt;
+}
+
+.register-content {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.register-input-field {
   height: 50px;
   width: 500px;
   margin-bottom: 2rem;
+}
+
+.register-wireframer-text-box {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  height: 400px;
+  width: 450px;
+  margin-right: 60px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
   /* --------------------------------------------- */ 
