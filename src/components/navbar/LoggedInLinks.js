@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
-import { logoutHandler } from '../../store/database/userActions'
+import { logoutHandler } from '../../redux/database/userActions'
 
 class LoggedInLinks extends React.Component {
 
