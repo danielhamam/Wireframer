@@ -134,7 +134,7 @@ const mapDispatchToProps = dispatch => ({
   // registerUser: (user, firebase) => dispatch(registerHandler(user, firebase, getFirestore))
   registerStarted: () => dispatch(registerStarted()),
   registerSucceeded: () => dispatch(registerSucceeded()),
-  registerErrored: () => dispatch(registerErrored())
+  registerErrored: (error) => dispatch(registerErrored(error))
 });
 
 export default compose(

@@ -32,7 +32,7 @@ export const registerSucceeded = (newUser) => {
     }
 };
 export function registerErrored(error) { 
-    console.log("Registering register errored function, attaching error")
+    console.log("Registering register errored function, attaching error: ", error);
     return { 
         type: REGISTER_ERRORED, 
         error : error

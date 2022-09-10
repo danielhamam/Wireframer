@@ -12,7 +12,7 @@ import { getFirestore } from 'redux-firestore';
 const initState = {
   user: null,
   creating : false,
-  authError: '',
+  authError: null,
 };
 
 // Using ...state spread operator in the sense of "if you can't change it, replace it"
