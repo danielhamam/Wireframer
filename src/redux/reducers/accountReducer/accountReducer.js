@@ -1,5 +1,5 @@
 const initState = {
-    wireframes: []
+    // wireframes: []
 };
 
 const accountReducer = (state = initState, action) => {

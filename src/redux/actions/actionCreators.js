@@ -7,8 +7,8 @@
 
 // THESE ARE ALL THE TYPE OF ACTIONS WE'LL BE CREATING
 export const REGISTER_STARTED = 'REGISTER_STARTED';
-export const REGISTER_SUCCEEDED = 'REGISTER_SUCCESS';
-export const REGISTER_ERRORED = 'REGISTER_ERROR';
+export const REGISTER_SUCCEEDED = 'REGISTER_SUCCEEDED';
+export const REGISTER_ERRORED = 'REGISTER_ERRORED';
 export const LOGIN_SUCCEEDED = 'LOGIN_SUCCESS';
 export const LOGIN_ERRORED = 'LOGIN_ERROR';
 
@@ -21,27 +21,33 @@ export const LOGIN_ERRORED = 'LOGIN_ERROR';
 
 export const registerStarted = () => {
     return { 
-        type: 'REGISTER_STARTED'
+        type: REGISTER_STARTED
     }
 };
 
 export const registerSucceeded = (newUser) => {
     return { 
-        type: 'REGISTER_SUCCEEDED',
+        type: REGISTER_SUCCEEDED,
         user: newUser
     }
 };
 export function registerErrored(error) { 
-    return { type: 'REGISTER_ERRORED', error }
+    console.log("Registering register errored function, attaching error")
+    return { 
+        type: REGISTER_ERRORED, 
+        error : error
+    }
 };
 export function loginSucceeded() {
-    return { type: 'LOGIN_SUCCEEDED' }
+    return { 
+        type: LOGIN_SUCCEEDED 
+    }
 };
 export function loginErrored(error) {
-    return { type: 'LOGIN_ERRORED', error }
+    return { type: LOGIN_ERRORED, error }
 };
 export function logoutSucceeded() {
-    return { type: 'LOGOUT_SUCCEEDED' }
+    return { type: LOGIN_SUCCEEDED }
 };
 
 // THESE CREATORS MAKE ACTIONS FOR ASYNCHRONOUS WIREFRAME UPDATES

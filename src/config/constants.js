@@ -5,6 +5,10 @@
 
 const constants = {
 
+    // Register Screen
+    passwordValidationErrMsg : 'Your password must be at least 6 characters long',
+    registrationFailedErrMsg : 'Registration failed. Please check the field(s) again!',
+
     // New Item Properties
     newItemProps : {
         'textfield' : {

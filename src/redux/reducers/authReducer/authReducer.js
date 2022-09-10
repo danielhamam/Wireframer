@@ -10,14 +10,16 @@ import { getFirestore } from 'redux-firestore';
 // Setting initial state for a reducer is typically done using default parameters as in the simple addition function below
 // function add(a = 0, b = 0) { return a + b }
 const initState = {
-  creating : false
+  user: null,
+  creating : false,
+  authError: '',
 };
 
 // Using ...state spread operator in the sense of "if you can't change it, replace it"
 
 // MANPULATES REDUX STATE
 const authReducer = (state = initState, action) => {
-  // console.log("authReducer: Beginning mapping of type " + action.type + " to corresponding handler");
+  console.log("authReducer: Beginning mapping of type " + action.type + " to corresponding handler");
   switch (action.type) {
     case actionCreators.LOGIN_ERRORED:
       return {
@@ -31,19 +33,18 @@ const authReducer = (state = initState, action) => {
       };
     case actionCreators.REGISTER_STARTED:
       return {
-        ...state,
-        creating: true
+        ...state
       }
     case actionCreators.REGISTER_SUCCEEDED:
       return {
         ...state,
         user : action.user,
-        creating: false
+        authError: ''   
       };
     case actionCreators.REGISTER_ERRORED:
       return {
         ...state,
-        authError: "Registration failed. Please check the field(s) again!",
+        authError: action.error     
       };
     default:
       return {

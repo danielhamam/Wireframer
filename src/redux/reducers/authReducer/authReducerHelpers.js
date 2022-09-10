@@ -19,26 +19,28 @@ export const logoutHandler = (firebase) => (dispatch, getState) => {
     });
 };
 
-export const registerHandler = (newUser, firebase, getFirestore) => (dispatch) => {
-  console.log("userActions.registerHandler: Beginning registerHandler with user: ", newUser);
-    dispatch(actionCreators.registerStarted());
-    const firestore = getFirestore();
-    firebase.auth().createUserWithEmailAndPassword(
-        newUser.email,
-        newUser.password,
-    ).then((objResp) => {
-      firestore.collection('accounts').doc(objResp.user.uid).set({
-        name: newUser.firstName + " " + newUser.lastName,
-        created_time: new Date(),
-        account_key: Math.floor(Math.random() * 1000) + 100,
-        administrator: false,
-        wireframes: []
-      });
-      return objResp;
-    }).then((objResp) => {
-      console.log("userActions.registerHandler: Created new account and user object for ", objResp);
-      dispatch(actionCreators.registerSucceeded(objResp));
-    }).catch((err) => {
-      dispatch({ type: 'REGISTER_ERRORED', err });
+export const registerHandler = async (newUser, firebase, firestore, startedDispatchCall, 
+                                      succeededDispatchCall, erroredDispatchCall) => {
+  console.log("authReducerHelpers.registerHandler: Beginning registerHandler with user: ", newUser);
+  startedDispatchCall();
+  const userResp = await firebase.auth().createUserWithEmailAndPassword(
+      newUser.email,
+      newUser.password,
+  ).catch((error) => {
+    console.log('authReducerHelpers.registerHandler error code when adding user: ', error.message);
+    erroredDispatchCall(error.message);
+    return;
+  })
+  if (userResp != null) {
+    firestore.collection('accounts').doc(userResp.user.uid).set({
+      name: newUser.firstName + " " + newUser.lastName,
+      created_time: new Date(),
+      account_key: Math.floor(Math.random() * 1000) + 100,
+      administrator: false,
+      wireframes: []
+    }).catch((error) => {
+      console.log('authReducerHelpers.registerHandler: Error when adding new user-associated account: ', error);
     });
+    succeededDispatchCall(userResp);
+  }
 };
