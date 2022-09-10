@@ -42,6 +42,7 @@ const authReducer = (state = initState, action) => {
         authError: ''   
       };
     case actionCreators.REGISTER_ERRORED:
+      console.log("Mapped to Register Errored with message: ", action.error)
       return {
         ...state,
         authError: action.error     

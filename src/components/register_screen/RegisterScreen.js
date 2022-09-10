@@ -67,7 +67,7 @@ class RegisterScreen extends Component {
         email : this.state.email,
         password: this.state.password
       }
-      registerHandler(credentials, this.props.firebase, getFirestore, registerStarted, registerSucceeded, registerErrored); // create the user with firebase
+      registerHandler(credentials, this.props.firebase, getFirestore, this.props.registerStarted, this.props.registerSucceeded, this.props.registerErrored); // create the user with firebase
     }
     else {
       this.setState({failedMsg : constants.registrationFailedErrMsg});
