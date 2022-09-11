@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
-
 import { loginHandler } from '../../redux/reducers/authReducer/authReducerHelpers'
+import { loginErrored, loginSucceeded } from '../../redux/actions/actionCreators';
 
 class LoginScreen extends Component {
   state = {
@@ -32,8 +32,7 @@ class LoginScreen extends Component {
       firebase,
       credentials,
     };
-
-    props.login(authData);
+    loginHandler(credentials, firebase, props.loginSucceeded, props.loginErrored);
   }
 
   render() {
@@ -83,7 +82,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: authData => dispatch(loginHandler(authData)),
+  // login: authData => loginHandler(authData)(dispatch),
+  loginSucceeded : () => dispatch(loginSucceeded()),
+  loginErrored : (error) => dispatch(loginErrored(error))
 });
 
 // We need firebaseConnect function to provide to this component

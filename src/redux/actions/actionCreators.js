@@ -44,7 +44,10 @@ export function loginSucceeded() {
     }
 };
 export function loginErrored(error) {
-    return { type: LOGIN_ERRORED, error }
+    return { 
+        type: LOGIN_ERRORED, 
+        error : error
+    }
 };
 export function logoutSucceeded() {
     return { type: LOGIN_SUCCEEDED }

@@ -114,7 +114,7 @@ componentDidMount() {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     // console.log("HomeScreen.js State: ", state);
     return {
         // accounts, //.ordered something we can map through. 

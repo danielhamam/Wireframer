@@ -4,7 +4,7 @@ import accountJson from './TestWireframesData.json'
 import { getFirestore } from 'redux-firestore';
 import { firebaseConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
-import { registerHandler } from '../redux/reducers/authReducer/authReducerHelpers';
+// import { registerHandler } from '../redux/reducers/authReducer/authReducerHelpers';
 import { Redirect } from 'react-router-dom';
 
 class DatabaseTester extends React.Component {
@@ -119,7 +119,7 @@ const mapStateToProps = state => ({
   });
 
 const mapDispatchToProps = dispatch => ({
-    register: (newUser, firebase) => dispatch(registerHandler(newUser, firebase)),
+    // register: (newUser, firebase) => dispatch(registerHandler(newUser, firebase)),
   });
   
 

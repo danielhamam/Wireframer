@@ -26,30 +26,6 @@ class RegisterScreen extends Component {
     }));
   }
 
-//  registerHandler = async (newUser) => {
-//     console.log("userActions.registerHandler: Beginning registerHandler with user: ", newUser);
-//     const { firebase } = this.props;
-//     const firestore = getFirestore();
-//     await firebase.auth().createUserWithEmailAndPassword(
-//         newUser.email,
-//         newUser.password,
-//     ).catch((error) => {
-//       console.log('Error code: ', error.message);
-//       this.setState({ failedMsg : error.message });
-//     })
-//     .then((objResp) => {
-//       firestore.collection('accounts').doc(objResp.user.uid).set({
-//         name: newUser.firstName + " " + newUser.lastName,
-//         created_time: new Date(),
-//         account_key: Math.floor(Math.random() * 1000) + 100,
-//         administrator: false,
-//         wireframes: []
-//       });
-//       this.props.registerSucceeded(objResp); // dispatch that registration complete (and auto sign in)
-//       this.setState({failedMsg : ''});
-//     })
-//   };
-
   handleSubmit = (e) => {
     e.preventDefault();
 
@@ -67,7 +43,7 @@ class RegisterScreen extends Component {
         email : this.state.email,
         password: this.state.password
       }
-      registerHandler(credentials, this.props.firebase, getFirestore, this.props.registerStarted, this.props.registerSucceeded, this.props.registerErrored); // create the user with firebase
+      registerHandler(credentials, this.props.firebase, getFirestore(), this.props.registerStarted, this.props.registerSucceeded, this.props.registerErrored); // create the user with firebase
     }
     else {
       this.setState({failedMsg : constants.registrationFailedErrMsg});
@@ -77,9 +53,9 @@ class RegisterScreen extends Component {
   render() {
     const { auth, authError } = this.props;
 
-    if (auth.uid) {
-      return <Redirect to="/" />;
-    }
+    // if (auth.uid) {
+    //   return <Redirect to="/" />;
+    // }
 
     return (
 
@@ -133,7 +109,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   // registerUser: (user, firebase) => dispatch(registerHandler(user, firebase, getFirestore))
   registerStarted: () => dispatch(registerStarted()),
-  registerSucceeded: () => dispatch(registerSucceeded()),
+  registerSucceeded: (user) => dispatch(registerSucceeded(user)),
   registerErrored: (error) => dispatch(registerErrored(error))
 });
 

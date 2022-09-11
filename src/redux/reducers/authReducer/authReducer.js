@@ -10,9 +10,8 @@ import { getFirestore } from 'redux-firestore';
 // Setting initial state for a reducer is typically done using default parameters as in the simple addition function below
 // function add(a = 0, b = 0) { return a + b }
 const initState = {
-  user: null,
   creating : false,
-  authError: null,
+  authError: ''
 };
 
 // Using ...state spread operator in the sense of "if you can't change it, replace it"
@@ -24,12 +23,12 @@ const authReducer = (state = initState, action) => {
     case actionCreators.LOGIN_ERRORED:
       return {
         ...state,
-        authError: 'Your username or password is incorrect',
+        authError: action.error
       };
     case actionCreators.LOGIN_SUCCEEDED:
       return {
         ...state,
-        authError: null,
+        authError: '',
       };
     case actionCreators.REGISTER_STARTED:
       return {
@@ -38,11 +37,11 @@ const authReducer = (state = initState, action) => {
     case actionCreators.REGISTER_SUCCEEDED:
       return {
         ...state,
-        user : action.user,
+        // user : action.user, // commented out - user object is available via firebase.auth
         authError: ''   
       };
     case actionCreators.REGISTER_ERRORED:
-      console.log("Mapped to Register Errored with message: ", action.error)
+      // console.log("Mapped to Register Errored with message: ", action.error)
       return {
         ...state,
         authError: action.error     
@@ -50,7 +49,7 @@ const authReducer = (state = initState, action) => {
     default:
       return {
       ...state,
-      authError: null,
+      authError: '',
       }
   }
 };
