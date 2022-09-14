@@ -10,8 +10,9 @@ class EditScreen extends Component {
       <div className="edit_box">
         {this.props.wireframes && this.props.auth ? 
         (
-          <WireframeBox accounts={this.props.accounts} wireframe={this.props.wireframes ? this.props.wireframes[this.props.wireframes.map((wireframer) => wireframer.key).indexOf(Number(this.props.match.params.key))] : null} 
-          wireframe_key={Number(this.props.match.params.key)} accountId={this.props.auth.uid} wireframes={this.props.wireframes}/>
+          <WireframeBox accounts={this.props.accounts} wireframe={this.props.wireframes ? this.props.wireframes[this.props.wireframes.map((wireframer) => wireframer.key).indexOf(Number(this.props.match.params.key))] : null}
+          wireframe_key={Number(this.props.match.params.key)} accountId={this.props.auth.uid}
+          wireframeIndex = {this.props.wireframes.map((wireframer) => wireframer.key).indexOf(Number(this.props.match.params.key))} />
         ) 
         : null
         }

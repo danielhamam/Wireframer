@@ -130,7 +130,7 @@ saveWork = () => {
     // Move it to be first on the list 
     let temp = this.props.wireframes[0];
     this.props.wireframes[0] = this.props.wireframe;
-    this.props.wireframes[this.props.wireframe.wireframe_key] = temp;
+    this.props.wireframes[this.props.wireframeIndex] = temp;
     getFirestore().collection("accounts").doc(this.props.accountId).update({ wireframes : this.props.wireframes});
 
     this.setState({goHome : true});
@@ -140,8 +140,8 @@ closeWork = () => {
     // Move it to top of list
     if (this.props.wireframes.length > 1) {
         let temp = this.props.wireframes[0];
-        this.props.wireframes[0] = this.props.wireframes[this.props.wireframe_key];
-        this.props.wireframes[this.props.wireframe_key] = temp;
+        this.props.wireframes[0] = this.props.wireframes[this.props.wireframeIndex];
+        this.props.wireframes[this.props.wireframeIndex] = temp;
         getFirestore().collection("accounts").doc(this.props.accountId).update({ wireframes : this.props.wireframes}); 
     }
     this.setState({goHome : true});
