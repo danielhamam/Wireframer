@@ -25,36 +25,18 @@ class WireframeBox extends Component {
     prompt_save : false
     }
 
-zoomIn = () => {
-    let {accounts} = this.props;
-    let index_acc = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
-    let wireframe = accounts && accounts[index_acc].wireframes[this.props.wireframe_key];
-
+zoomIn = (e) => {
     this.setState({ scale : this.state.scale * 2});
     let num = this.state.scale + "";
     let string = "scale(" + num + ")";
-
-    wireframe.items && wireframe.items.forEach(item => {
-        document.getElementById("dimension").style.transform = string
-        // item.control_x_position = item.control_x_position * 2;
-        // item.control_y_position = item.control_x_position * 2;
-    })
+    this.props.wireframe.items && this.props.wireframe.items.forEach(item => { document.getElementById("dimension").style.transform = string })
 }
     
-zoomOut = () => {
-    let {accounts} = this.props;
-    let index_acc = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
-    let wireframe = accounts && accounts[index_acc].wireframes[this.props.wireframe_key];
-
-    this.setState({ scale : this.state.scale / 2});
+zoomOut = (e) => {
     let num = this.state.scale + "";
     let string = "scale(" + num + ")";
-
-    wireframe.items && wireframe.items.forEach( item => { 
-        document.getElementById("dimension").style.transform = string
-        // item.control_x_position = item.control_x_position / 2;
-        // item.control_y_position = item.control_x_position / 2;
-    })
+    this.props.wireframe.items && this.props.wireframe.items.forEach((item) => { document.getElementById("dimension").style.transform = string });
+    this.setState({ scale : this.state.scale / 2});
 }
 
 // If prompt_save is true, will prompt user if he/she would like to save when closing work.
@@ -78,21 +60,12 @@ setItemProps = (item, new_control_width, new_control_height, new_control_text, n
     }
 
 deleteItem = (item) => {
-
-    let {accounts} = this.props;
-    let index_acc = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
-    let wireframe = accounts && accounts[index_acc].wireframes[this.props.wireframe_key];
-
-    let index = wireframe.items.indexOf(item);
-    wireframe.items.splice( index, 1 ); // removed item
+    let index = this.props.wireframe.items.indexOf(item);
+    this.props.wireframe.items.splice( index, 1 ); // removed item
     this.setState({ rerender : true}); // rerender
 }
 
 duplicateItem = (item) => {
-
-    let {accounts} = this.props;
-    let index_acc = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
-    let wireframe = accounts && accounts[index_acc].wireframes[this.props.wireframe_key];
 
     let control_x = parseInt(item.control_x_position, 10) + 100;
     let control_y = parseInt(item.control_y_position, 10) + 100;
@@ -113,10 +86,9 @@ duplicateItem = (item) => {
         is_duplicate : true
     }
 
-    wireframe.items.push( item_duplicate ); // add duplicated item 
+    this.props.wireframe.items.push( item_duplicate ); // add duplicated item 
     this.setState({ rerender : true}); // rerender
     return item_duplicate;
-    // return item_duplicate;
 }
     
 saveWork = () => {
@@ -154,8 +126,6 @@ addNewItem(itemType) {
         return;
     }
 
-    let wireframe = this.props.wireframes[this.props.wireframes.map(function(wireframer) {return wireframer.key}).indexOf(this.props.wireframe_key)]
-
     const new_item = {
         id : Math.floor(100000 + Math.random() * 900000),
         control : itemType,
@@ -171,55 +141,21 @@ addNewItem(itemType) {
         control_x_position : constants.newItemProps[itemType]['control_x_position'],
         control_y_position : constants.newItemProps[itemType]['control_y_position']
     }
-    wireframe.items.push(new_item);
+    this.props.wireframe.items.push(new_item);
     this.setState({prompt_save : true});
 }
 
-handleChange_name = (e) => {
-    document.getElementById("name_wireframe_field").value = e.target.value;
-    e.stopPropagation();
-    e.preventDefault();
-}
-
-handleChange_textColor = (e) => {
-    document.getElementById("text_color_field").value = e.target.value;
-}
-
-handleChange_borderColor = (e) => {
-    document.getElementById("border_color_field").value = e.target.value;
-}
- 
-handleChange_backgroundColor = (e) => {
-    document.getElementById("background_field").value = e.target.value;
-}
-
-handleChange_wireframeName = (e) => {
-    document.getElementById("name_wireframe_field").defaultValue = e.target.value;
-}
-
-handleChange_text = (e) => {
-    document.getElementById("textfield_input").defaultValue = e.target.value;
-}
-
-handleChange_font_size = (e) => {
-    document.getElementById("font_size_textfield").defaultValue = e.target.value;
-}
-
-handleChange_border_thickness = (e) => {
-    document.getElementById("border_thickness_field").defaultValue = e.target.value;
-}
-
-handleChange_border_radius = (e) => {
-    document.getElementById("border_radius_field").defaultValue = e.target.value;
-}
-
-handleChange_diagram_width = () => {
-        this.setState({ width: this.state.pending_width})
-}
-
-handleChange_diagram_height = () => {
-        this.setState({ height: this.state.pending_height})
-    }
+handleChange_name = (e) => { document.getElementById("name_wireframe_field").value = e.target.value; }
+handleChange_textColor = (e) => { document.getElementById("text_color_field").value = e.target.value; }
+handleChange_borderColor = (e) => { document.getElementById("border_color_field").value = e.target.value; }
+handleChange_backgroundColor = (e) => { document.getElementById("background_field").value = e.target.value; }
+handleChange_wireframeName = (e) => { document.getElementById("name_wireframe_field").defaultValue = e.target.value; }
+handleChange_text = (e) => { document.getElementById("textfield_input").defaultValue = e.target.value; }
+handleChange_font_size = (e) => { document.getElementById("font_size_textfield").defaultValue = e.target.value; }
+handleChange_border_thickness = (e) => { document.getElementById("border_thickness_field").defaultValue = e.target.value; }
+handleChange_border_radius = (e) => { document.getElementById("border_radius_field").defaultValue = e.target.value; }
+handleChange_diagram_width = () => { this.setState({ width: this.state.pending_width}) }
+handleChange_diagram_height = () => { this.setState({ height: this.state.pending_height}) }
 
 checkWidth_diagram = (e) => {
     if (e.target.value <= 5000 && e.target.value >= 1) {
