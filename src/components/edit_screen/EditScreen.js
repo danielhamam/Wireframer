@@ -4,24 +4,31 @@ import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import WireframeBox from './WireframeBox';
 
-
 class EditScreen extends Component {
   render() {
-      return (
+    return (
       <div className="edit_box">
-        <WireframeBox accounts={this.props.accounts} wireframe_key={this.props.match.params.key} id={this.props.auth.uid}/>
+        {this.props.wireframes && this.props.auth ? 
+        (
+          <WireframeBox accounts={this.props.accounts} wireframe={this.props.wireframes ? this.props.wireframes[this.props.wireframes.map((wireframer) => wireframer.key).indexOf(Number(this.props.match.params.key))] : null} 
+          wireframe_key={Number(this.props.match.params.key)} accountId={this.props.auth.uid} wireframes={this.props.wireframes}/>
+        ) 
+        : null
+        }
       </div>
       );
-    }
   }
+}
 
 // mapStateToProps = Redux to Component (reading from the store)
-const mapStateToProps = (state) => {
+const mapStateToProps = (state) => { // arg of state is the entire redux store 
   // console.log("editscreen, state: ", state);
+  // debugger;
   return {
     auth: state.firebase.auth,
     accounts : state.firestore.ordered.accounts,
-    }
+    wireframes: state.firebase.profile.wireframes
+  }
 };
 
 export default compose(

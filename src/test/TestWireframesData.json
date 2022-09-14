@@ -7,7 +7,6 @@
         "email": "jamesjohnson@hotmail.com",
         "password" : "password",
         "account_key": 0,
-        "account_id": "CJzaalisO8dgqV698nXZUwK9zxg2",
         "administrator" : false,
         "wireframes": [
             {
@@ -57,7 +56,6 @@
         "email": "johndoe@gmail.com",
         "password" : "password1",
         "account_key": 1,
-        "account_id": "LipKKc4KNzLXkeFfjmvt1eSdpRH3",
         "administrator" : false,
         "wireframes": [
         {
@@ -152,7 +150,6 @@
         "email": "williamsmith@live.com",
         "password" : "password2",
         "account_key": 2,
-        "account_id": "SrC9jRXWREZIW9nlM0BbfMilYiP2",
         "administrator" : false,
         "wireframes": [
     {

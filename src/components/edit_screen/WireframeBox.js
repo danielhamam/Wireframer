@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
 import WireframeMiddle from './WireframeMiddle';
 import constants from '../../config/constants';
@@ -11,14 +13,14 @@ class WireframeBox extends Component {
     rerender : false,
     wireframe_target : "",
     scale: 1, 
-    height : this.props.accounts && this.props.wireframe_key && this.props.id ? this.props.accounts[this.props.accounts.map(function (account) {return account.id;}).indexOf(this.props.id)].wireframes[this.props.wireframe_key].height : 460,
-    width : this.props.accounts && this.props.wireframe_key && this.props.id ? this.props.accounts[this.props.accounts.map(function (account) {return account.id;}).indexOf(this.props.id)].wireframes[this.props.wireframe_key].width : 500,
+    height : this.props.wireframe ? this.props.wireframe.height : 460,
+    width : this.props.wireframe ? this.props.wireframe.width : 500,
     width_status : true,
     height_status : true,
     pending_width : 0,
     pending_height : 0,
     default_size : true,
-    original_wireframes : this.props.accounts ? this.props.accounts[this.props.accounts.map(function (account) {return account.id;}).indexOf(this.props.id)].wireframes : '',
+    // original_wireframes : this.props.wireframes,
     updatedList : false,
     prompt_save : false
     }
@@ -48,7 +50,7 @@ zoomOut = () => {
     let num = this.state.scale + "";
     let string = "scale(" + num + ")";
 
-    wireframe.items && wireframe.items.forEach( item => {
+    wireframe.items && wireframe.items.forEach( item => { 
         document.getElementById("dimension").style.transform = string
         // item.control_x_position = item.control_x_position / 2;
         // item.control_y_position = item.control_x_position / 2;
@@ -119,38 +121,28 @@ duplicateItem = (item) => {
     
 saveWork = () => {
 
-    const fireStore = getFirestore();
-    let {accounts} = this.props;
-    let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
-    let wireframe_found = accounts && accounts[index].wireframes[this.props.wireframe_key];
     let new_name = document.getElementById("name_wireframe_field").value;
-    wireframe_found.name = new_name;
-    wireframe_found.width = this.state.width;
-    wireframe_found.height = this.state.height;
-    wireframe_found.created_time = new Date(); // so it can be on top
+    this.props.wireframe.name = new_name;
+    this.props.wireframe.width = this.state.width;
+    this.props.wireframe.height = this.state.height;
+    this.props.wireframe.created_time = new Date(); // so it can be on top
 
-    let wireframes = accounts[index].wireframes;
-    
-    var temp = wireframes[0];
-    wireframes[0] = wireframes[this.props.wireframe_key];
-    wireframes[this.props.wireframe_key] = temp;
+    // Move it to be first on the list 
+    let temp = this.props.wireframes[0];
+    this.props.wireframes[0] = this.props.wireframe;
+    this.props.wireframes[this.props.wireframe.wireframe_key] = temp;
+    getFirestore().collection("accounts").doc(this.props.accountId).update({ wireframes : this.props.wireframes});
 
-    fireStore.collection("accounts").doc(accounts[index].id).update({ wireframes : wireframes});
     this.setState({goHome : true});
 }
 closeWork = () => {
 
-    let {accounts} = this.props;
-    let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
-
-    if (this.state.original_wireframes) {
-        var temp = this.state.original_wireframes[0];
-        // this.setState({original_wireframes : this.state.original_wireframes[this.props.wireframe_key]});
-        // this.setState({original_wireframes[this.props.wireframe_key] : temp});
-        this.state.original_wireframes[0] = this.state.original_wireframes[this.props.wireframe_key];
-        this.state.original_wireframes[this.props.wireframe_key] = temp;
-        
-        getFirestore().collection("accounts").doc(accounts[index].id).update({ wireframes : this.state.original_wireframes}); 
+    // Move it to top of list
+    if (this.props.wireframes.length > 1) {
+        let temp = this.props.wireframes[0];
+        this.props.wireframes[0] = this.props.wireframes[this.props.wireframe_key];
+        this.props.wireframes[this.props.wireframe_key] = temp;
+        getFirestore().collection("accounts").doc(this.props.accountId).update({ wireframes : this.props.wireframes}); 
     }
     this.setState({goHome : true});
 }
@@ -161,9 +153,8 @@ addNewItem(itemType) {
         console.log("WireframeBox.addNewItem: cannot add new item as it is incorrect type...");
         return;
     }
-    let {accounts} = this.props;
-    let index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
-    let wireframe = this.props.account.wireframes[this.props.wireframe_key];
+
+    let wireframe = this.props.wireframes[this.props.wireframes.map(function(wireframer) {return wireframer.key}).indexOf(this.props.wireframe_key)]
 
     const new_item = {
         id : Math.floor(100000 + Math.random() * 900000),
@@ -278,15 +269,7 @@ render() {
         return <Redirect to={"/"} />
     }
 
-    const {accounts} = this.props;
-    const index = accounts && accounts.map(function (account) {return account.id;}).indexOf(this.props.id);
-    const wireframe = accounts && accounts[index].wireframes[this.props.wireframe_key];
-
-    // if (wireframe && this.state.default_size) {
-    //     this.setState({width: wireframe.width});
-    //     this.setState({height: wireframe.height});
-    //     this.setState({default_size: false});
-    // }
+    const wireframe = this.props.wireframe;
 
 return (
 
@@ -396,11 +379,16 @@ return (
 
 // mapStateToProps = Redux to Component (reading from the store)
 const mapStateToProps = (state) => {
-    // console.log("wireframebox, state: ", state);
     return {
       auth: state.firebase.auth,
       accounts : state.firestore.ordered.accounts,
+      wireframes: state.firebase.profile.wireframes
      }
   };
 
-  export default connect(mapStateToProps) (WireframeBox);
+  export default compose(
+    connect(mapStateToProps),
+    firestoreConnect([
+      { collection: 'accounts' },
+    ]),
+  )(WireframeBox);

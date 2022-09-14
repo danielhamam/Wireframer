@@ -36,7 +36,6 @@ export const registerHandler = async (newUser, firebase, firestore, startedDispa
     return;
   })
   if (userResp != null) {
-    debugger;
     firestore.collection('accounts').doc(userResp.user.uid).set({
       name: newUser.firstName + " " + newUser.lastName,
       created_time: new Date(),

@@ -4,38 +4,17 @@ import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
 import { firestoreConnect } from 'react-redux-firebase'; // use this as a higher order component to connect cmp with firestore data
 import { getFirestore } from 'redux-firestore';
-
-import WireFrameLinks from './WireFrameLinks';
+import WireFrameCards from './WireFrameCards';
 
 class HomeScreen extends Component {
 
   state = {
     isNewWireframe : false,
-    wireframe_id : 0,
+    wireframeKey : null,
     list_index : 0,
-    administrator: false,
     adminRedirect: false,
     goAdmin : false,
   }
-
-checkAdministrator = () => {
-  // debugger;
-  if (this.props.auth.uid) {
-    const fireStore = getFirestore();
-    let reference = fireStore.collection('accounts').doc(this.props.auth.uid).get();
-    reference.then(
-    doc => {
-      let info = doc.data();
-      if (info && info.administrator === true) {
-        this.setState({ administrator : true});
-      }
-      else {
-        this.setState({ administrator : false});
-      }
-      }
-    )
-  }
-}
 
 handleNewWireframe = () => {
 
@@ -52,18 +31,19 @@ handleNewWireframe = () => {
         items: [],
         key : answer
       })
-    }).then(resp => {
+    }).then(() => {
       this.setState({isNewWireframe : true});
-  }).catch((error) => {
+      this.setState({wireframeKey : answer});
+    }).catch((error) => {
       console.log(error);
   });  
-  let account_index = this.props.accounts && this.props.accounts.map(function (account) {return account.id;}).indexOf(this.props.auth.uid);
-  this.setState({ list_index : this.props.accounts[account_index].wireframes.length});
+  // let account_index = this.props.accounts && this.props.accounts.map(function (account) {return account.id;}).indexOf(this.props.auth.uid);
+  // this.setState({ list_index : this.props.accounts[account_index].wireframes.length});
 }
 
 componentDidMount() {
   // Check if user is an administrator
-  this.checkAdministrator()
+  // this.checkAdministrator()
 }
 
     render() {
@@ -76,7 +56,7 @@ componentDidMount() {
       }
 
       if (this.state.isNewWireframe) {
-        return <Redirect to={'/wireframe/' + this.state.list_index} />;
+        return <Redirect to={'/wireframe/' + this.state.wireframeKey} />;
      }
 
         return (
@@ -88,7 +68,9 @@ componentDidMount() {
                 <form onSubmit={this.handleSubmit} className="">
                   <h5 id="login_text">Recent Work</h5>
                   <div onClick={this.updateList} >
-                    < WireFrameLinks accounts={this.props.accounts}/>
+                    <div className="wireframes section">
+                        <WireFrameCards wireframes={this.props.wireframes}/>
+                    </div>
                   </div>
                 </form>
               </div>
@@ -97,7 +79,7 @@ componentDidMount() {
                   Wireframer™
                 </div>
                 {/* Display admin button only if user is an administrator */}
-                {this.state.administrator === true ? 
+                {this.props.isAdministrator === true ? 
                 <div id="is_administrator"> 
                   <button id="admin_button" onClick={() => this.setState({adminRedirect: true})}> Go to Admin Page 🔐</button>
                 </div> : ''}
@@ -117,9 +99,9 @@ componentDidMount() {
 const mapStateToProps = (state) => {
     // console.log("HomeScreen.js State: ", state);
     return {
-        // accounts, //.ordered something we can map through. 
+        isAdministrator : state.firebase.profile.administrator,
         auth: state.firebase.auth,
-        accounts : state.firestore.ordered.accounts // retrieve correct data via firestore connect
+        wireframes : state.firebase.profile.wireframes
     }
 };
 
