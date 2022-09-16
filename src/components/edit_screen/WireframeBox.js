@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
-import WireframeMiddle from './WireframeMiddle';
+import WireframeItem from './WireframeItem';
 import constants from '../../config/constants';
 class WireframeBox extends Component {
   state = {
@@ -58,38 +58,6 @@ setItemProps = (item, new_control_width, new_control_height, new_control_text, n
         item.control_border_thickness=  new_control_border_thickness;
         item.control_border_radius = new_control_border_radius;
     }
-
-deleteItem = (item) => {
-    let index = this.props.wireframe.items.indexOf(item);
-    this.props.wireframe.items.splice( index, 1 ); // removed item
-    this.setState({ rerender : true}); // rerender
-}
-
-duplicateItem = (item) => {
-
-    let control_x = parseInt(item.control_x_position, 10) + 100;
-    let control_y = parseInt(item.control_y_position, 10) + 100;
-
-    const item_duplicate = {
-        control : item.control,
-        control_width : item.control_width,
-        control_height: item.control_height,
-        control_text: item.control_text,
-        control_font_size : item.control_font_size,
-        control_background : item.control_background,
-        control_border_color : item.control_border_color,
-        control_text_color : item.control_text_color,
-        control_border_thickness : item.control_border_thickness,
-        control_border_radius : item.control_border_radius,
-        control_x_position : control_x.toString(),
-        control_y_position : control_y.toString(),
-        is_duplicate : true
-    }
-
-    this.props.wireframe.items.push( item_duplicate ); // add duplicated item 
-    this.setState({ rerender : true}); // rerender
-    return item_duplicate;
-}
     
 saveWork = () => {
 
@@ -248,7 +216,7 @@ return (
         <div id="dimension" className="dimension" style={{width: this.state.width + "px", height: this.state.height + "px"}}>
             <div id="zoomable"> 
                 {wireframe && wireframe.items && wireframe.items.map(item => (
-                <WireframeMiddle item={item} key={item.id} wireframe={wireframe} setItemProps={this.setItemProps} deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut} width={this.state.width} height={this.state.height} setSave={this.setSave}/>
+                <WireframeItem item={item} key={item.id} wireframe={wireframe} setItemProps={this.setItemProps} deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut} width={this.state.width} height={this.state.height} setSave={this.setSave}/>
                 ))}
             </div>
         </div>

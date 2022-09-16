@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import ClickOutHandler from 'react-onclickout';
-import {Rnd} from 'react-rnd';
+import ClickOutHandler from 'react-onclickout'; 
+import {Rnd} from 'react-rnd'; // resizable and draggable component for React.
 
-class WireframeMiddle extends Component {
+class WireframeItem extends Component {
   state = {
-    item : this.props.item,
+
+    // State variables initialized to props value as start value
     control_x_position : this.props.item.control_x_position,
     control_y_position : this.props.item.control_y_position,
     control_width: this.props.item.control_width,
@@ -22,7 +23,6 @@ class WireframeMiddle extends Component {
     selected_name : "",
     deselect : false,
     delete_item : false,
-    // duplicated : false,
 
     top: 40, // drag bounds
     left: 40 // drag bounds
@@ -35,8 +35,6 @@ checkKeyPress = (e) => {
 
     if (e.keyCode === 8 || e.key === "Delete") {
 
-    this.props.deleteItem(this.props.item);
-
     document.getElementById("font_size_textfield").value = "";
     document.getElementById("textfield_input").value = "";
     document.getElementById("text_color_field").value = "#000000";
@@ -44,6 +42,10 @@ checkKeyPress = (e) => {
     document.getElementById("border_color_field").value = "#000000";
     document.getElementById("border_thickness_field").value = "";
     document.getElementById("border_radius_field").value = "";
+
+    this.deselectItem(e);
+
+    this.deleteItem(this.props.item);
   }
   else if (e.keyCode === 68 && e.ctrlKey) { // Ctrl + d to duplicate
     e.preventDefault();
@@ -186,7 +188,7 @@ saveProps = () => {
                           this.state.control_border_radius);
 
   let pointer = document.getElementsByClassName("react-draggable-dragged");
-  console.log('WireframeMiddle.saveProps(): pointer = ', pointer);
+  console.log('WireframeItem.saveProps(): pointer = ', pointer);
   if (pointer.length > 0) {
 
     let string = pointer[0].style.transform;
@@ -212,10 +214,7 @@ saveProps = () => {
 
 deselectItem = (e) => {
 
-  if (e.target.className !== "middle_screen" && e.target.className !== "dimension") {
-    
-    return;
-  }
+  // if (e.target.className !== "middle_screen" && e.target.className !== "dimension") {return;}
   if (this.state.isSelected) 
   {
     this.setState({control_text : document.getElementById("textfield_input").value}); 
@@ -299,22 +298,15 @@ deselectItem = (e) => {
 }
 
 selectItem = (e) => {
-
-
-  // check if duplicate
-  // if (this.props.item.is_duplicate) {
-  //   this.setState({ item : this.props.item});
-  // }
-
   if (this.props.item.control === "button") 
   {
     
-    if (this.state.isSelected === false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
-    document.getElementsByClassName("rectangle1_label").length <= 0 && document.getElementsByClassName("rectangle1_textfield").length <= 0 &&
-    document.getElementsByClassName("rectangle1_container").length <= 0 ) 
+    if (this.state.isSelected === false && document.getElementsByClassName("rectangle1_button").length === 0 && 
+    document.getElementsByClassName("rectangle1_label").length === 0 && document.getElementsByClassName("rectangle1_textfield").length === 0 &&
+    document.getElementsByClassName("rectangle1_container").length === 0 ) 
     {
       // Select
-      document.getElementById(e.currentTarget.id).classList.add("item_border"); 
+      document.getElementById(e.currentTarget.id).classList.add("item_border");
       document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_button");
       document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_button");
       document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_button");
@@ -529,10 +521,42 @@ changeButton = (e) => {
   this.setState({ control_text : e.target.value});
 }
 
+deleteItem = (item) => {
+  let index = this.props.wireframe.items.indexOf(item);
+  this.props.wireframe.items.splice( index, 1 ); // removed item
+  this.setState({ rerender : true}); // rerender
+}
+
+duplicateItem = (item) => {
+
+  let control_x = parseInt(item.control_x_position, 10) + 100;
+  let control_y = parseInt(item.control_y_position, 10) + 100;
+
+  const item_duplicate = {
+      control : item.control,
+      control_width : item.control_width,
+      control_height: item.control_height,
+      control_text: item.control_text,
+      control_font_size : item.control_font_size,
+      control_background : item.control_background,
+      control_border_color : item.control_border_color,
+      control_text_color : item.control_text_color,
+      control_border_thickness : item.control_border_thickness,
+      control_border_radius : item.control_border_radius,
+      control_x_position : control_x.toString(),
+      control_y_position : control_y.toString(),
+      is_duplicate : true
+  }
+
+  this.props.wireframe.items.push( item_duplicate ); // add duplicated item 
+  this.setState({ rerender : true}); // rerender
+  return item_duplicate;
+}
+
 checkControl = () => {
   // Check control, make it container_box (container), prompt_text (label), buttom_submit (button), textfield_input (textfield)
   // const node = this.useRef();
-  let name = this.state.item.control;
+  let name = this.props.item.control;
 
   let generating = Math.floor(Math.random() * 10000) + 100; 
   let generating2 = Math.floor(Math.random() * 10000) + 100; 
@@ -551,142 +575,105 @@ checkControl = () => {
   let inner4 = generating7 + "";
 
   if (name === "label") {
-
     return (
       <ClickOutHandler onClickOut={this.deselectItem}>
-
-      <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}> 
-
-      <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
-      onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
-      default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
-
-        <div id={key2} > 
-          <span id={inner1}/>
-          <span id={inner2}/>
+        <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}> 
+          <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
+          onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
+          default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
+            <div id={key2} > 
+              <span id={inner1}/>
+              <span id={inner2}/>
+            </div>
+            <div className={"prompt_text2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
+            fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
+            color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
+            id={key} onClick = {this.selectItem} > {this.state.control_text} </div>
+            <div id={key3}> 
+              <span id={inner3}/>
+              <span id={inner4}/>
+            </div>
+          </Rnd>
         </div>
-
-        <div className={"prompt_text2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
-        fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
-        color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
-        id={key} onClick = {this.selectItem} > {this.state.control_text} </div>
-
-        <div id={key3}> 
-          <span id={inner3}/>
-          <span id={inner4}/>
-        </div>
-
-      </Rnd>
-
-      </div>
       </ClickOutHandler> 
     )
   }
   else if (name === "textfield") {
-
     return (
-
       <ClickOutHandler onClickOut={this.deselectItem}>
-
-      <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)} > 
-
-      <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
-      onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
-      default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
-
-        <div id={key2} > 
-          <span id={inner1} />
-          <span id={inner2} />
+        <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)} > 
+          <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
+          onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
+          default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
+            <div id={key2} > 
+              <span id={inner1} />
+              <span id={inner2} />
+            </div>
+              <input type="input" id={key} className={"textfield_input2 control_move"} placeholder="Input" 
+              style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
+              fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, 
+              borderColor: this.state.control_border_color, color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px",
+              borderRadius: this.state.control_border_radius + "px"}} onClick = {this.selectItem} value={this.state.control_text} /> 
+            <div id={key3}>
+              <span id={inner3} />
+              <span id={inner4} />
+            </div>
+          </Rnd>
         </div>
-
-          <input type="input" id={key} className={"textfield_input2 control_move"} placeholder="Input" 
-          style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
-          fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, 
-          borderColor: this.state.control_border_color, color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px",
-           borderRadius: this.state.control_border_radius + "px"}} onClick = {this.selectItem} value={this.state.control_text} /> 
-
-        <div id={key3}>
-          <span id={inner3} />
-          <span id={inner4} />
-        </div>
-
-      </Rnd>
-
-      </div>
-
       </ClickOutHandler>
     )
   }
   else if (name === "button") {
-
     return (
       <ClickOutHandler onClickOut={this.deselectItem}>
-      <div id="movable" className="position" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
-
-      <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
-      onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
-      default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
-
-      <div id={key2}> 
-        <span id={inner1} />
-        <span id={inner2} />
-      </div>
-        
-        <button className={"button_submit2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
-        fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
-        color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
-        id={key} onClick = {this.selectItem} onClickOut={this.selectItem}> {this.state.control_text} </button>
-
-        <div id={key3}>
-          <span id={inner3} />
-          <span id={inner4} />
-        </div>
-
-        </Rnd>
-
-        </div>
-
+        <div id="movable" className="position" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
+          <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
+          onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
+          default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
+            <div id={key2}> 
+              <span id={inner1} />
+              <span id={inner2} />
+            </div>
+            <button className={"button_submit2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
+            fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
+            color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
+            id={key} onClick = {this.selectItem}> {this.state.control_text} </button>
+            <div id={key3}>
+              <span id={inner3} />
+              <span id={inner4} />
+            </div>
+          </Rnd>
+      </div>  
       </ClickOutHandler>
     )
   }
   else if (name === "container") {
-    
     return (
-
       <ClickOutHandler onClickOut={this.deselectItem}>
-
-      <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>
-
-      <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
-      onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
-      default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
-        
-        <div id={key2}> 
-          <span id={inner1} />
-          <span id={inner2} />
+        <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>
+          <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
+          onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
+          default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
+            <div id={key2}> 
+              <span id={inner1} />
+              <span id={inner2} />
+            </div>
+            <div className={"container_box2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
+              fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
+              color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
+              id={key} onClick = {this.selectItem}> {this.state.control_text} </div>
+            <div id={key3}> 
+              <span id={inner3} />
+              <span id={inner4} />
+            </div>
+          </Rnd>
         </div>
-
-        <div className={"container_box2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
-        fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
-        color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
-        id={key} onClick = {this.selectItem}> {this.state.control_text} </div>
-
-        <div id={key3}> 
-          <span id={inner3} />
-          <span id={inner4} />
-        </div>
-      
-      </Rnd>
-
-      </div>
-
       </ClickOutHandler>
   )
   }
 }
 
 render() {
-
 return (
   <div id="control_spawn">
     <div id="resize_element"> 
@@ -697,4 +684,4 @@ return (
     }
 }
 
-export default WireframeMiddle;
+export default WireframeItem;
