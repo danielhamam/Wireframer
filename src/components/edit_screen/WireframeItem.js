@@ -20,40 +20,39 @@ class WireframeItem extends Component {
     
     rerender : false,
     isSelected : false,
-    selected_name : "",
-    deselect : false,
-    delete_item : false,
+    
+    // drag bounds
+    top: 40, 
+    left: 40
 
-    top: 40, // drag bounds
-    left: 40 // drag bounds
-
+  }
+  
+  setSelected = (toggleVal) => {
+    this.setState({isSelected: toggleVal});
+    this.props.setCurrSelection(toggleVal);
   }
 
 checkKeyPress = (e) => {
   e.preventDefault();
   if (this.state.isSelected) {
-
     if (e.keyCode === 8 || e.key === "Delete") {
-
-    document.getElementById("font_size_textfield").value = "";
-    document.getElementById("textfield_input").value = "";
-    document.getElementById("text_color_field").value = "#000000";
-    document.getElementById("background_field").value = "#000000";
-    document.getElementById("border_color_field").value = "#000000";
-    document.getElementById("border_thickness_field").value = "";
-    document.getElementById("border_radius_field").value = "";
-
-    this.deselectItem(e);
-
-    this.deleteItem(this.props.item);
+      document.getElementById("font_size_textfield").value = "";
+      document.getElementById("textfield_input").value = "";
+      document.getElementById("text_color_field").value = "#000000";
+      document.getElementById("background_field").value = "#000000";
+      document.getElementById("border_color_field").value = "#000000";
+      document.getElementById("border_thickness_field").value = "";
+      document.getElementById("border_radius_field").value = "";
+      this.deselectItem(e);
+      this.deleteItem(this.props.item);
+    }
+    else if (e.keyCode === 68 && e.ctrlKey) { // Ctrl + d to duplicate
+      e.preventDefault();
+      this.props.duplicateItem(this.props.item);
+      this.postDuplicate();
+      this.saveProps();
+    }
   }
-  else if (e.keyCode === 68 && e.ctrlKey) { // Ctrl + d to duplicate
-    e.preventDefault();
-    this.props.duplicateItem(this.props.item);
-    this.postDuplicate();
-    this.saveProps();
-  }
-}
 }
 
 postDuplicate = () => {
@@ -77,7 +76,6 @@ postDuplicate = () => {
     }
   
     if (this.props.item.control === "button" && this.state.isSelected) {
-      
       
       let border = document.getElementsByClassName("item_border");
       let one = document.getElementsByClassName("rectangle1_button");
@@ -212,19 +210,21 @@ saveProps = () => {
   this.props.setSave();
 }
 
-deselectItem = (e) => {
+deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
 
   // if (e.target.className !== "middle_screen" && e.target.className !== "dimension") {return;}
-  if (this.state.isSelected) 
+  if (this.state.isSelected && this.props.isCurrSelection) 
   {
-    this.setState({control_text : document.getElementById("textfield_input").value}); 
-    this.setState({control_font_size : document.getElementById("font_size_textfield").value}); 
-    this.setState({control_text_color : document.getElementById("text_color_field").value}); 
-    this.setState({control_background : document.getElementById("background_field").value}); 
-    this.setState({control_border_color : document.getElementById("border_color_field").value}); 
-    this.setState({control_border_thickness : document.getElementById("border_thickness_field").value}); 
-    this.setState({control_border_radius : document.getElementById("border_radius_field").value}); 
+    // this.saveProps();
+    console.log("WireframeItem.deselectItem - Deselecting Item With ID: ", itemId);
 
+    // Reset corner boxes CSS
+    document.getElementById(topLeft).classList.remove("rectangle_topleft");
+    document.getElementById(topRight).classList.remove("rectangle_topright");
+    document.getElementById(bottomLeft).classList.remove("rectangle_bottomleft");
+    document.getElementById(bottomRight).classList.remove("rectangle_bottomright");
+
+    // Reset inputs on the right hand side
     document.getElementById("font_size_textfield").value = "";
     document.getElementById("textfield_input").value = "";
     document.getElementById("text_color_field").value = "#000000";
@@ -232,85 +232,25 @@ deselectItem = (e) => {
     document.getElementById("border_color_field").value = "#000000";
     document.getElementById("border_thickness_field").value = "";
     document.getElementById("border_radius_field").value = "";
+
+    // Reset item selection CSS design
+    document.getElementById(itemId).classList.remove("item_border");
+    this.setSelected(false);
   }
-
-  if (this.props.item.control === "button" && this.state.isSelected) 
-  {
-    let border = document.getElementsByClassName("item_border");
-    let one = document.getElementsByClassName("rectangle1_button");
-    let two = document.getElementsByClassName("rectangle2_button");
-    let three = document.getElementsByClassName("rectangle3_button");
-    let four = document.getElementsByClassName("rectangle4_button");
-
-    border[0].classList.remove("item_border");
-    one[0].classList.remove('rectangle1_button');
-    two[0].classList.remove('rectangle2_button');
-    three[0].classList.remove('rectangle3_button');
-    four[0].classList.remove('rectangle4_button');
-  }
-
-  else if (this.props.item.control === "label" && this.state.isSelected) {
-    
-    let border = document.getElementsByClassName("item_border");
-    let one = document.getElementsByClassName("rectangle1_label");
-    let two = document.getElementsByClassName("rectangle2_label");
-    let three = document.getElementsByClassName("rectangle3_label");
-    let four = document.getElementsByClassName("rectangle4_label");
-
-    border[0].classList.remove("item_border");
-    one[0].classList.remove('rectangle1_label');
-    two[0].classList.remove('rectangle2_label');
-    three[0].classList.remove('rectangle3_label');
-    four[0].classList.remove('rectangle4_label');
-  }
-
-  else if (this.props.item.control === "textfield" && this.state.isSelected) {
-    
-    let border = document.getElementsByClassName("item_border");
-    let one = document.getElementsByClassName("rectangle1_textfield");
-    let two = document.getElementsByClassName("rectangle2_textfield");
-    let three = document.getElementsByClassName("rectangle3_textfield");
-    let four = document.getElementsByClassName("rectangle4_textfield");
-
-    border[0].classList.remove("item_border");
-    one[0].classList.remove('rectangle1_textfield');
-    two[0].classList.remove('rectangle2_textfield');
-    three[0].classList.remove('rectangle3_textfield');
-    four[0].classList.remove('rectangle4_textfield');
-  }
-
-  else if (this.props.item.control === "container" && this.state.isSelected) {
-    
-    let border = document.getElementsByClassName("item_border");
-    let one = document.getElementsByClassName("rectangle1_container");
-    let two = document.getElementsByClassName("rectangle2_container");
-    let three = document.getElementsByClassName("rectangle3_container");
-    let four = document.getElementsByClassName("rectangle4_container");
-
-    border[0].classList.remove("item_border");
-    one[0].classList.remove('rectangle1_container');
-    two[0].classList.remove('rectangle2_container');
-    three[0].classList.remove('rectangle3_container');
-    four[0].classList.remove('rectangle4_container');
-  }
-  this.saveProps(); // they all access this
-  this.setState({isSelected : false})
 }
 
-selectItem = (e) => {
-  if (this.props.item.control === "button") 
-  {
-    
-    if (this.state.isSelected === false && document.getElementsByClassName("rectangle1_button").length === 0 && 
-    document.getElementsByClassName("rectangle1_label").length === 0 && document.getElementsByClassName("rectangle1_textfield").length === 0 &&
-    document.getElementsByClassName("rectangle1_container").length === 0 ) 
-    {
-      // Select
-      document.getElementById(e.currentTarget.id).classList.add("item_border");
-      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_button");
-      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_button");
-      document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_button");
-      document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_button");
+selectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
+    // Case 1: Item is not currently selected
+    if (this.state.isSelected === false && !this.props.isCurrSelection) 
+    {        
+      console.log("WireframeItem.selectItem - Selecting Item With ID: ", itemId);
+      document.getElementById(itemId).classList.add("select_border");
+      // debugger;
+      // Select (add borders)
+      document.getElementById(topLeft).classList.add("rectangle_topleft");
+      document.getElementById(topRight).classList.add("rectangle_topright");
+      document.getElementById(bottomLeft).classList.add("rectangle_bottomleft");
+      document.getElementById(bottomRight).classList.add("rectangle_bottomright");
 
       // Add properties
       document.getElementById("font_size_textfield").value = this.state.control_font_size;
@@ -320,201 +260,8 @@ selectItem = (e) => {
       document.getElementById("border_color_field").value = this.state.control_border_color; // background color
       document.getElementById("border_thickness_field").value = this.state.control_border_thickness;
       document.getElementById("border_radius_field").value = this.state.control_border_radius;
-      this.setState({isSelected : true});
+      this.setSelected(true);
   }
-  else if (this.state.isSelected === true || this.state.delete_item) 
-  {
-    // Deselect
-    document.getElementById(e.currentTarget.id).classList.remove("item_border");
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.remove("rectangle1_button");
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.remove("rectangle2_button");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.remove("rectangle3_button");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.remove("rectangle4_button");
-
-    // Remove properties 
-    this.setState({control_text : document.getElementById("textfield_input").value}); 
-    this.setState({control_font_size : document.getElementById("font_size_textfield").value}); 
-    this.setState({control_text_color : document.getElementById("text_color_field").value}); 
-    this.setState({control_background : document.getElementById("background_field").value}); 
-    this.setState({control_border_color : document.getElementById("border_color_field").value}); 
-    this.setState({control_border_thickness : document.getElementById("border_thickness_field").value}); 
-    this.setState({control_border_radius : document.getElementById("border_radius_field").value}); 
-    document.getElementById("font_size_textfield").value = "";
-    document.getElementById("textfield_input").value = "";
-    document.getElementById("text_color_field").value = "#000000";
-    document.getElementById("background_field").value = "#000000";
-    document.getElementById("border_color_field").value = "#000000";
-    document.getElementById("border_thickness_field").value = "";
-    document.getElementById("border_radius_field").value = "";
-
-    this.setState({isSelected : false});
-  }
-}
-  
-  else if (this.props.item.control === "label" ) 
-  {
-
-    if (this.state.isSelected === false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
-    document.getElementsByClassName("rectangle1_label").length <= 0 && document.getElementsByClassName("rectangle1_textfield").length <= 0 &&
-    document.getElementsByClassName("rectangle1_container").length <= 0 ) 
-    {
-      // Select 
-      document.getElementById(e.currentTarget.id).classList.add("item_border"); 
-      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_label");
-      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_label");
-      document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_label");
-      document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_label");
-
-      // Add properties
-      document.getElementById("font_size_textfield").value = this.state.control_font_size;
-      document.getElementById("textfield_input").value = this.state.control_text;
-      document.getElementById("text_color_field").value = this.state.control_text_color;
-      document.getElementById("background_field").value = this.state.control_background; // background color
-      document.getElementById("border_color_field").value = this.state.control_border_color; // background color
-      document.getElementById("border_thickness_field").value = this.state.control_border_thickness;
-      document.getElementById("border_radius_field").value = this.state.control_border_radius;
-      this.setState({isSelected : true});
-    }
-    else if (this.state.isSelected === true) 
-    {
-
-    // Deselect
-    document.getElementById(e.currentTarget.id).classList.remove("item_border"); 
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.remove("rectangle1_label");
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.remove("rectangle2_label");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.remove("rectangle3_label");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.remove("rectangle4_label");
-
-    // Remove properties
-    this.setState({control_text : document.getElementById("textfield_input").value}); 
-    this.setState({control_font_size : document.getElementById("font_size_textfield").value}); 
-    this.setState({control_text_color : document.getElementById("text_color_field").value}); 
-    this.setState({control_background : document.getElementById("background_field").value}); 
-    this.setState({control_border_color : document.getElementById("border_color_field").value}); 
-    this.setState({control_border_thickness : document.getElementById("border_thickness_field").value}); 
-    this.setState({control_border_radius : document.getElementById("border_radius_field").value}); 
-    document.getElementById("font_size_textfield").value = "";
-    document.getElementById("textfield_input").value = "";
-    document.getElementById("text_color_field").value = "#000000";
-    document.getElementById("background_field").value = "#000000";
-    document.getElementById("border_color_field").value = "#000000";
-    document.getElementById("border_thickness_field").value = "";
-    document.getElementById("border_radius_field").value = "";
-    this.setState({isSelected : false});
-    }
-  }
-  else if (this.props.item.control === "textfield" ) {
-
-    if (this.state.isSelected === false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
-    document.getElementsByClassName("rectangle1_label").length <= 0 && document.getElementsByClassName("rectangle1_textfield").length <= 0 &&
-    document.getElementsByClassName("rectangle1_container").length <= 0 ) 
-    {
-
-      // Select
-      document.getElementById(e.currentTarget.id).classList.add("item_border"); 
-      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_textfield");
-      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_textfield");
-      document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_textfield");
-      document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_textfield");
-
-      // Add Properties
-      document.getElementById("font_size_textfield").value = this.state.control_font_size;
-      document.getElementById("textfield_input").value = this.state.control_text;
-      document.getElementById("text_color_field").value = this.state.control_text_color;
-      document.getElementById("background_field").value = this.state.control_background; // background color
-      document.getElementById("border_color_field").value = this.state.control_border_color; // background color
-      document.getElementById("border_thickness_field").value = this.state.control_border_thickness;
-      document.getElementById("border_radius_field").value = this.state.control_border_radius;
-
-      this.setState({isSelected : true});
-
-    }
-    else if (this.state.isSelected === true) 
-    {
-    
-      // Deselect
-      document.getElementById(e.currentTarget.id).classList.remove("item_border"); 
-      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.remove("rectangle1_textfield");
-      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.remove("rectangle2_textfield");
-      document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.remove("rectangle3_textfield");
-      document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.remove("rectangle4_textfield");
-
-      // Remove Properties 
-      this.setState({control_text : document.getElementById("textfield_input").value}); 
-      this.setState({control_font_size : document.getElementById("font_size_textfield").value}); 
-      this.setState({control_text_color : document.getElementById("text_color_field").value}); 
-      this.setState({control_background : document.getElementById("background_field").value}); 
-      this.setState({control_border_color : document.getElementById("border_color_field").value}); 
-      this.setState({control_border_thickness : document.getElementById("border_thickness_field").value}); 
-      this.setState({control_border_radius : document.getElementById("border_radius_field").value}); 
-      document.getElementById("font_size_textfield").value = "";
-      document.getElementById("textfield_input").value = "";
-      document.getElementById("text_color_field").value = "#000000";
-      document.getElementById("background_field").value = "#000000";
-      document.getElementById("border_color_field").value = "#000000";
-      document.getElementById("border_thickness_field").value = "";
-      document.getElementById("border_radius_field").value = "";
-
-      this.setState({isSelected : false});
-    }
-  }
-  else if (this.props.item.control === "container" ) 
-  {
-    // container
-    if (this.state.isSelected === false && document.getElementsByClassName("rectangle1_button").length <= 0 && 
-    document.getElementsByClassName("rectangle1_label").length <= 0 && document.getElementsByClassName("rectangle1_textfield").length <= 0 &&
-    document.getElementsByClassName("rectangle1_container").length <= 0 ) 
-    {
-
-      // Select Item
-      document.getElementById(e.currentTarget.id).classList.add("item_border"); 
-      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.add("rectangle1_container");
-      document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.add("rectangle2_container");
-      document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.add("rectangle3_container");
-      document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.add("rectangle4_container");
-
-      // Add Properties
-      document.getElementById("font_size_textfield").value = this.state.control_font_size;
-      document.getElementById("textfield_input").value = this.state.control_text;
-      document.getElementById("text_color_field").value = this.state.control_text_color;
-      document.getElementById("background_field").value = this.state.control_background; // background color
-      document.getElementById("border_color_field").value = this.state.control_border_color; // background color
-      document.getElementById("border_thickness_field").value = this.state.control_border_thickness;
-      document.getElementById("border_radius_field").value = this.state.control_border_radius;
-
-      this.setState({isSelected : true});
-    }
-
-    else if (this.state.isSelected === true) 
-    {
-
-    // Deselect
-    document.getElementById(e.currentTarget.id).classList.remove("item_border"); 
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[0].id).classList.remove("rectangle1_container");
-    document.getElementById(e.currentTarget.parentElement.firstElementChild.childNodes[1].id).classList.remove("rectangle2_container");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[0].id).classList.remove("rectangle3_container");
-    document.getElementById(e.currentTarget.nextElementSibling.childNodes[1].id).classList.remove("rectangle4_container");
-
-    // Remove properties 
-    this.setState({control_text : document.getElementById("textfield_input").value}); 
-    this.setState({control_font_size : document.getElementById("font_size_textfield").value}); 
-    this.setState({control_text_color : document.getElementById("text_color_field").value}); 
-    this.setState({control_background : document.getElementById("background_field").value}); 
-    this.setState({control_border_color : document.getElementById("border_color_field").value}); 
-    this.setState({control_border_thickness : document.getElementById("border_thickness_field").value}); 
-    this.setState({control_border_radius : document.getElementById("border_radius_field").value}); 
-    document.getElementById("font_size_textfield").value = "";
-    document.getElementById("textfield_input").value = "";
-    document.getElementById("text_color_field").value = "#000000";
-    document.getElementById("background_field").value = "#000000";
-    document.getElementById("border_color_field").value = "#000000";
-    document.getElementById("border_thickness_field").value = "";
-    document.getElementById("border_radius_field").value = "";
-
-    this.setState({isSelected : false});
-    }
-  }
-  this.saveProps(); // they all access this
 }
 
 changeButton = (e) => {
@@ -557,129 +304,83 @@ checkControl = () => {
   // Check control, make it container_box (container), prompt_text (label), buttom_submit (button), textfield_input (textfield)
   // const node = this.useRef();
   let name = this.props.item.control;
+  let key = Math.floor(Math.random() * 10000) + 100 + "";
+  let key2 = Math.floor(Math.random() * 10000) + 100 + "";
+  let key3 = Math.floor(Math.random() * 10000) + 100 + "";
+  let inner1 = Math.floor(Math.random() * 10000) + 100 + "";
+  let inner2 = Math.floor(Math.random() * 10000) + 100 + "";
+  let inner3 = Math.floor(Math.random() * 10000) + 100 + "";
+  let inner4 = Math.floor(Math.random() * 10000) + 100 + "";
 
-  let generating = Math.floor(Math.random() * 10000) + 100; 
-  let generating2 = Math.floor(Math.random() * 10000) + 100; 
-  let generating3 = Math.floor(Math.random() * 10000) + 100;
-  let generating4 = Math.floor(Math.random() * 10000) + 100; 
-  let generating5 = Math.floor(Math.random() * 10000) + 100; 
-  let generating6 = Math.floor(Math.random() * 10000) + 100; 
-  let generating7 = Math.floor(Math.random() * 10000) + 100; 
-  
-  let key = generating + "";
-  let key2 = generating2 + "";
-  let key3 = generating3 + "";
-  let inner1 = generating4 + "";
-  let inner2 = generating5 + "";
-  let inner3 = generating6 + "";
-  let inner4 = generating7 + "";
-
-  if (name === "label") {
     return (
-      <ClickOutHandler onClickOut={this.deselectItem}>
-        <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}> 
+      <ClickOutHandler onClickOut={() => this.deselectItem(key, inner1, inner2, inner3, inner4)}>
+        <div className="position movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
           <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
           onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
           default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
-            <div id={key2} > 
-              <span id={inner1}/>
-              <span id={inner2}/>
-            </div>
-            <div className={"prompt_text2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
-            fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
-            color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
-            id={key} onClick = {this.selectItem} > {this.state.control_text} </div>
-            <div id={key3}> 
-              <span id={inner3}/>
-              <span id={inner4}/>
-            </div>
-          </Rnd>
-        </div>
-      </ClickOutHandler> 
-    )
-  }
-  else if (name === "textfield") {
-    return (
-      <ClickOutHandler onClickOut={this.deselectItem}>
-        <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)} > 
-          <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
-          onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
-          default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
-            <div id={key2} > 
-              <span id={inner1} />
-              <span id={inner2} />
-            </div>
-              <input type="input" id={key} className={"textfield_input2 control_move"} placeholder="Input" 
-              style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
-              fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, 
-              borderColor: this.state.control_border_color, color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px",
-              borderRadius: this.state.control_border_radius + "px"}} onClick = {this.selectItem} value={this.state.control_text} /> 
-            <div id={key3}>
-              <span id={inner3} />
-              <span id={inner4} />
-            </div>
-          </Rnd>
-        </div>
-      </ClickOutHandler>
-    )
-  }
-  else if (name === "button") {
-    return (
-      <ClickOutHandler onClickOut={this.deselectItem}>
-        <div id="movable" className="position" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
-          <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
-          onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
-          default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
-            <div id={key2}> 
-              <span id={inner1} />
-              <span id={inner2} />
-            </div>
-            <button className={"button_submit2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
-            fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
-            color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
-            id={key} onClick = {this.selectItem}> {this.state.control_text} </button>
-            <div id={key3}>
-              <span id={inner3} />
-              <span id={inner4} />
-            </div>
+            { name === 'button' ? 
+              // Case 1: Button
+              <button className={"button_submit2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
+              fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
+              color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
+              id={key} onClick = {() => this.selectItem(key, inner1, inner2, inner3, inner4)} > 
+                {this.state.control_text} 
+                <span id={inner1} />
+                <span id={inner2} />
+                <span id={inner3} />
+                <span id={inner4} />
+              </button> : 
+              // Case 2: Container
+              name === 'container' ? 
+                <div className={"container_box2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
+                  fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
+                  color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
+                  id={key} onClick = {() => this.selectItem(key, inner1, inner2, inner3, inner4)}> {this.state.control_text} 
+                  <span id={inner1} />
+                  <span id={inner2} />
+                  <span id={inner3} />
+                  <span id={inner4} />
+                </div> :
+              // Case 3: Textfield
+              name === 'textfield' ? 
+                <div>
+                  <input type="input" id={key} className={"textfield_input2 control_move"} placeholder="Input" 
+                  style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
+                  fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, 
+                  borderColor: this.state.control_border_color, color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px",
+                  borderRadius: this.state.control_border_radius + "px"}} onClick = {() => this.selectItem(key, inner1, inner2, inner3, inner4)} value={this.state.control_text} /> 
+                  <div>
+                    <span id={inner1} />
+                    <span id={inner2} />
+                    <span id={inner3} />
+                    <span id={inner4} />
+                  </div>
+                </div> :
+              // Case 4: Label
+              name === 'label' ? 
+                <div className={"prompt_text2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
+                fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
+                color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
+                id={key} onClick = {() => this.selectItem(key, inner1, inner2, inner3, inner4)} > {this.state.control_text} 
+                  <span id={inner1} />
+                  <span id={inner2} />
+                  <span id={inner3} />
+                  <span id={inner4} />
+                </div> : null
+            }
           </Rnd>
       </div>  
       </ClickOutHandler>
     )
   }
-  else if (name === "container") {
-    return (
-      <ClickOutHandler onClickOut={this.deselectItem}>
-        <div id="movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>
-          <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
-          onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
-          default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
-            <div id={key2}> 
-              <span id={inner1} />
-              <span id={inner2} />
-            </div>
-            <div className={"container_box2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
-              fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
-              color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
-              id={key} onClick = {this.selectItem}> {this.state.control_text} </div>
-            <div id={key3}> 
-              <span id={inner3} />
-              <span id={inner4} />
-            </div>
-          </Rnd>
-        </div>
-      </ClickOutHandler>
-  )
-  }
-}
 
 render() {
-return (
-  <div id="control_spawn">
-    <div id="resize_element"> 
-      {this.checkControl()} 
+  return (
+    <div id="control_spawn">
+      <div id="resize_element"> 
+        {this.checkControl()} 
+      </div>
     </div>
-  </div>
         );
     }
 }
