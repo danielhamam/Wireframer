@@ -19,10 +19,9 @@ class HomeScreen extends Component {
 handleNewWireframe = () => {
 
   const fireStore = getFirestore();
-  let reference = fireStore.collection('accounts').doc(this.props.auth.uid);
   let answer = Math.floor(Math.random() * 1000) + 100;
 
-  reference.update({
+  fireStore.collection('accounts').doc(this.props.auth.uid).update({
       'wireframes': fireStore.FieldValue.arrayUnion({
         name: "Unknown",
         created_time: new Date(), // to later sort, the ones in json dont need a date. that order doesnt matter. 

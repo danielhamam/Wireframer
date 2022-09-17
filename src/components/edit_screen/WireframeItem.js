@@ -181,10 +181,18 @@ else {
 
 saveProps = () => {
 
-  this.props.setItemProps(this.props.item, this.state.control_width, this.state.control_height, this.state.control_text, this.state.control_font_size,
-                          this.state.control_background, this.state.control_border_color, this.state.control_text_color, this.state.control_border_thickness,
-                          this.state.control_border_radius);
+  // Set the Item Properties
+  this.props.item.control_width = this.state.control_width
+  this.props.item.control_height = this.state.control_height;
+  this.props.item.control_text =  this.state.control_text;
+  this.props.item.control_font_size=  this.state.control_font_size;
+  this.props.item.control_background = this.state.control_background;
+  this.props.item.control_border_color=  this.state.control_border_color;
+  this.props.item.control_text_color=  this.state.control_text_color;
+  this.props.item.control_border_thickness=  this.state.control_border_thickness;
+  this.props.item.control_border_radius =this.state.control_border_radius;
 
+  // Set x y location of item
   let pointer = document.getElementsByClassName("react-draggable-dragged");
   console.log('WireframeItem.saveProps(): pointer = ', pointer);
   if (pointer.length > 0) {
@@ -207,7 +215,7 @@ saveProps = () => {
     this.props.item.control_y_position = yPos;
 
   }
-  this.props.setSave();
+  console.log("WireframeItem.saveProps: Updated props for item: ", this.props.item)
 }
 
 deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
@@ -236,6 +244,9 @@ deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
     // Reset item selection CSS design
     document.getElementById(itemId).classList.remove("select_border");
     this.setSelected(false);
+
+    // Update the item properties
+    this.saveProps();
   }
 }
 
@@ -269,8 +280,8 @@ changeButton = (e) => {
 }
 
 deleteItem = (item) => {
-  let index = this.props.wireframe.items.indexOf(item);
-  this.props.wireframe.items.splice( index, 1 ); // removed item
+  let index = this.props.items.indexOf(item);
+  this.props.items.splice( index, 1 ); // removed item
   this.setState({ rerender : true}); // rerender
 }
 
@@ -295,7 +306,7 @@ duplicateItem = (item) => {
       is_duplicate : true
   }
 
-  this.props.wireframe.items.push( item_duplicate ); // add duplicated item 
+  this.props.items.push( item_duplicate ); // add duplicated item 
   this.setState({ rerender : true}); // rerender
   return item_duplicate;
 }
