@@ -234,7 +234,7 @@ deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
     document.getElementById("border_radius_field").value = "";
 
     // Reset item selection CSS design
-    document.getElementById(itemId).classList.remove("item_border");
+    document.getElementById(itemId).classList.remove("select_border");
     this.setSelected(false);
   }
 }
