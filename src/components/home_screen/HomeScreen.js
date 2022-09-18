@@ -17,10 +17,8 @@ class HomeScreen extends Component {
   }
 
 handleNewWireframe = () => {
-
   const fireStore = getFirestore();
   let answer = Math.floor(Math.random() * 1000) + 100;
-
   fireStore.collection('accounts').doc(this.props.auth.uid).update({
       'wireframes': fireStore.FieldValue.arrayUnion({
         name: "Unknown",
@@ -31,13 +29,11 @@ handleNewWireframe = () => {
         key : answer
       })
     }).then(() => {
-      this.setState({isNewWireframe : true});
       this.setState({wireframeKey : answer});
+      this.setState({isNewWireframe : true});
     }).catch((error) => {
       console.log(error);
   });  
-  // let account_index = this.props.accounts && this.props.accounts.map(function (account) {return account.id;}).indexOf(this.props.auth.uid);
-  // this.setState({ list_index : this.props.accounts[account_index].wireframes.length});
 }
 
 componentDidMount() {

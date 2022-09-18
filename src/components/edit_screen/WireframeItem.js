@@ -191,30 +191,29 @@ saveProps = () => {
   this.props.item.control_text_color=  this.state.control_text_color;
   this.props.item.control_border_thickness=  this.state.control_border_thickness;
   this.props.item.control_border_radius =this.state.control_border_radius;
+  this.props.item.control_x_position = this.state.control_x_position;
+  this.props.item.control_y_position = this.state.control_y_position;
 
   // Set x y location of item
-  let pointer = document.getElementsByClassName("react-draggable-dragged");
-  console.log('WireframeItem.saveProps(): pointer = ', pointer);
-  if (pointer.length > 0) {
+  // let pointer = document.getElementsByClassName("react-draggable-dragged");
+  // console.log('WireframeItem.saveProps(): pointer = ', pointer);
+  // if (pointer.length > 0) {
 
-    let string = pointer[0].style.transform;
-    let substring = string.substring(10); // skip past "translation("
-    substring = substring.replace(")", "");
-    substring = substring.replace(",", "");
-    substring = substring.replace("px", " ");
-    substring = substring.replace("px", " ");
-    substring = substring.split(" ");
+  // let string = pointer[0].style.transform;
+  // let substring = string.substring(10); // skip past "translation("
+  // substring = substring.replace(")", "");
+  // substring = substring.replace(",", "");
+  // substring = substring.replace("px", " ");
+  // substring = substring.replace("px", " ");
+  // substring = substring.split(" ");
 
-    let xPos = substring[0];
-    let yPos = substring[2];
+  // let xPos = substring[0];
+  // let yPos = substring[2];
 
-    this.setState({control_x_position : xPos});
-    this.setState({control_y_position : yPos});
+  // this.setState({control_x_position : xPos});
+  // this.setState({control_y_position : yPos});
 
-    this.props.item.control_x_position = xPos;
-    this.props.item.control_y_position = yPos;
-
-  }
+  // }
   console.log("WireframeItem.saveProps: Updated props for item: ", this.props.item)
 }
 
@@ -313,11 +312,9 @@ duplicateItem = (item) => {
 
 checkControl = () => {
   // Check control, make it container_box (container), prompt_text (label), buttom_submit (button), textfield_input (textfield)
-  // const node = this.useRef();
+
   let name = this.props.item.control;
-  let key = Math.floor(Math.random() * 10000) + 100 + "";
-  let key2 = Math.floor(Math.random() * 10000) + 100 + "";
-  let key3 = Math.floor(Math.random() * 10000) + 100 + "";
+  let key = this.props.item.id;
   let inner1 = Math.floor(Math.random() * 10000) + 100 + "";
   let inner2 = Math.floor(Math.random() * 10000) + 100 + "";
   let inner3 = Math.floor(Math.random() * 10000) + 100 + "";
@@ -327,7 +324,8 @@ checkControl = () => {
       <ClickOutHandler onClickOut={() => this.deselectItem(key, inner1, inner2, inner3, inner4)}>
         <div className="position movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
           <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
-          onResize={(e, ignore1, ref, ignore2, ignore3) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
+          onDragStop={(e,d) =>{this.setState({control_x_position : d.x, control_y_position: d.y})}}
+          onResizeStop={(ref) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
           default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
             { name === 'button' ? 
               // Case 1: Button
@@ -386,6 +384,8 @@ checkControl = () => {
   }
 
 render() {
+
+  console.log('this.props: ', this.props)
   return (
     <div id="control_spawn">
       <div id="resize_element"> 

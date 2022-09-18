@@ -48,7 +48,7 @@ class WireframeBox extends Component {
         this.props.wireframe.name = new_name;
         this.props.wireframe.width = this.state.width;
         this.props.wireframe.height = this.state.height;
-        this.props.wireframe.created_time = new Date(); // so it can be on top
+        // this.props.wireframe.created_time = new Date(); // so it can be on top
 
         // Move it to be first on the list 
         if (this.props.wireframes.length > 1) {
@@ -56,6 +56,8 @@ class WireframeBox extends Component {
             this.props.wireframes[0] = this.props.wireframe;
             this.props.wireframes[this.props.wireframeIndex] = temp;
         }
+
+        console.log('this.props.wireframes: ', this.props.wireframes);
 
         // Update wireframe
         getFirestore().collection("accounts").doc(this.props.accountId).update({ wireframes : this.props.wireframes});
@@ -209,7 +211,7 @@ class WireframeBox extends Component {
                         <div id="dimension" className="dimension" style={{width: this.state.width + "px", height: this.state.height + "px"}}>
                             <div id="zoomable"> 
                                 {wireframe && items && items.map(item => (
-                                    <WireframeItem items={items} item={item} key={item.id} isCurrSelection={this.state.isCurrSelection} 
+                                    <WireframeItem items={items} item={item} key={item} isCurrSelection={this.state.isCurrSelection} 
                                     deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut} 
                                     width={this.state.width} height={this.state.height} setSave={this.setSave} setCurrSelection={this.setCurrSelection}/>
                                 ))}
