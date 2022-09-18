@@ -217,10 +217,11 @@ saveProps = () => {
   console.log("WireframeItem.saveProps: Updated props for item: ", this.props.item)
 }
 
-deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
-
+deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight, e) => {
+  console.log("WireframeItem.deselectItem - Event object: ", e);
   // if (e.target.className !== "middle_screen" && e.target.className !== "dimension") {return;}
-  if (this.state.isSelected && this.props.isCurrSelection) 
+  if (this.state.isSelected && this.props.isCurrSelection 
+    && e.target.classList.contains('dimension')) // can only deselect when clicking within dimension 
   {
     // this.saveProps();
     console.log("WireframeItem.deselectItem - Deselecting Item With ID: ", itemId);
@@ -252,7 +253,7 @@ deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
 selectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
     // Case 1: Item is not currently selected
     if (this.state.isSelected === false && !this.props.isCurrSelection) 
-    {        
+    {
       console.log("WireframeItem.selectItem - Selecting Item With ID: ", itemId);
       document.getElementById(itemId).classList.add("select_border");
       // debugger;
@@ -321,7 +322,7 @@ checkControl = () => {
   let inner4 = Math.floor(Math.random() * 10000) + 100 + "";
 
     return (
-      <ClickOutHandler onClickOut={() => this.deselectItem(key, inner1, inner2, inner3, inner4)}>
+      <ClickOutHandler onClickOut={(e) => this.deselectItem(key, inner1, inner2, inner3, inner4, e)}>
         <div className="position movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
           <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
           onDragStop={(e,d) =>{this.setState({control_x_position : d.x, control_y_position: d.y})}}

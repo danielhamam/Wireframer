@@ -110,17 +110,40 @@ class WireframeBox extends Component {
         this.setState({prompt_save : true});
     }
 
-    handleChange_name = (e) => { document.getElementById("name_wireframe_field").value = e.target.value; }
-    handleChange_textColor = (e) => { document.getElementById("text_color_field").value = e.target.value; }
-    handleChange_borderColor = (e) => { document.getElementById("border_color_field").value = e.target.value; }
-    handleChange_backgroundColor = (e) => { document.getElementById("background_field").value = e.target.value; }
-    handleChange_wireframeName = (e) => { document.getElementById("name_wireframe_field").defaultValue = e.target.value; }
-    handleChange_text = (e) => { document.getElementById("textfield_input").defaultValue = e.target.value; }
-    handleChange_font_size = (e) => { document.getElementById("font_size_textfield").defaultValue = e.target.value; }
-    handleChange_border_thickness = (e) => { document.getElementById("border_thickness_field").defaultValue = e.target.value; }
-    handleChange_border_radius = (e) => { document.getElementById("border_radius_field").defaultValue = e.target.value; }
-    handleChange_diagram_width = () => { this.setState({ width: this.state.pending_width}) }
-    handleChange_diagram_height = () => { this.setState({ height: this.state.pending_height}) }
+    handleChange_name = (e) => { 
+        document.getElementById("name_wireframe_field").value = e.target.value; 
+    }
+    handleChange_textColor = (e) => { 
+        document.getElementById("text_color_field").value = e.target.value;
+    }
+    handleChange_borderColor = (e) => { 
+        e.preventDefault();
+        document.getElementById("border_color_field").value = e.target.value; 
+    }
+    handleChange_backgroundColor = (e) => { 
+        document.getElementById("background_field").value = e.target.value;
+     }
+    handleChange_wireframeName = (e) => { 
+        document.getElementById("name_wireframe_field").defaultValue = e.target.value; 
+    }
+    handleChange_text = (e) => { 
+        document.getElementById("textfield_input").defaultValue = e.target.value; 
+    }
+    handleChange_font_size = (e) => { 
+        document.getElementById("font_size_textfield").defaultValue = e.target.value; 
+    }
+    handleChange_border_thickness = (e) => { 
+        document.getElementById("border_thickness_field").defaultValue = e.target.value; 
+    }
+    handleChange_border_radius = (e) => { 
+        document.getElementById("border_radius_field").defaultValue = e.target.value; 
+    }
+    handleChange_diagram_width = () => { 
+        this.setState({ width: this.state.pending_width})
+    }
+    handleChange_diagram_height = () => { 
+        this.setState({ height: this.state.pending_height}) 
+    }
 
     checkWidth_diagram = (e) => {
         if (e.target.value <= 5000 && e.target.value >= 1) {
