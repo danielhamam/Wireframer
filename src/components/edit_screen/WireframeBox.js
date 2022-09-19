@@ -15,14 +15,14 @@ class WireframeBox extends Component {
         width : this.props.wireframe ? this.props.wireframe.width : 500,
         width_status : true,
         height_status : true,
-        isCurrSelection : false, // returns true if an item is currently selected
+        isCurrSelection : [false,null], // returns true if an item is currently selected
         pending_width : 0,
         pending_height : 0,
         prompt_save : false // modal save pop-up
     }
 
     setSave = () => {this.setState({prompt_save : true})} // If prompt_save is true, will prompt user if he/she would like to save when closing work.
-    setCurrSelection = (toggleVal) => {this.setState({isCurrSelection : toggleVal})}
+    setCurrSelection = (toggleVal, itemId) => {this.setState({isCurrSelection : [toggleVal, itemId]})}
 
     zoomIn = (e) => {
         this.setState({ scale : this.state.scale * 2});
@@ -110,40 +110,32 @@ class WireframeBox extends Component {
         this.setState({prompt_save : true});
     }
 
-    handleChange_name = (e) => { 
-        document.getElementById("name_wireframe_field").value = e.target.value; 
+    // handleChange_name = (e) => { this.handleChange_itemProperty('name_wireframe_field', e.target.value) }
+    handleChange_textColor = (e) => { this.handleChange_itemProperty('text_color_field', 'control_text_color', e.target.value) }
+    handleChange_borderColor = (e) => { this.handleChange_itemProperty('border_color_field', 'control_border_color' ,e.target.value) }
+    handleChange_backgroundColor = (e) => { this.handleChange_itemProperty('background_field', 'control_background' ,e.target.value) }
+    handleChange_text = (e) => { this.handleChange_itemProperty('textfield_input', 'control_text', e.target.value) }
+    handleChange_font_size = (e) => { this.handleChange_itemProperty('font_size_textfield', 'control_font_size', e.target.value)}
+    handleChange_border_thickness = (e) => { this.handleChange_itemProperty('border_thickness_field', 'control_border_thickness' ,e.target.value) }
+    handleChange_border_radius = (e) => { this.handleChange_itemProperty('border_radius_field', 'control_border_radius' ,e.target.value) }
+
+    handleChange_itemProperty = (propertyId, propertyName, newValue) => {
+        if (this.state.isCurrSelection[1] !== null) 
+        {
+            let selectedItem = this.state.staging_changes_items.find((item => item.id === this.state.isCurrSelection[1])); // should return the reference since type is object
+            selectedItem[propertyName] = newValue;
+            document.getElementById(propertyId).value = newValue;
+            this.setState({staging_changes_items : this.state.staging_changes_items}); // force a rerender since this state var changed
+        }
     }
-    handleChange_textColor = (e) => { 
-        document.getElementById("text_color_field").value = e.target.value;
-    }
-    handleChange_borderColor = (e) => { 
-        e.preventDefault();
-        document.getElementById("border_color_field").value = e.target.value; 
-    }
-    handleChange_backgroundColor = (e) => { 
-        document.getElementById("background_field").value = e.target.value;
-     }
-    handleChange_wireframeName = (e) => { 
-        document.getElementById("name_wireframe_field").defaultValue = e.target.value; 
-    }
-    handleChange_text = (e) => { 
-        document.getElementById("textfield_input").defaultValue = e.target.value; 
-    }
-    handleChange_font_size = (e) => { 
-        document.getElementById("font_size_textfield").defaultValue = e.target.value; 
-    }
-    handleChange_border_thickness = (e) => { 
-        document.getElementById("border_thickness_field").defaultValue = e.target.value; 
-    }
-    handleChange_border_radius = (e) => { 
-        document.getElementById("border_radius_field").defaultValue = e.target.value; 
-    }
+
     handleChange_diagram_width = () => { 
         this.setState({ width: this.state.pending_width})
     }
     handleChange_diagram_height = () => { 
         this.setState({ height: this.state.pending_height}) 
     }
+    
 
     checkWidth_diagram = (e) => {
         if (e.target.value <= 5000 && e.target.value >= 1) {
@@ -234,7 +226,7 @@ class WireframeBox extends Component {
                         <div id="dimension" className="dimension" style={{width: this.state.width + "px", height: this.state.height + "px"}}>
                             <div id="zoomable"> 
                                 {wireframe && items && items.map(item => (
-                                    <WireframeItem items={items} item={item} key={item} isCurrSelection={this.state.isCurrSelection} 
+                                    <WireframeItem items={items} item={item} key={item.id} isCurrSelection={this.state.isCurrSelection} 
                                     deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut} 
                                     width={this.state.width} height={this.state.height} setSave={this.setSave} setCurrSelection={this.setCurrSelection}/>
                                 ))}

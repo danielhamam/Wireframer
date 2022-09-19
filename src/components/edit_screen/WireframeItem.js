@@ -6,17 +6,17 @@ class WireframeItem extends Component {
   state = {
 
     // State variables initialized to props value as start value
-    control_x_position : this.props.item.control_x_position,
-    control_y_position : this.props.item.control_y_position,
-    control_width: this.props.item.control_width,
-    control_height : this.props.item.control_height,
-    control_text : this.props.item.control_text,
-    control_font_size : this.props.item.control_font_size,
-    control_background : this.props.item.control_background,
-    control_border_color : this.props.item.control_border_color,
-    control_text_color : this.props.item.control_text_color,
-    control_border_thickness : this.props.item.control_border_thickness,
-    control_border_radius : this.props.item.control_border_radius,
+    // control_x_position : this.props.item.control_x_position,
+    // control_y_position : this.props.item.control_y_position,
+    // control_width: this.props.item.control_width,
+    // control_height : this.props.item.control_height,
+    // control_text : this.props.item.control_text,
+    // control_font_size : this.props.item.control_font_size,
+    // control_background : this.props.item.control_background,
+    // control_border_color : this.props.item.control_border_color,
+    // control_text_color : this.props.item.control_text_color,
+    // control_border_thickness : this.props.item.control_border_thickness,
+    // control_border_radius : this.props.item.control_border_radius,
     
     rerender : false,
     isSelected : false,
@@ -29,7 +29,8 @@ class WireframeItem extends Component {
   
   setSelected = (toggleVal) => {
     this.setState({isSelected: toggleVal});
-    this.props.setCurrSelection(toggleVal);
+    if (toggleVal) this.props.setCurrSelection(toggleVal, this.props.item.id); // send the item to parent
+    else this.props.setCurrSelection(toggleVal, null); // no item to send to parent
   }
 
 checkKeyPress = (e) => {
@@ -179,51 +180,29 @@ else {
   }
 }
 
-saveProps = () => {
+// saveProps = () => {
 
-  // Set the Item Properties
-  this.props.item.control_width = this.state.control_width
-  this.props.item.control_height = this.state.control_height;
-  this.props.item.control_text =  this.state.control_text;
-  this.props.item.control_font_size=  this.state.control_font_size;
-  this.props.item.control_background = this.state.control_background;
-  this.props.item.control_border_color=  this.state.control_border_color;
-  this.props.item.control_text_color=  this.state.control_text_color;
-  this.props.item.control_border_thickness=  this.state.control_border_thickness;
-  this.props.item.control_border_radius =this.state.control_border_radius;
-  this.props.item.control_x_position = this.state.control_x_position;
-  this.props.item.control_y_position = this.state.control_y_position;
-
-  // Set x y location of item
-  // let pointer = document.getElementsByClassName("react-draggable-dragged");
-  // console.log('WireframeItem.saveProps(): pointer = ', pointer);
-  // if (pointer.length > 0) {
-
-  // let string = pointer[0].style.transform;
-  // let substring = string.substring(10); // skip past "translation("
-  // substring = substring.replace(")", "");
-  // substring = substring.replace(",", "");
-  // substring = substring.replace("px", " ");
-  // substring = substring.replace("px", " ");
-  // substring = substring.split(" ");
-
-  // let xPos = substring[0];
-  // let yPos = substring[2];
-
-  // this.setState({control_x_position : xPos});
-  // this.setState({control_y_position : yPos});
-
-  // }
-  console.log("WireframeItem.saveProps: Updated props for item: ", this.props.item)
-}
+//   // Set the Item Properties
+//   this.props.item.control_width = this.props.item.control_width
+//   this.props.item.control_height = this.state.control_height;
+//   this.props.item.control_text =  this.state.control_text;
+//   this.props.item.control_font_size=  this.state.control_font_size;
+//   this.props.item.control_background = this.state.control_background;
+//   this.props.item.control_border_color=  this.state.control_border_color;
+//   this.props.item.control_text_color=  this.state.control_text_color;
+//   this.props.item.control_border_thickness=  this.state.control_border_thickness;
+//   this.props.item.control_border_radius =this.state.control_border_radius;
+//   this.props.item.control_x_position = this.props.item.control_x_position;
+//   this.props.item.control_y_position = this.props.item.control_y_position;
+//   console.log("WireframeItem.saveProps: Updated props for item: ", this.props.item)
+// }
 
 deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight, e) => {
-  console.log("WireframeItem.deselectItem - Event object: ", e);
   // if (e.target.className !== "middle_screen" && e.target.className !== "dimension") {return;}
-  if (this.state.isSelected && this.props.isCurrSelection 
+  if (this.state.isSelected && this.props.isCurrSelection[0] 
     && e.target.classList.contains('dimension')) // can only deselect when clicking within dimension 
   {
-    // this.saveProps();
+    // console.log("WireframeItem.deselectItem - Event object: ", e);
     console.log("WireframeItem.deselectItem - Deselecting Item With ID: ", itemId);
 
     // Reset corner boxes CSS
@@ -231,6 +210,9 @@ deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight, e) => {
     document.getElementById(topRight).classList.remove("rectangle_topright");
     document.getElementById(bottomLeft).classList.remove("rectangle_bottomleft");
     document.getElementById(bottomRight).classList.remove("rectangle_bottomright");
+
+    // Make all of the properties link back to item
+    // this.saveProps();
 
     // Reset inputs on the right hand side
     document.getElementById("font_size_textfield").value = "";
@@ -244,15 +226,12 @@ deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight, e) => {
     // Reset item selection CSS design
     document.getElementById(itemId).classList.remove("select_border");
     this.setSelected(false);
-
-    // Update the item properties
-    this.saveProps();
   }
 }
 
 selectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
     // Case 1: Item is not currently selected
-    if (this.state.isSelected === false && !this.props.isCurrSelection) 
+    if (this.state.isSelected === false && !this.props.isCurrSelection[0]) 
     {
       console.log("WireframeItem.selectItem - Selecting Item With ID: ", itemId);
       document.getElementById(itemId).classList.add("select_border");
@@ -264,13 +243,13 @@ selectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
       document.getElementById(bottomRight).classList.add("rectangle_bottomright");
 
       // Add properties
-      document.getElementById("font_size_textfield").value = this.state.control_font_size;
-      document.getElementById("textfield_input").value = this.state.control_text;
-      document.getElementById("text_color_field").value = this.state.control_text_color;
-      document.getElementById("background_field").value = this.state.control_background; // background color
-      document.getElementById("border_color_field").value = this.state.control_border_color; // background color
-      document.getElementById("border_thickness_field").value = this.state.control_border_thickness;
-      document.getElementById("border_radius_field").value = this.state.control_border_radius;
+      document.getElementById("font_size_textfield").value = this.props.item.control_font_size;
+      document.getElementById("textfield_input").value = this.props.item.control_text;
+      document.getElementById("text_color_field").value = this.props.item.control_text_color;
+      document.getElementById("background_field").value = this.props.item.control_background; // background color
+      document.getElementById("border_color_field").value = this.props.item.control_border_color; // background color
+      document.getElementById("border_thickness_field").value = this.props.item.control_border_thickness;
+      document.getElementById("border_radius_field").value = this.props.item.control_border_radius;
       this.setSelected(true);
   }
 }
@@ -324,17 +303,17 @@ checkControl = () => {
     return (
       <ClickOutHandler onClickOut={(e) => this.deselectItem(key, inner1, inner2, inner3, inner4, e)}>
         <div className="position movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
-          <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.state.control_width, height:this.state.control_height}} 
+          <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.props.item.control_width, height:this.props.item.control_height}} 
           onDragStop={(e,d) =>{this.setState({control_x_position : d.x, control_y_position: d.y})}}
           onResizeStop={(ref) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
-          default={{x: parseInt(this.state.control_x_position, 10), y: parseInt(this.state.control_y_position, 10)}}> 
+          default={{x: parseInt(this.props.item.control_x_position, 10), y: parseInt(this.props.item.control_y_position, 10)}}> 
             { name === 'button' ? 
               // Case 1: Button
-              <button className={"button_submit2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
-              fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
-              color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
+              <button className={"button_submit2 control_move"} style={{width: this.props.item.control_width + "px", height: this.props.item.control_height + "px", 
+              fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, borderColor: this.props.item.control_border_color, 
+              color: this.props.item.control_text_color, borderWidth: this.props.item.control_border_thickness + "px", borderRadius: this.props.item.control_border_radius + "px"}} 
               id={key} onClick = {() => this.selectItem(key, inner1, inner2, inner3, inner4)} > 
-                {this.state.control_text} 
+                {this.props.item.control_text} 
                 <span id={inner1} />
                 <span id={inner2} />
                 <span id={inner3} />
@@ -342,10 +321,10 @@ checkControl = () => {
               </button> : 
               // Case 2: Container
               name === 'container' ? 
-                <div className={"container_box2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
-                  fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
-                  color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
-                  id={key} onClick = {() => this.selectItem(key, inner1, inner2, inner3, inner4)}> {this.state.control_text} 
+                <div className={"container_box2 control_move"} style={{width: this.props.item.control_width + "px", height: this.props.item.control_height + "px", 
+                  fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, borderColor: this.props.item.control_border_color, 
+                  color: this.props.item.control_text_color, borderWidth: this.props.item.control_border_thickness + "px", borderRadius: this.props.item.control_border_radius + "px"}} 
+                  id={key} onClick = {() => this.selectItem(key, inner1, inner2, inner3, inner4)}> {this.props.item.control_text} 
                   <span id={inner1} />
                   <span id={inner2} />
                   <span id={inner3} />
@@ -355,10 +334,10 @@ checkControl = () => {
               name === 'textfield' ? 
                 <div>
                   <input type="input" id={key} className={"textfield_input2 control_move"} placeholder="Input" 
-                  style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
-                  fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, 
-                  borderColor: this.state.control_border_color, color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px",
-                  borderRadius: this.state.control_border_radius + "px"}} onClick = {() => this.selectItem(key, inner1, inner2, inner3, inner4)} value={this.state.control_text} /> 
+                  style={{width: this.props.item.control_width + "px", height: this.props.item.control_height + "px", 
+                  fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, 
+                  borderColor: this.props.item.control_border_color, color: this.props.item.control_text_color, borderWidth: this.props.item.control_border_thickness + "px",
+                  borderRadius: this.props.item.control_border_radius + "px"}} onClick = {() => this.selectItem(key, inner1, inner2, inner3, inner4)} defaultValue={this.props.item.control_text} /> 
                   <div>
                     <span id={inner1} />
                     <span id={inner2} />
@@ -368,10 +347,10 @@ checkControl = () => {
                 </div> :
               // Case 4: Label
               name === 'label' ? 
-                <div className={"prompt_text2 control_move"} style={{width: this.state.control_width + "px", height: this.state.control_height + "px", 
-                fontSize: this.state.control_font_size + 'pt', backgroundColor: this.state.control_background, borderColor: this.state.control_border_color, 
-                color: this.state.control_text_color, borderWidth: this.state.control_border_thickness + "px", borderRadius: this.state.control_border_radius + "px"}} 
-                id={key} onClick = {() => this.selectItem(key, inner1, inner2, inner3, inner4)} > {this.state.control_text} 
+                <div className={"prompt_text2 control_move"} style={{width: this.props.item.control_width + "px", height: this.props.item.control_height + "px", 
+                fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, borderColor: this.props.item.control_border_color, 
+                color: this.props.item.control_text_color, borderWidth: this.props.item.control_border_thickness + "px", borderRadius: this.state.this.props.item.control_border_radius + "px"}} 
+                id={key} onClick = {() => this.selectItem(key, inner1, inner2, inner3, inner4)} > {this.props.item.control_text} 
                   <span id={inner1} />
                   <span id={inner2} />
                   <span id={inner3} />
@@ -385,8 +364,8 @@ checkControl = () => {
   }
 
 render() {
-
-  console.log('this.props: ', this.props)
+  // console.log('this.props: ', this.props)
+  console.log('button text color', this.props.item.control_text_color);
   return (
     <div id="control_spawn">
       <div id="resize_element"> 
