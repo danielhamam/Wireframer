@@ -10,7 +10,7 @@ class WireframeBox extends Component {
     state = {
         goHome : false,
         scale: 1, 
-        staging_changes_items: this.props.wireframe ? global.structuredClone(this.props.wireframe.items) : [], // keeping track of original, unupdated items in case of 'Close Work'
+        staging_changes_items: this.props.wireframe ? global.structuredClone(this.props.wireframe.items) : [], // DEEP COPY - keeping track of original, unupdated items in case of 'Close Work'
         name: this.props.wireframe ? this.props.wireframe.name : '',
         height : this.props.wireframe ? this.props.wireframe.height : 460,
         width : this.props.wireframe ? this.props.wireframe.width : 500,
