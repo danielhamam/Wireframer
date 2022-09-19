@@ -10,7 +10,7 @@ class WireframeBox extends Component {
     state = {
         goHome : false,
         scale: 1, 
-        staging_changes_items: this.props.wireframe ? [...this.props.wireframe.items] : [], // keeping track of original, unupdated items in case of 'Close Work'
+        staging_changes_items: this.props.wireframe ? global.structuredClone(this.props.wireframe.items) : [], // keeping track of original, unupdated items in case of 'Close Work'
         name: this.props.wireframe ? this.props.wireframe.name : '',
         height : this.props.wireframe ? this.props.wireframe.height : 460,
         width : this.props.wireframe ? this.props.wireframe.width : 500,
@@ -70,10 +70,8 @@ class WireframeBox extends Component {
         console.log('saving.....')
         console.log('this.props.wireframe: ', this.props.wireframe);
         
-        console.log('BEFORE this.state.staging_changes_wireframe: ', this.state.staging_changes_items);
-        // Reset items staging changes to original wireframe
-        this.setState({staging_changes_items : this.props.wireframe.items});
-        console.log('AFTER this.state.staging_changes_wireframe: ', this.state.staging_changes_items);
+        // console.log('BEFORE this.state.staging_changes_wireframe: ', this.state.staging_changes_items);
+        // console.log('AFTER this.state.staging_changes_wireframe: ', this.state.staging_changes_items);
 
         // Move it to top of list if there are multiple
         if (this.props.wireframes.length > 1) {
@@ -82,6 +80,8 @@ class WireframeBox extends Component {
             this.props.wireframes[this.props.wireframeIndex] = temp;
             getFirestore().collection("accounts").doc(this.props.accountId).update({ wireframes : this.props.wireframes}); 
         }
+        // Reset items staging changes to original wireframe
+        this.setState({staging_changes_items : this.props.wireframe.items});
         this.setState({goHome : true});
     }
 
