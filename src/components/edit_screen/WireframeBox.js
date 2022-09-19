@@ -11,11 +11,12 @@ class WireframeBox extends Component {
         goHome : false,
         scale: 1, 
         staging_changes_items: this.props.wireframe ? [...this.props.wireframe.items] : [], // keeping track of original, unupdated items in case of 'Close Work'
+        name: this.props.wireframe ? this.props.wireframe.name : '',
         height : this.props.wireframe ? this.props.wireframe.height : 460,
         width : this.props.wireframe ? this.props.wireframe.width : 500,
-        width_status : true,
-        height_status : true,
         isCurrSelection : [false,null], // returns true if an item is currently selected
+        isWidthEnabled : true,
+        isHeightEnabled : true,
         pending_width : 0,
         pending_height : 0,
         prompt_save : false // modal save pop-up
@@ -44,8 +45,7 @@ class WireframeBox extends Component {
         this.props.wireframe.items = this.state.staging_changes_items; // set to staging wireframe
 
         // Set wireframes' data
-        let new_name = document.getElementById("name_wireframe_field").value;
-        this.props.wireframe.name = new_name;
+        this.props.wireframe.name = this.state.name;
         this.props.wireframe.width = this.state.width;
         this.props.wireframe.height = this.state.height;
         // this.props.wireframe.created_time = new Date(); // so it can be on top
@@ -110,7 +110,6 @@ class WireframeBox extends Component {
         this.setState({prompt_save : true});
     }
 
-    // handleChange_name = (e) => { this.handleChange_itemProperty('name_wireframe_field', e.target.value) }
     handleChange_textColor = (e) => { this.handleChange_itemProperty('text_color_field', 'control_text_color', e.target.value) }
     handleChange_borderColor = (e) => { this.handleChange_itemProperty('border_color_field', 'control_border_color' ,e.target.value) }
     handleChange_backgroundColor = (e) => { this.handleChange_itemProperty('background_field', 'control_background' ,e.target.value) }
@@ -118,7 +117,6 @@ class WireframeBox extends Component {
     handleChange_font_size = (e) => { this.handleChange_itemProperty('font_size_textfield', 'control_font_size', e.target.value)}
     handleChange_border_thickness = (e) => { this.handleChange_itemProperty('border_thickness_field', 'control_border_thickness' ,e.target.value) }
     handleChange_border_radius = (e) => { this.handleChange_itemProperty('border_radius_field', 'control_border_radius' ,e.target.value) }
-
     handleChange_itemProperty = (propertyId, propertyName, newValue) => {
         if (this.state.isCurrSelection[1] !== null) 
         {
@@ -129,21 +127,16 @@ class WireframeBox extends Component {
         }
     }
 
-    handleChange_diagram_width = () => { 
-        this.setState({ width: this.state.pending_width})
-    }
-    handleChange_diagram_height = () => { 
-        this.setState({ height: this.state.pending_height}) 
-    }
-    
-
+    handleChange_name = (e) => { this.setState({ name: e.target.value}) }
+    handleChange_diagram_width = (e) => { this.setState({ width: this.state.pending_width}) }
+    handleChange_diagram_height = (e) => { this.setState({ height: this.state.pending_height}) }
     checkWidth_diagram = (e) => {
         if (e.target.value <= 5000 && e.target.value >= 1) {
-            this.setState({width_status : false});
+            this.setState({isWidthEnabled : false});
             this.setState({pending_width : e.target.value})
         }
         else {
-            this.setState({width_status : true});
+            this.setState({isWidthEnabled : true});
         }
     }
 
@@ -258,7 +251,7 @@ class WireframeBox extends Component {
                                 <input type="input" id="border_radius_field" onChange = {(e) => this.handleChange_border_radius(e)} />
                             </div>
                             <div id= "name_of_wireframe"> Name:
-                                <input type="input" id="name_wireframe_field" onClick={this.prevent} defaultValue={wireframe && wireframe.name} onChange = {(e) => this.handleChange_name(e)} />
+                                <input type="input" id="name_wireframe_field" onClick={this.prevent} defaultValue={this.state.name} onChange = {(e) => this.handleChange_name(e)} />
                             </div>
                         </div>
                     </div>
@@ -274,11 +267,11 @@ class WireframeBox extends Component {
                     </div>
                     <div id="wireframe_dimensions">
                         <div id="wireframe_dimension_left" className="font_dimension"> 
-                            <button id="dimension_width_button" disabled={this.state.width_status} onClick={this.handleChange_diagram_width} >Update Width </button>
+                            <button id="dimension_width_button" disabled={this.state.isWidthEnabled} onClick={this.handleChange_diagram_width} >Update Width </button>
                             <input type="input" id="dimension_width" name="width" onChange ={(e) => this.checkWidth_diagram(e)}/>
                         </div>
                         <div id="wireframe_dimension_right" className="font_dimension"> 
-                            <button id="dimension_height_button" disabled={this.state.height_status} onClick = {this.handleChange_diagram_height}>Update Height </button>
+                            <button id="dimension_height_button" disabled={this.state.isHeightEnabled} onClick = {this.handleChange_diagram_height}>Update Height </button>
                             <input type="input" id="dimension_height" name="height" onChange ={(e) => this.checkHeight_diagram(e)}/>
                         </div>
                     </div> 
