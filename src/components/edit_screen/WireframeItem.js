@@ -5,8 +5,8 @@ import {Rnd} from 'react-rnd'; // resizable and draggable component for React.
 class WireframeItem extends Component {
   state = {
     // State variables initialized to props value as start value
-    control_x_position : this.props.item.control_x_position,
-    control_y_position : this.props.item.control_y_position,
+    // control_x_position : this.props.item.control_x_position,
+    // control_y_position : this.props.item.control_y_position,
 
     rerender : false,
     isSelected : false,
@@ -170,14 +170,6 @@ else {
   }
 }
 
-savePositionProps = () => {
-
-  // Set the Item Position Properties
-  console.log("WireframeItem.saveProps: Updated props for item: ", this.props.item)
-  this.props.item.control_x_position = this.state.control_x_position;
-  this.props.item.control_y_position = this.state.control_y_position;
-}
-
 deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight, e) => {
   // if (e.target.className !== "middle_screen" && e.target.className !== "dimension") {return;}
   if (this.state.isSelected && this.props.isCurrSelection[0] 
@@ -193,7 +185,7 @@ deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight, e) => {
     document.getElementById(bottomRight).classList.remove("rectangle_bottomright");
 
     // Make all of the properties link back to item
-    this.savePositionProps();
+    // this.savePositionProps();
 
     // Reset inputs on the right hand side
     document.getElementById("font_size_textfield").value = "";
@@ -285,7 +277,7 @@ checkControl = () => {
       <ClickOutHandler onClickOut={(e) => this.deselectItem(key, inner1, inner2, inner3, inner4, e)}>
         <div className="position movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
           <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.props.item.control_width, height:this.props.item.control_height}} 
-          onDragStop={(e,d) =>{this.setState({control_x_position : d.x, control_y_position: d.y})}}
+          onDragStop={(e,d) => {this.props.item.control_x_position = d.x; this.props.item.control_y_position = d.y}}
           onResizeStop={(ref) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
           default={{x: parseInt(this.props.item.control_x_position, 10), y: parseInt(this.props.item.control_y_position, 10)}}> 
             { name === 'button' ? 
@@ -346,7 +338,7 @@ checkControl = () => {
 
 render() {
   // console.log('this.props: ', this.props)
-  console.log('button text color', this.props.item.control_text_color);
+  // console.log('button text color', this.props.item.control_text_color);
   return (
     <div id="control_spawn">
       <div id="resize_element"> 

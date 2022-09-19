@@ -69,10 +69,11 @@ class WireframeBox extends Component {
         
         console.log('saving.....')
         console.log('this.props.wireframe: ', this.props.wireframe);
-        console.log('this.state.staging_changes_wireframe: ', this.state.staging_changes_items);
-
+        
+        console.log('BEFORE this.state.staging_changes_wireframe: ', this.state.staging_changes_items);
         // Reset items staging changes to original wireframe
         this.setState({staging_changes_items : this.props.wireframe.items});
+        console.log('AFTER this.state.staging_changes_wireframe: ', this.state.staging_changes_items);
 
         // Move it to top of list if there are multiple
         if (this.props.wireframes.length > 1) {
@@ -189,9 +190,7 @@ class WireframeBox extends Component {
                                 <i className="material-icons medium" onClick={this.zoomIn}> zoom_in</i>
                                 <i className="material-icons medium" onClick={this.zoomOut}> zoom_out</i>
                             </div>
-                            <div id="save_work" onClick={this.saveWork}> 
-                            Save
-                            </div>
+                            <div id="save_work" onClick={this.saveWork}> Save </div>
                             <div id="close_work" onClick={this.closeWork_check}> Close </div>
                         </div>
                         <div id="bottom_left"> 
@@ -263,7 +262,7 @@ class WireframeBox extends Component {
                         </div>
                         <button id="yes" onClick={this.saveWork} className="modal-close waves-effect waves-white btn-flat">Yes</button>
                         <button id="no" onClick={this.closeWork} className="modal-close waves-effect waves-white btn-flat">No</button>
-                        <div id="last_line"> Without saving, all rogress will be lost.</div>
+                        <div id="last_line"> Without saving, all progress will be lost.</div>
                     </div>
                     <div id="wireframe_dimensions">
                         <div id="wireframe_dimension_left" className="font_dimension"> 
