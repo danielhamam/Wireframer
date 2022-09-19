@@ -4,20 +4,10 @@ import {Rnd} from 'react-rnd'; // resizable and draggable component for React.
 
 class WireframeItem extends Component {
   state = {
-
     // State variables initialized to props value as start value
-    // control_x_position : this.props.item.control_x_position,
-    // control_y_position : this.props.item.control_y_position,
-    // control_width: this.props.item.control_width,
-    // control_height : this.props.item.control_height,
-    // control_text : this.props.item.control_text,
-    // control_font_size : this.props.item.control_font_size,
-    // control_background : this.props.item.control_background,
-    // control_border_color : this.props.item.control_border_color,
-    // control_text_color : this.props.item.control_text_color,
-    // control_border_thickness : this.props.item.control_border_thickness,
-    // control_border_radius : this.props.item.control_border_radius,
-    
+    control_x_position : this.props.item.control_x_position,
+    control_y_position : this.props.item.control_y_position,
+
     rerender : false,
     isSelected : false,
     
@@ -180,22 +170,13 @@ else {
   }
 }
 
-// saveProps = () => {
+savePositionProps = () => {
 
-//   // Set the Item Properties
-//   this.props.item.control_width = this.props.item.control_width
-//   this.props.item.control_height = this.state.control_height;
-//   this.props.item.control_text =  this.state.control_text;
-//   this.props.item.control_font_size=  this.state.control_font_size;
-//   this.props.item.control_background = this.state.control_background;
-//   this.props.item.control_border_color=  this.state.control_border_color;
-//   this.props.item.control_text_color=  this.state.control_text_color;
-//   this.props.item.control_border_thickness=  this.state.control_border_thickness;
-//   this.props.item.control_border_radius =this.state.control_border_radius;
-//   this.props.item.control_x_position = this.props.item.control_x_position;
-//   this.props.item.control_y_position = this.props.item.control_y_position;
-//   console.log("WireframeItem.saveProps: Updated props for item: ", this.props.item)
-// }
+  // Set the Item Position Properties
+  console.log("WireframeItem.saveProps: Updated props for item: ", this.props.item)
+  this.props.item.control_x_position = this.state.control_x_position;
+  this.props.item.control_y_position = this.state.control_y_position;
+}
 
 deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight, e) => {
   // if (e.target.className !== "middle_screen" && e.target.className !== "dimension") {return;}
@@ -212,7 +193,7 @@ deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight, e) => {
     document.getElementById(bottomRight).classList.remove("rectangle_bottomright");
 
     // Make all of the properties link back to item
-    // this.saveProps();
+    this.savePositionProps();
 
     // Reset inputs on the right hand side
     document.getElementById("font_size_textfield").value = "";
