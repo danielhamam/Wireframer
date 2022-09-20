@@ -183,7 +183,7 @@ checkControl = () => {
         <div className="position movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)}>  
           <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.props.item.control_width, height:this.props.item.control_height}} 
           onDragStop={(e,d) => {this.props.item.control_x_position = d.x; this.props.item.control_y_position = d.y}}
-          onResizeStop={(ref) => {this.setState({control_width: ref.offsetWidth, control_height: ref.offsetHeight}); }}
+          onResize={(e, ignore1, ref, ignore2, ignore3) => {this.props.item.control_width = ref.offsetWidth; this.props.item.control_height = ref.offsetHeight; this.setState({rerender : true})}}
           default={{x: parseInt(this.props.item.control_x_position, 10), y: parseInt(this.props.item.control_y_position, 10)}}> 
             { name === 'button' ? 
               // Case 1: Button
@@ -243,7 +243,7 @@ checkControl = () => {
 
 render() {
   // console.log('this.props: ', this.props)
-  // console.log('button text color', this.props.item.control_text_color);
+  // console.log('width', this.props.item.control_width);
   return (
     <div id="control_spawn">
       <div id="resize_element"> 
