@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "37891a5b797a1bef4a6302d4126982a5",
+    "revision": "8562c522e45578344e283b4dfc96dff9",
     "url": "/Wireframer-Project/index.html"
   },
   {
-    "revision": "d4313d9ab8acab453f3b",
+    "revision": "d3c1caedc3cdfb053fcd",
     "url": "/Wireframer-Project/static/css/main.1eca0ac4.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Wireframer-Project/static/js/2.45ed62e8.chunk.js"
   },
   {
-    "revision": "d4313d9ab8acab453f3b",
-    "url": "/Wireframer-Project/static/js/main.c231444c.chunk.js"
+    "revision": "d3c1caedc3cdfb053fcd",
+    "url": "/Wireframer-Project/static/js/main.1f8e8602.chunk.js"
   },
   {
     "revision": "9a5eac1aadab435cef32",
