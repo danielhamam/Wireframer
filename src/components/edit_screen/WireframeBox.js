@@ -26,17 +26,17 @@ class WireframeBox extends Component {
     setCurrSelection = (toggleVal, itemId) => {this.setState({isCurrSelection : [toggleVal, itemId]})}
 
     zoomIn = (e) => {
-        this.setState({ scale : this.state.scale * 2});
-        let num = this.state.scale + "";
-        let string = "scale(" + num + ")";
-        this.props.wireframe.items && this.props.wireframe.items.forEach(item => { document.getElementById("dimension").style.transform = string })
+        let calculatedScale = this.state.scale * 1.5;
+        let string = "scale(" + calculatedScale + ")";
+        document.getElementById("dimension").style.transform = string
+        this.setState({ scale : calculatedScale});
     }
         
     zoomOut = (e) => {
-        let num = this.state.scale + "";
-        let string = "scale(" + num + ")";
-        this.props.wireframe.items && this.props.wireframe.items.forEach((item) => { document.getElementById("dimension").style.transform = string });
-        this.setState({ scale : this.state.scale / 2});
+        let calculatedScale = this.state.scale / 1.5;
+        let string = "scale(" + calculatedScale + ")";
+        document.getElementById("dimension").style.transform = string
+        this.setState({ scale : calculatedScale});
     }
         
     saveWork = () => {
@@ -215,7 +215,7 @@ class WireframeBox extends Component {
                         </div>
                     </div> 
                     <div id="middle_screen" className="middle_screen"> 
-                        <div id="dimension" className="dimension" style={{width: this.state.width + "px", height: this.state.height + "px"}}>
+                        <div id="dimension" className="dimension" style={{transform: 'scale(1)', width: this.state.width + "px", height: this.state.height + "px"}}>
                             <div id="zoomable"> 
                                 {wireframe && items && items.map(item => (
                                     <WireframeItem items={items} item={item} key={item.id} isCurrSelection={this.state.isCurrSelection} 
