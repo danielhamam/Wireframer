@@ -156,15 +156,17 @@ selectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
       document.getElementById(bottomLeft).classList.add("rectangle_bottomleft");
       document.getElementById(bottomRight).classList.add("rectangle_bottomright");
 
-      // Add properties
-      document.getElementById("font_size_textfield").value = this.props.item.control_font_size;
-      document.getElementById("textfield_input").value = this.props.item.control_text;
-      document.getElementById("text_color_field").value = this.props.item.control_text_color;
-      document.getElementById("background_field").value = this.props.item.control_background; // background color
-      document.getElementById("border_color_field").value = this.props.item.control_border_color; // background color
-      document.getElementById("border_thickness_field").value = this.props.item.control_border_thickness;
-      document.getElementById("border_radius_field").value = this.props.item.control_border_radius;
       this.setSelected(true);
+
+      // Add properties
+      // document.getElementById("font_size_textfield").value = this.props.item.control_font_size;
+      // document.getElementById("textfield_input").value = this.props.item.control_text;
+      // document.getElementById("text_color_field").value = this.props.item.control_text_color;
+      // document.getElementById("background_field").value = this.props.item.control_background; // background color
+      // document.getElementById("border_color_field").value = this.props.item.control_border_color; // background color
+      // document.getElementById("border_thickness_field").value = this.props.item.control_border_thickness;
+      // document.getElementById("border_radius_field").value = this.props.item.control_border_radius;
+      // console.log('this.props: ', this.props);
   }
 }
 

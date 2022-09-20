@@ -6,7 +6,18 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
 import WireframeItem from './WireframeItem';
 import constants from '../../config/constants';
+import { regexLiteral } from '@babel/types';
 class WireframeBox extends Component {
+    constructor(props) {
+        super(props);
+        // this.textFieldInputRef = React.createRef();
+        // this.fontSizeTextfieldRef = React.createRef();
+        // this.textColorFieldRef = React.createRef();
+        // this.backgroundFieldRef = React.createRef();
+        // this.borderColorFieldRef = React.createRef();
+        // this.borderThicknessFieldRef = React.createRef();
+        // this.borderRadiusFieldRef = React.createRef();
+    }
     state = {
         goHome : false,
         scale: 1, 
@@ -23,7 +34,15 @@ class WireframeBox extends Component {
     }
 
     setSave = () => {this.setState({prompt_save : true})} // If prompt_save is true, will prompt user if he/she would like to save when closing work.
-    setCurrSelection = (toggleVal, itemId) => {this.setState({isCurrSelection : [toggleVal, itemId]})}
+    setCurrSelection = (toggleVal, itemId) => {
+        console.log('HUSSEIN: CHECKING STATE, PARENT COMP NOW KNOWS ITEM HAS BEEN SELECTED')
+        this.setState({isCurrSelection : [toggleVal, itemId]})
+    }
+
+    getSelectedItem = () => {
+        if (this.state.isCurrSelection[1] != null)
+            return this.state.staging_changes_items.find((item) => item.id === this.state.isCurrSelection[1]);
+    }
 
     zoomIn = (e) => {
         let calculatedScale = this.state.scale * 1.5;
@@ -173,6 +192,36 @@ class WireframeBox extends Component {
         }
     }
 
+    updatePropertyLabels = () => {
+        // Check if selected item exists
+        if (this.state.isCurrSelection[0] === true && this.state.isCurrSelection[1] != null) {
+            let item = this.state.isCurrSelection[1];
+            // debugger;
+            document.getElementById("font_size_textfield").value = item.control_font_size;
+            document.getElementById("textfield_input").value = item.control_text;
+            document.getElementById("text_color_field").value = item.control_text_color;
+            document.getElementById("background_field").value = item.control_background; // background color
+            document.getElementById("border_color_field").value = item.control_border_color; // background color
+            document.getElementById("border_thickness_field").value = item.control_border_thickness;
+            document.getElementById("border_radius_field").value = item.control_border_radius ;
+        }
+    }
+
+    componentDidUpdate = () => {
+        // Check if selected item exists
+        if (this.state.isCurrSelection[0] === true && this.state.isCurrSelection[1] != null) {
+            let item = this.getSelectedItem();
+            // debugger;
+            document.getElementById("font_size_textfield").value = item.control_font_size;
+            document.getElementById("textfield_input").value = item.control_text;
+            document.getElementById("text_color_field").value = item.control_text_color;
+            document.getElementById("background_field").value = item.control_background; // background color
+            document.getElementById("border_color_field").value = item.control_border_color; // background color
+            document.getElementById("border_thickness_field").value = item.control_border_thickness;
+            document.getElementById("border_radius_field").value = item.control_border_radius ;
+        }
+    }
+ 
     render() {
 
         if (this.state.goHome === true) {
@@ -220,40 +269,58 @@ class WireframeBox extends Component {
                                 {wireframe && items && items.map(item => (
                                     <WireframeItem items={items} item={item} key={item.id} isCurrSelection={this.state.isCurrSelection} 
                                     deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut} 
-                                    width={this.state.width} height={this.state.height} setSave={this.setSave} setCurrSelection={this.setCurrSelection}/>
+                                    width={this.state.width} height={this.state.height} setSave={this.setSave} setCurrSelection={this.setCurrSelection}
+                                    // Refs for property elements
+                                    textFieldInputRef={this.textFieldInputRef} fontSizeTextfieldRef={this.fontSizeTextfieldRef} textColorFieldRef={this.textColorFieldRef}
+                                    backgroundFieldRef={this.backgroundFieldRef} borderColorFieldRef={this.borderColorFieldRef} borderThicknessFieldRef={this.borderThicknessFieldRef}
+                                    borderRadiusFieldRef={this.borderRadiusFieldRef} 
+                                    />
                                 ))}
                             </div>
                         </div>
                     </div>
                     <div className = "right_screen">
-                        <div className="labels_list"> 
-                            <div className="properties_example">
-                                <p id="properties_label" >Properties</p>
-                                <input type="input" id="textfield_input" onChange={(e) => this.handleChange_text(e)}/>
+                            <div className="labels_list"> 
+                            { this.state.isCurrSelection[0] ? 
+                                // Case where item is selected
+                                <div className='right_screen_item_selected'>
+                                    <div className="properties_example">
+                                        <p id="properties_label" >Properties</p>
+                                        <input type="input" id="textfield_input" onChange={(e) => this.handleChange_text(e)}/>
+                                    </div>
+                                    <div id="font_size_label"> Font Size: 
+                                        <input type="input" id="font_size_textfield" onChange={(e) => this.handleChange_font_size(e)}/>
+                                    </div>
+                                    <div id="text_color_label"> Text Color: 
+                                        <input type="color" id="text_color_field" onChange = {(e) => this.handleChange_textColor(e)} />
+                                    </div>
+                                    <div id="background_label"> Background: 
+                                        <input type="color" id="background_field" onChange={(e) => this.handleChange_backgroundColor(e)}/>
+                                    </div>
+                                    <div id="border_color_label"> Border Color: 
+                                        <input type="color" id="border_color_field" onChange = {(e) => this.handleChange_borderColor(e)} />
+                                    </div>
+                                    <div id="border_thickness_label"> Border Thickness:
+                                        <input type="input" id="border_thickness_field" onChange = {(e) => this.handleChange_border_thickness(e)} />
+                                    </div>
+                                    <div id= "border_radius_label"> Border Radius:
+                                        <input type="input" id="border_radius_field" onChange = {(e) => this.handleChange_border_radius(e)} />
+                                    </div> 
+                                    <div id= "name_of_wireframe" className="name_of_wireframe"> Name:
+                                        <input type="input" id="name_wireframe_field" onClick={this.prevent} defaultValue={this.state.name} onChange = {(e) => this.handleChange_name(e)} />
+                                    </div>
+                                </div>
+                                : 
+                                // Case where item isn't selected
+                                <>
+                                    <div className='right_screen_no_item'> No item is selected </div>
+                                    <div id= "name_of_wireframe" className="name_of_wireframe_no_item"> Name:
+                                        <input type="input" id="name_wireframe_field" onClick={this.prevent} defaultValue={this.state.name} onChange = {(e) => this.handleChange_name(e)} />
+                                    </div>
+                                </>
+                                }
                             </div>
-                            <div id="font_size_label"> Font Size: 
-                                <input type="input" id="font_size_textfield" onChange={(e) => this.handleChange_font_size(e)}/>
-                            </div>
-                            <div id="text_color_label"> Text Color: 
-                                <input type="color" id="text_color_field" onChange = {(e) => this.handleChange_textColor(e)} />
-                            </div>
-                            <div id="background_label"> Background: 
-                                <input type="color" id="background_field" onChange={(e) => this.handleChange_backgroundColor(e)}/>
-                            </div>
-                            <div id="border_color_label"> Border Color: 
-                                <input type="color" id="border_color_field" onChange = {(e) => this.handleChange_borderColor(e)} />
-                            </div>
-                            <div id="border_thickness_label"> Border Thickness:
-                                <input type="input" id="border_thickness_field" onChange = {(e) => this.handleChange_border_thickness(e)} />
-                            </div>
-                            <div id= "border_radius_label"> Border Radius:
-                                <input type="input" id="border_radius_field" onChange = {(e) => this.handleChange_border_radius(e)} />
-                            </div>
-                            <div id= "name_of_wireframe"> Name:
-                                <input type="input" id="name_wireframe_field" onClick={this.prevent} defaultValue={this.state.name} onChange = {(e) => this.handleChange_name(e)} />
-                            </div>
-                        </div>
-                    </div>
+                    </div> 
                     <div id="my_modal" className="modal">
                         <div className="modal-content ">
                             <h4>Save Wireframe?</h4>

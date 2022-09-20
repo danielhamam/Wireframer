@@ -328,6 +328,20 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   width: 260px;
 }
 
+.right_screen_no_item {
+  position: absolute;
+  width : 100%;
+  top: 45%;
+  text-align: center;
+  font-size: 16pt;
+  font-weight: 700;
+  color: var(--swatch-disabled);
+}
+
+.right_screen_item_selected {
+  margin-top: 15%;
+}
+
 .middle_screen {
   display: inline-block;
   overflow : auto;
@@ -679,8 +693,8 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 .labels_list {
   position:relative;
+  height: 100%;
   line-height: 4em;
-  top: 25px;
 }
 
 #font_size_label, #background_label, #border_color_label, #border_thickness_label, #border_radius_label, #text_color_label {
@@ -720,16 +734,23 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   width: 40px;
 }
 
-#name_of_wireframe {
+.name_of_wireframe {
   font-size: 14pt;
   position : relative;
   top: 20px;
   margin-left: 10%;
 }
 
+.name_of_wireframe_no_item {
+  font-size: 14pt;
+  position : absolute;
+  margin-left: 10%;
+  bottom: 26px;
+}
+
 #name_wireframe_field {
   font-size: 12pt;
-  margin-left: 4%;
+  margin-left: 10px;
   width: 150px;
 }
 
