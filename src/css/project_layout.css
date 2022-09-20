@@ -737,7 +737,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 .name_of_wireframe {
   font-size: 14pt;
   position : relative;
-  top: 20px;
+  margin-top: 20px;
   margin-left: 10%;
 }
 
@@ -745,7 +745,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   font-size: 14pt;
   position : absolute;
   margin-left: 10%;
-  bottom: 26px;
+  bottom: 25px;
 }
 
 #name_wireframe_field {
