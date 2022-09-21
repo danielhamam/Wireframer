@@ -46,15 +46,15 @@ class WireframeBox extends Component {
 
     zoomIn = (e) => {
         let calculatedScale = this.state.scale * 1.5;
-        let string = "scale(" + calculatedScale + ")";
-        document.getElementById("dimension").style.transform = string
+        // let string = "scale(" + calculatedScale + ")";
+        // document.getElementById("dimension").style.transform = string
         this.setState({ scale : calculatedScale});
     }
         
     zoomOut = (e) => {
         let calculatedScale = this.state.scale / 1.5;
-        let string = "scale(" + calculatedScale + ")";
-        document.getElementById("dimension").style.transform = string
+        // let string = "scale(" + calculatedScale + ")";
+        // document.getElementById("dimension").style.transform = string
         this.setState({ scale : calculatedScale});
     }
         
@@ -264,7 +264,7 @@ class WireframeBox extends Component {
                         </div>
                     </div> 
                     <div id="middle_screen" className="middle_screen"> 
-                        <div id="dimension" className="dimension" style={{transform: 'scale(1)', width: this.state.width + "px", height: this.state.height + "px"}}>
+                        <div id="dimension" className="dimension" style={{width: this.state.width + "px", height: this.state.height + "px"}}>
                             <div id="zoomable"> 
                                 {wireframe && items && items.map(item => (
                                     <WireframeItem items={items} item={item} key={item.id} isCurrSelection={this.state.isCurrSelection} 
@@ -273,7 +273,7 @@ class WireframeBox extends Component {
                                     // Refs for property elements
                                     textFieldInputRef={this.textFieldInputRef} fontSizeTextfieldRef={this.fontSizeTextfieldRef} textColorFieldRef={this.textColorFieldRef}
                                     backgroundFieldRef={this.backgroundFieldRef} borderColorFieldRef={this.borderColorFieldRef} borderThicknessFieldRef={this.borderThicknessFieldRef}
-                                    borderRadiusFieldRef={this.borderRadiusFieldRef} 
+                                    borderRadiusFieldRef={this.borderRadiusFieldRef} scale={this.state.scale}
                                     />
                                 ))}
                             </div>

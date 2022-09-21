@@ -189,7 +189,7 @@ checkControl = () => {
           default={{x: parseInt(this.props.item.control_x_position, 10), y: parseInt(this.props.item.control_y_position, 10)}}> 
             { name === 'button' ? 
               // Case 1: Button
-              <button className={"button_submit2 control_move"} style={{width: this.props.item.control_width + "px", height: this.props.item.control_height + "px", 
+              <button className={"button_submit2 control_move"} style={{width: this.props.item.control_width + "px", height: this.props.item.control_height + "px", transform: "scale(" + this.props.scale + ")",
               fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, borderColor: this.props.item.control_border_color, 
               color: this.props.item.control_text_color, borderWidth: this.props.item.control_border_thickness + "px", borderRadius: this.props.item.control_border_radius + "px"}} 
               id={key} onClick = {() => this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)} > 
@@ -201,7 +201,7 @@ checkControl = () => {
               </button> : 
               // Case 2: Container
               name === 'container' ? 
-                <div className={"container_box2 control_move"} style={{width: this.props.item.control_width + "px", height: this.props.item.control_height + "px", 
+                <div className={"container_box2 control_move"} style={{width: this.props.item.control_width + "px", height: this.props.item.control_height + "px", transform: "scale(" + this.props.scale + ")",
                   fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, borderColor: this.props.item.control_border_color, 
                   color: this.props.item.control_text_color, borderWidth: this.props.item.control_border_thickness + "px", borderRadius: this.props.item.control_border_radius + "px"}} 
                   id={key} onClick = {() => this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)}> {this.props.item.control_text} 
@@ -215,7 +215,7 @@ checkControl = () => {
                 <div>
                   <input type="input" id={key} className={"textfield_input2 control_move"} placeholder="Input" 
                   style={{width: this.props.item.control_width + "px", height: this.props.item.control_height + "px", 
-                  fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, 
+                  fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, transform: "scale(" + this.props.scale + ")",
                   borderColor: this.props.item.control_border_color, color: this.props.item.control_text_color, borderWidth: this.props.item.control_border_thickness + "px",
                   borderRadius: this.props.item.control_border_radius + "px"}} onClick = {() => this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)} defaultValue={this.props.item.control_text} /> 
                   <div>
@@ -227,7 +227,7 @@ checkControl = () => {
                 </div> :
               // Case 4: Label
               name === 'label' ? 
-                <div className={"prompt_text2 control_move"} style={{width: this.props.item.control_width + "px", height: this.props.item.control_height + "px", 
+                <div className={"prompt_text2 control_move"} style={{width: this.props.item.control_width + "px", height: this.props.item.control_height + "px", transform: "scale(" + this.props.scale + ")",
                 fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, borderColor: this.props.item.control_border_color, 
                 color: this.props.item.control_text_color, borderWidth: this.props.item.control_border_thickness + "px", borderRadius: this.props.item.control_border_radius + "px"}} 
                 id={key} onClick = {() => this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)} > {this.props.item.control_text} 

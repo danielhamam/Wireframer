@@ -31,7 +31,7 @@ const constants = {
             control_height: "",
             control_text : "Prompt for input",
             control_font_size : "",
-            control_background : "#ffffff",
+            control_background : "",
             control_border_color : "",
             control_text_color : "",
             control_border_thickness : "",

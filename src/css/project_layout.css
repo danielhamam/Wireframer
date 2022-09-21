@@ -653,13 +653,14 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 #textfield_input {
   position:relative;
-    grid-column: 2;
-    margin-top: 1%;
-    font-size: 12pt;
-    left: 25px;
+  grid-column: 2;
+  margin-top: 1%;
+  font-size: 12pt;
+  left: 25px;
 }
 
 .textfield_input { 
+  background-color: "#0000ff";
   position: relative;
   cursor: pointer;
   font-size: 12pt;
@@ -823,7 +824,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   border-style: solid;
   border-radius: 4pt;
   position: relative;
-  /* left: 40px; */
+  overflow: auto;
   top: 30px;
   height: 460px;
   width: 500px;
