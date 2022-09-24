@@ -244,21 +244,21 @@ class WireframeBox extends Component {
                         </div>
                         <div id="bottom_left"> 
                             <div className="container_example">
-                                <div className="container_box" onClick={() => this.addNewItem('container')} > </div>
+                                <div className="container_box item_select" onClick={() => this.addNewItem('container')} > </div>
                                 <div id="container_text" > Container </div>
                             </div>
                             < br />
                             <div id="prompt_for_input">
-                                <div className="prompt_text" onClick={() => this.addNewItem('label')} > Prompt for input:</div>
+                                <div className="prompt_text item_select" onClick={() => this.addNewItem('label')} > Prompt for input:</div>
                                 <div id="label_text">Label</div>
                             </div>
                             <div className="button_example">
-                                <button className="button_submit" onClick={() => this.addNewItem('button')}> Submit</button>
+                                <button className="button_submit item_select" onClick={() => this.addNewItem('button')}> Submit</button>
                                 <div id="button_text"> Button</div>
                             </div>
                             < br />
                             <div className="textfield_example">
-                                <input type="input" className="textfield_input" placeholder="Input" onClick={() => this.addNewItem('textfield')} />
+                                <input type="input" className="textfield_input item_select" placeholder="Input" onClick={() => this.addNewItem('textfield')} />
                                 <p id="textfield_label" >Textfield</p>
                             </div>
                         </div>

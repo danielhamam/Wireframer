@@ -1,3 +1,9 @@
+  /* --------------------------------------------- */ 
+  /* GENERAL GENERAL GENERAL GENERAL GENERAL GENERAL 
+     GENERAL GENERAL GENERAL GENERAL GENERAL GENERAL 
+     GENERAL GENERAL GENERAL GENERAL GENERAL GENERAL 
+  /* --------------------------------------------- */ 
+
 html {
   min-height: 100%;
 }
@@ -11,14 +17,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100%;
-}
-
-body {
   position: absolute;
   width: 80%;
   left: 10%;
   top: 5%;
-
 }
 
 .banner {
@@ -27,8 +29,6 @@ body {
 }
 
 .home-content {
-  /* margin-left: auto;
-  margin-right: auto; */
   display: flex;
   justify-content: space-between;
   position: absolute;
@@ -51,13 +51,21 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   color: #ec407a !important;
 }
 
-/* --------------------------------------------- */ 
-  /* START OF THE PROJECT --> NEW CSS CONTROLS*/ 
-
   /* --------------------------------------------- */ 
-  /* LOGIN SCREEN */   /* LOGIN SCREEN */   /* LOGIN SCREEN */ 
-  /* LOGIN SCREEN */   /* LOGIN SCREEN */   /* LOGIN SCREEN */ 
-  /* LOGIN SCREEN */   /* LOGIN SCREEN */   /* LOGIN SCREEN */ 
+  /* LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
+     LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
+     LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
+  /* --------------------------------------------- */ 
+
+#login_text, #register_text {
+  font-weight: bold;
+  font-size: 25pt;
+}
+
+.login_box {
+  position: relative;
+  height: 500px;
+}
 
 .wireframer_text {
   float:left;
@@ -74,11 +82,6 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   margin-top: 50px;
 }
 
-.login_box {
-  position: relative;
-  height: 500px;
-}
-
 
 .login-content {
   display: flex;
@@ -86,11 +89,6 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   position: absolute;
   height: 100%;
   width: 100%;
-}
-
-#login_text, #register_text {
-  font-weight: bold;
-  font-size: 25pt;
 }
 
 .form_format {
@@ -104,9 +102,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
   /* --------------------------------------------- */ 
-  /* HOME SCREEN */   /* HOME SCREEN */   /* HOME SCREEN */ 
-  /* HOME SCREEN */   /* HOME SCREEN */   /* HOME SCREEN */ 
-  /* HOME SCREEN */   /* HOME SCREEN */   /* HOME SCREEN */ 
+  /* HOME HOME HOME HOME HOME HOME HOME HOME HOME
+     HOME HOME HOME HOME HOME HOME HOME HOME HOME
+     HOME HOME HOME HOME HOME HOME HOME HOME HOME
+  /* --------------------------------------------- */ 
 
 #wireframe_name {
   position: relative;
@@ -178,9 +177,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
   /* --------------------------------------------- */ 
-  /* REGISTER SCREEN */   /* REGISTER SCREEN */   /* REGISTER SCREEN */ 
-  /* REGISTER SCREEN */   /* REGISTER SCREEN */   /* REGISTER SCREEN */ 
-  /* REGISTER SCREEN */   /* REGISTER SCREEN */   /* REGISTER SCREEN */ 
+  /* REGISTER REGISTER REGISTER REGISTER REGISTER 
+     REGISTER REGISTER REGISTER REGISTER REGISTER 
+     REGISTER REGISTER REGISTER REGISTER REGISTER 
+  /* --------------------------------------------- */ 
 
 .register_box {
     position: relative;
@@ -228,9 +228,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
   /* --------------------------------------------- */ 
-  /* ADMIN SCREEN */   /* ADMIN SCREEN */   /* ADMIN SCREEN */ 
-  /* ADMIN SCREEN */   /* ADMIN SCREEN */   /* ADMIN SCREEN */ 
-  /* ADMIN SCREEN */   /* ADMIN SCREEN */   /* ADMIN SCREEN */ 
+  /* ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN 
+     ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN 
+     ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN 
+  /* --------------------------------------------- */ 
 
 #admin_wrapper {
   display: block;
@@ -279,10 +280,11 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   margin-right: 5%;
 }
 
- /* --------------------------------------------- */ 
-  /* EDIT SCREEN */   /* EDIT SCREEN */   /* EDIT SCREEN */ 
-  /* EDIT SCREEN */   /* EDIT SCREEN */   /* EDIT SCREEN */ 
-  /* EDIT SCREEN */   /* EDIT SCREEN */   /* EDIT SCREEN */ 
+  /* --------------------------------------------- */ 
+  /* EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT
+     EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT
+     EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT
+  /* --------------------------------------------- */ 
 
 .edit_box {
   position: absolute;
@@ -388,6 +390,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   width: 140px;
 }
 
+.item_select {
+  box-shadow: 5px 5px 5px var(--swatch_contrast);
+}
+
 .container_box2 {
   /* position */
   left: 55px;
@@ -401,6 +407,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 #container_text {
   position: relative;
   margin: auto;
+  font-weight: 600;
 }
 
 .prompt_text1 {
@@ -411,7 +418,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .prompt_text {
+  margin: auto;
   cursor: pointer;
+  width: 200px;
+  text-align: center;
 }
   /* for the select: */
 .rectangle1_label, .rectangle2_label, .rectangle3_label, .rectangle4_label, .rectangle1_textfield, .rectangle2_textfield, .rectangle3_textfield, .rectangle4_textfield {
