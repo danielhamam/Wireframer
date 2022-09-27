@@ -19,7 +19,7 @@ class WireframeBox extends Component {
     }
     state = {
         goHome : false,
-        scale: 1, 
+        scale: this.props.wireframe ? this.props.wireframe.scale : 1, 
         staging_changes_items: this.props.wireframe ? global.structuredClone(this.props.wireframe.items) : [], // DEEP COPY - keeping track of original, unupdated items in case of 'Close Work'
         name: this.props.wireframe ? this.props.wireframe.name : '',
         height : this.props.wireframe ? this.props.wireframe.height : 460,
@@ -46,15 +46,11 @@ class WireframeBox extends Component {
 
     zoomIn = (e) => {
         let calculatedScale = this.state.scale * 1.5;
-        // let string = "scale(" + calculatedScale + ")";
-        // document.getElementById("dimension").style.transform = string
         this.setState({ scale : calculatedScale});
     }
         
     zoomOut = (e) => {
         let calculatedScale = this.state.scale / 1.5;
-        // let string = "scale(" + calculatedScale + ")";
-        // document.getElementById("dimension").style.transform = string
         this.setState({ scale : calculatedScale});
     }
         
@@ -67,6 +63,7 @@ class WireframeBox extends Component {
         this.props.wireframe.name = this.state.name;
         this.props.wireframe.width = this.state.width;
         this.props.wireframe.height = this.state.height;
+        this.props.wireframe.scale = this.state.scale;
         // this.props.wireframe.created_time = new Date(); // so it can be on top
 
         // Move it to be first on the list 

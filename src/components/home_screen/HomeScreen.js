@@ -26,6 +26,7 @@ handleNewWireframe = () => {
         width : 490, // default
         height : 480, // default
         items: [],
+        scale : 1,
         key : answer
       })
     }).then(() => {
