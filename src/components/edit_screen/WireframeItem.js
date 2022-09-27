@@ -116,7 +116,7 @@ else {
 }
 
 deselectItem = (e) => {
-  console.log("EVENT: ", e)
+  // console.log("EVENT: ", e)
   if (this.state.isSelected && this.props.isCurrSelection[0] 
     && (e === 'delete' || e === 'duplicate' || e.target.classList.contains('dimension') // can only deselect when clicking within dimension 
     || e.target.classList.contains('control_move'))) // check if it's another item
@@ -191,7 +191,7 @@ checkControl = () => {
       <ClickOutHandler onClickOut={(e) => this.deselectItem(e)}>
         <div className="position movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)} style={{zIndex: this.props.item.z_index, position: 'relative'}}>  
           <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.props.item.control_width, height:this.props.item.control_height}} 
-          onDragStop={(e,d) => {this.props.item.control_x_position = d.x; this.props.item.control_y_position = d.y}}
+          onDragStop={(e,d) => {this.props.item.control_x_position = d.x; this.props.item.control_y_position = d.y; this.props.setSave()}}
           onResize={(e, ignore1, ref, ignore2, ignore3) => {this.props.item.control_width = ref.offsetWidth; this.props.item.control_height = ref.offsetHeight; this.setState({rerender : true})}}
           default={{x: parseInt(this.props.item.control_x_position, 10), y: parseInt(this.props.item.control_y_position, 10)}}> 
             { name === 'button' ? 

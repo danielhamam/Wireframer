@@ -47,15 +47,18 @@ class WireframeBox extends Component {
     zoomIn = (e) => {
         let calculatedScale = this.state.scale * 1.5;
         this.setState({ scale : calculatedScale});
+        this.setSave();
     }
         
     zoomOut = (e) => {
         let calculatedScale = this.state.scale / 1.5;
         this.setState({ scale : calculatedScale});
+        this.setSave();
     }
         
     saveWork = () => {
 
+        console.log('stage: ', this.state.staging_changes_items);
         // Set wireframes' items data
         this.props.wireframe.items = this.state.staging_changes_items; // set to staging wireframe
 
@@ -142,12 +145,13 @@ class WireframeBox extends Component {
             selectedItem[propertyName] = newValue;
             document.getElementById(propertyId).value = newValue;
             this.setState({staging_changes_items : this.state.staging_changes_items}); // force a rerender since this state var changed
+            this.setSave();
         }
     }
 
-    handleChange_name = (e) => { this.setState({ name: e.target.value}) }
-    handleChange_diagram_width = (e) => { this.setState({ width: this.state.pending_width}) }
-    handleChange_diagram_height = (e) => { this.setState({ height: this.state.pending_height}) }
+    handleChange_name = (e) => { this.setState({ name: e.target.value}); this.setSave(); }
+    handleChange_diagram_width = (e) => { this.setState({ width: this.state.pending_width}); this.setSave(); }
+    handleChange_diagram_height = (e) => { this.setState({ height: this.state.pending_height}); this.setSave(); }
     checkWidth_diagram = (e) => {
         if (e.target.value <= 5000 && e.target.value >= 1) {
             this.setState({isWidthEnabled : false});
@@ -198,6 +202,7 @@ class WireframeBox extends Component {
                 console.log("Moving z index of ", selectedItem, " back to ", this.state.z_index_low - 1);
                 selectedItem.z_index = this.state.z_index_low - 1;
                 this.setState((prevState) => ({z_index_low : prevState.z_index_low - 1}));
+                this.setSave();
             }
         }
     }
@@ -208,6 +213,7 @@ class WireframeBox extends Component {
             selectedItem.z_index = this.state.z_index_high + 1;
             this.setState((prevState) => ({z_index_high : prevState.z_index_high + 1}));
             console.log("Moving z index of ", selectedItem, " in front to ", this.state.z_index_high + 1);
+            this.setSave();
         }
     }
 
