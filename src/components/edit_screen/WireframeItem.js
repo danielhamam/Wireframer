@@ -39,13 +39,13 @@ checkKeyPress = (e) => {
       document.getElementById("border_color_field").value = "#000000";
       document.getElementById("border_thickness_field").value = "";
       document.getElementById("border_radius_field").value = "";
-      this.deselectItem(this.props.item.id, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4, 'delete');
+      this.deselectItem('delete');
       this.deleteItem(this.props.item);
     }
     else if (e.keyCode === 68 && (e.ctrlKey || e.metaKey)) { // Ctrl + d to duplicate
       e.preventDefault();
       this.duplicateSelectedItem();
-      this.deselectItem(this.props.item.id, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4, 'duplicate');
+      this.deselectItem('duplicate');
       // this.postDuplicate();
       // this.saveProps();
     }
@@ -115,18 +115,25 @@ else {
   }
 }
 
-deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight, e) => {
+deselectItem = (e) => {
+  console.log("EVENT: ", e)
   if (this.state.isSelected && this.props.isCurrSelection[0] 
-    && (e === 'delete' || e === 'duplicate' || e.target.classList.contains('dimension'))) // can only deselect when clicking within dimension 
+    && (e === 'delete' || e === 'duplicate' || e.target.classList.contains('dimension') // can only deselect when clicking within dimension 
+    || e.target.classList.contains('control_move'))) // check if it's another item
   {
     // console.log("WireframeItem.deselectItem - Event object: ", e);
-    console.log("WireframeItem.deselectItem - Deselecting Item With ID: ", itemId);
+    console.log("WireframeItem.deselectItem - Deselecting Item With ID: ", this.props.item.id);
 
     // Reset corner boxes CSS
-    document.getElementById(topLeft).classList.remove("rectangle_topleft");
-    document.getElementById(topRight).classList.remove("rectangle_topright");
-    document.getElementById(bottomLeft).classList.remove("rectangle_bottomleft");
-    document.getElementById(bottomRight).classList.remove("rectangle_bottomright");
+    document.getElementById(this.state.inner1).classList.remove("rectangle_topleft");
+    document.getElementById(this.state.inner2).classList.remove("rectangle_topright");
+    document.getElementById(this.state.inner3).classList.remove("rectangle_bottomleft");
+    document.getElementById(this.state.inner4).classList.remove("rectangle_bottomright");
+
+    // selected another item
+    if (e.target && e.target.classList.contains('control_move')) {
+      
+    }
 
     // Reset inputs on the right hand side
     document.getElementById("font_size_textfield").value = "";
@@ -138,7 +145,7 @@ deselectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight, e) => {
     document.getElementById("border_radius_field").value = "";
 
     // Reset item selection CSS design
-    document.getElementById(itemId).classList.remove("select_border");
+    document.getElementById(this.props.item.id).classList.remove("select_border");
     this.setSelected(false);
   }
 }
@@ -179,9 +186,9 @@ checkControl = () => {
 
   let name = this.props.item.control;
   let key = this.props.item.id;
-
+  
     return (
-      <ClickOutHandler onClickOut={(e) => this.deselectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4, e)}>
+      <ClickOutHandler onClickOut={(e) => this.deselectItem(e)}>
         <div className="position movable" tabIndex="0" onKeyDown={(e) => this.checkKeyPress(e)} style={{zIndex: this.props.item.z_index, position: 'relative'}}>  
           <Rnd enableResizing={this.checkResizable()} disableDragging={this.checkDraggable()} size={{width: this.props.item.control_width, height:this.props.item.control_height}} 
           onDragStop={(e,d) => {this.props.item.control_x_position = d.x; this.props.item.control_y_position = d.y}}

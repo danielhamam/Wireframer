@@ -30,8 +30,8 @@ class WireframeBox extends Component {
         pending_width : 0,
         pending_height : 0,
         prompt_save : false, // modal save pop-up
-        z_index_high : 2147483647,
-        z_index_low : 2147483647
+        z_index_high : 1073741823,
+        z_index_low : 1073741823
     }
 
     setSave = () => {this.setState({prompt_save : true})} // If prompt_save is true, will prompt user if he/she would like to save when closing work.
@@ -114,7 +114,7 @@ class WireframeBox extends Component {
         const new_item = {
             id : Math.floor(100000 + Math.random() * 900000),
             control : itemType,
-            z_index : 0,
+            z_index : 1073741823,
             control_width : constants.newItemProps[itemType]['control_width'],
             control_height: constants.newItemProps[itemType]['control_height'],
             control_text : constants.newItemProps[itemType]['control_text'],
