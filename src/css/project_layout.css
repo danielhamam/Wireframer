@@ -1,8 +1,8 @@
-  /* --------------------------------------------- */ 
-  /* GENERAL GENERAL GENERAL GENERAL GENERAL GENERAL 
-     GENERAL GENERAL GENERAL GENERAL GENERAL GENERAL 
-     GENERAL GENERAL GENERAL GENERAL GENERAL GENERAL 
-  /* --------------------------------------------- */ 
+/* --------------------------------------------- */ 
+/* GENERAL GENERAL GENERAL GENERAL GENERAL GENERAL 
+    GENERAL GENERAL GENERAL GENERAL GENERAL GENERAL 
+    GENERAL GENERAL GENERAL GENERAL GENERAL GENERAL 
+/* --------------------------------------------- */ 
 
 html {
   min-height: 100%;
@@ -23,17 +23,10 @@ body {
   top: 5%;
 }
 
+/* Navbar */
 .banner {
   padding-left: 10px;
   padding-right: 40px;
-}
-
-.home-content {
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  height: 80%;
-  width: 100%;
 }
 
 input[type=text]:not(.browser-default):focus:not([readonly]),
@@ -51,11 +44,79 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   color: #ec407a !important;
 }
 
-  /* --------------------------------------------- */ 
-  /* LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
-     LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
-     LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
-  /* --------------------------------------------- */ 
+
+/* --------------------------------------------- */ 
+/* HOMESCREEN HOMESCREEN HOMESCREEN HOMESCREEN 
+   HOMESCREEN HOMESCREEN HOMESCREEN HOMESCREEN 
+   HOMESCREEN HOMESCREEN HOMESCREEN HOMESCREEN 
+/* --------------------------------------------- */ 
+
+.home-content {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  height: 80%;
+  width: 100%;
+}
+
+/* --------------------------------------------- */ 
+/* ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN 
+    ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN 
+    ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN 
+/* --------------------------------------------- */ 
+
+#admin_wrapper {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 350px;
+  background-image: linear-gradient(to bottom,         
+  #ffffff, silver);
+}
+
+#admin_options {
+  display: flex;
+  justify-content: space-between;
+  /* margin: 50px; */
+  margin-top: 5%;
+}
+
+#admin_notes {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  bottom: 14%;
+  font-weight: bold;
+  font-size: 14pt;
+  color: red;
+}
+
+.handle_button {
+  position: relative;
+  font-size: 30pt;
+  /* text-align : center; */
+  cursor: pointer;
+}
+
+#return_home {
+  margin-left: 5%;
+}
+
+#clear_database {
+  position: relative;
+  /* position: absolute; */
+  left: 20px;
+}
+
+#reset_database {
+  margin-right: 5%;
+}
+
+/* --------------------------------------------- */ 
+/* LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
+   LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
+   LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN LOGIN
+/* --------------------------------------------- */ 
 
 #login_text, #register_text {
   font-weight: bold;
@@ -101,11 +162,11 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   width: 400px;
 }
 
-  /* --------------------------------------------- */ 
-  /* HOME HOME HOME HOME HOME HOME HOME HOME HOME
-     HOME HOME HOME HOME HOME HOME HOME HOME HOME
-     HOME HOME HOME HOME HOME HOME HOME HOME HOME
-  /* --------------------------------------------- */ 
+/* --------------------------------------------- */ 
+/* HOME HOME HOME HOME HOME HOME HOME HOME HOME
+   HOME HOME HOME HOME HOME HOME HOME HOME HOME
+   HOME HOME HOME HOME HOME HOME HOME HOME HOME
+/* --------------------------------------------- */ 
 
 #wireframe_name {
   position: relative;
@@ -228,59 +289,6 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
   /* --------------------------------------------- */ 
-  /* ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN 
-     ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN 
-     ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN 
-  /* --------------------------------------------- */ 
-
-#admin_wrapper {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 350px;
-  background-image: linear-gradient(to bottom,         
-  #ffffff, silver);
-}
-
-#admin_options {
-  display: flex;
-  justify-content: space-between;
-  /* margin: 50px; */
-  margin-top: 5%;
-}
-
-#admin_notes {
-  position: absolute;
-  text-align: center;
-  width: 100%;
-  bottom: 14%;
-  font-weight: bold;
-  font-size: 14pt;
-  color: red;
-}
-
-.handle_button {
-  position: relative;
-  font-size: 30pt;
-  /* text-align : center; */
-  cursor: pointer;
-}
-
-#return_home {
-  margin-left: 5%;
-}
-
-#clear_database {
-  position: relative;
-  /* position: absolute; */
-  left: 20px;
-}
-
-#reset_database {
-  margin-right: 5%;
-}
-
-  /* --------------------------------------------- */ 
   /* EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT
      EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT
      EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT EDIT
@@ -390,8 +398,19 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   width: 140px;
 }
 
-.item_select {
-  box-shadow: 5px 5px 5px var(--swatch_contrast);
+.example_item_select {
+  border-color: black;
+  border-width: 0.8px !important;
+  border-style: solid;
+  border-radius : 2px;
+  /* box-shadow: 1px 1px 1px var(--swatch_contrast); */
+}
+
+.example_item_select:hover {
+  border-color: red;
+  border-width: 0.8px;
+  border-style: solid;
+  border-radius : 2px;
 }
 
 .container_box2 {
@@ -403,18 +422,9 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   width: 140px;
 }
 
-
 #container_text {
   position: relative;
-  margin: auto;
   font-weight: 600;
-}
-
-.prompt_text1 {
-  position : relative;
-  font-size: 12pt;
-  /* left: 68px; */
-  /* cursor:pointer; */
 }
 
 .prompt_text {
@@ -423,7 +433,8 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   width: 200px;
   text-align: center;
 }
-  /* for the select: */
+
+/* for the select: */
 .rectangle1_label, .rectangle2_label, .rectangle3_label, .rectangle4_label, .rectangle1_textfield, .rectangle2_textfield, .rectangle3_textfield, .rectangle4_textfield {
   position:absolute;
   z-index: 9999;
@@ -492,7 +503,6 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   right: -3px;
   bottom: -3px;
 }
-
 
 .rectangle1_label {
   /* top left */
@@ -608,8 +618,6 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   width: 259px;
   height: 25px;
   background: none;
-  /* left: 68px; */
-  /* cursor:pointer; */
 }
 
 #label_text {
@@ -618,9 +626,13 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   font-weight : bold;
 }
 
+.example_item { 
+  font-size: 14pt;
+  margin-top: 5%;
+}
+
 .button_example {
   position : relative;
-  line-height: 2em;
   margin: auto;
   text-align: center;
   top: 60px;
@@ -650,7 +662,6 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 .textfield_example {
   position:relative;
-  line-height: 1em;
   top: 60px;
   text-align: center;
 }
@@ -691,7 +702,6 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 #textfield_label {
   position: relative;
-  font-size:14pt;
   font-weight: bold;
 }
 
@@ -712,6 +722,20 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   font-size: 14pt;
   font-weight: bold;
   margin-left: 10%;
+}
+
+#zIndexItem {
+  position: relative;
+  text-align: center;
+  bottom: 5px;
+}
+
+#bring_to_front, #send_to_back {
+  width: 110px;
+}
+
+#bring_to_front {
+  margin-right: 10px;
 }
 
 #font_size_textfield {
@@ -748,7 +772,9 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 .name_of_wireframe {
   font-size: 14pt;
   position : relative;
-  margin-top: 20px;
+  /* margin-top: 5px; */
+  /* margin-bottom: 15px; */
+  bottom: 15px;
   margin-left: 10%;
 }
 

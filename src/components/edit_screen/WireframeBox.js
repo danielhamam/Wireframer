@@ -6,7 +6,6 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
 import WireframeItem from './WireframeItem';
 import constants from '../../config/constants';
-import { regexLiteral } from '@babel/types';
 class WireframeBox extends Component {
     constructor(props) {
         super(props);
@@ -30,12 +29,13 @@ class WireframeBox extends Component {
         isHeightEnabled : true,
         pending_width : 0,
         pending_height : 0,
-        prompt_save : false // modal save pop-up
+        prompt_save : false, // modal save pop-up
+        z_index_high : 0,
+        z_index_low : 0
     }
 
     setSave = () => {this.setState({prompt_save : true})} // If prompt_save is true, will prompt user if he/she would like to save when closing work.
     setCurrSelection = (toggleVal, itemId) => {
-        console.log('HUSSEIN: CHECKING STATE, PARENT COMP NOW KNOWS ITEM HAS BEEN SELECTED')
         this.setState({isCurrSelection : [toggleVal, itemId]})
     }
 
@@ -114,6 +114,7 @@ class WireframeBox extends Component {
         const new_item = {
             id : Math.floor(100000 + Math.random() * 900000),
             control : itemType,
+            z_index : 0,
             control_width : constants.newItemProps[itemType]['control_width'],
             control_height: constants.newItemProps[itemType]['control_height'],
             control_text : constants.newItemProps[itemType]['control_text'],
@@ -192,6 +193,25 @@ class WireframeBox extends Component {
         }
     }
 
+    sendItemToBack = () => {
+        let selectedItem = this.getSelectedItem();
+        // Check if selected item exists
+        if (selectedItem != null && this.state.isCurrSelection[0] === true && this.state.isCurrSelection[1] != null) {
+            console.log("Moving z index of ", selectedItem, " back to ", this.state.z_index_low - 1);
+            selectedItem.z_index = this.state.z_index_low - 1;
+            this.setState({z_index_low : this.state.z_index_low - 1});
+        }
+    }
+    bringItemToFront = () => {
+        let selectedItem = this.getSelectedItem();
+        // Check if selected item exists
+        if (selectedItem != null && this.state.isCurrSelection[0] === true && this.state.isCurrSelection[1] != null) {
+            selectedItem.z_index = this.state.z_index_high + 1;
+            this.setState({z_index_high : this.state.z_index_high + 1});
+            console.log("Moving z index of ", selectedItem, " in front to ", this.state.z_index_high + 1);
+        }
+    }
+
     updatePropertyLabels = () => {
         // Check if selected item exists
         if (this.state.isCurrSelection[0] === true && this.state.isCurrSelection[1] != null) {
@@ -244,22 +264,22 @@ class WireframeBox extends Component {
                         </div>
                         <div id="bottom_left"> 
                             <div className="container_example">
-                                <div className="container_box item_select" onClick={() => this.addNewItem('container')} > </div>
-                                <div id="container_text" > Container </div>
+                                <div className="container_box example_item_select" onClick={() => this.addNewItem('container')} > </div>
+                                <div id="container_text" className='example_item' > Container </div>
                             </div>
                             < br />
                             <div id="prompt_for_input">
-                                <div className="prompt_text item_select" onClick={() => this.addNewItem('label')} > Prompt for input:</div>
-                                <div id="label_text">Label</div>
+                                <div className="prompt_text example_item_select" onClick={() => this.addNewItem('label')} > Prompt for input:</div>
+                                <div id="label_text" className='example_item'>Label</div>
                             </div>
                             <div className="button_example">
-                                <button className="button_submit item_select" onClick={() => this.addNewItem('button')}> Submit</button>
-                                <div id="button_text"> Button</div>
+                                <button className="button_submit example_item_select" onClick={() => this.addNewItem('button')}> Submit</button>
+                                <div id="button_text" className='example_item'> Button</div>
                             </div>
                             < br />
                             <div className="textfield_example">
-                                <input type="input" className="textfield_input item_select" placeholder="Input" onClick={() => this.addNewItem('textfield')} />
-                                <p id="textfield_label" >Textfield</p>
+                                <input type="input" className="textfield_input example_item_select" placeholder="Input" onClick={() => this.addNewItem('textfield')} />
+                                <p id="textfield_label" className='example_item'>Textfield</p>
                             </div>
                         </div>
                     </div> 
@@ -305,6 +325,10 @@ class WireframeBox extends Component {
                                     </div>
                                     <div id= "border_radius_label"> Border Radius:
                                         <input type="input" id="border_radius_field" onChange = {(e) => this.handleChange_border_radius(e)} />
+                                    </div> 
+                                    <div id= "zIndexItem">
+                                        <input type="button" id="bring_to_front" value="Bring to Front" onClick={() => this.bringItemToFront()}/>
+                                        <input type="button" id="send_to_back" value="Send to Back" onClick={() => this.sendItemToBack()}/>
                                     </div> 
                                     <div id= "name_of_wireframe" className="name_of_wireframe"> Name:
                                         <input type="input" id="name_wireframe_field" onClick={this.prevent} defaultValue={this.state.name} onChange = {(e) => this.handleChange_name(e)} />

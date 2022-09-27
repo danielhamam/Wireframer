@@ -182,11 +182,6 @@ body {
   border-radius: 2pt;
 }
 
-#container_text {
-  font-size: 16pt;
-  /* cursor:pointer; */
-}
-
 #button_example {}
 
 .button_submit {
