@@ -30,8 +30,8 @@ class WireframeBox extends Component {
         pending_width : 0,
         pending_height : 0,
         prompt_save : false, // modal save pop-up
-        z_index_high : 0,
-        z_index_low : 0
+        z_index_high : 2147483647,
+        z_index_low : 2147483647
     }
 
     setSave = () => {this.setState({prompt_save : true})} // If prompt_save is true, will prompt user if he/she would like to save when closing work.
@@ -228,19 +228,34 @@ class WireframeBox extends Component {
     }
 
     componentDidUpdate = () => {
-        // Check if selected item exists
+        // Here, we are going to update the properties panel on the right side with the props of the item.
+
+        // 1. Check if selected item exists
         if (this.state.isCurrSelection[0] === true && this.state.isCurrSelection[1] != null) {
             let item = this.getSelectedItem();
-            // debugger;
-            document.getElementById("font_size_textfield").value = item.control_font_size;
-            document.getElementById("textfield_input").value = item.control_text;
-            document.getElementById("text_color_field").value = item.control_text_color;
-            document.getElementById("background_field").value = item.control_background; // background color
-            document.getElementById("border_color_field").value = item.control_border_color; // background color
-            document.getElementById("border_thickness_field").value = item.control_border_thickness;
-            document.getElementById("border_radius_field").value = item.control_border_radius ;
+            console.log("Item: ", item);
+            // if item is container
+            if (item.control === 'container') {
+                document.getElementById("font_size_textfield").setAttribute('disabled', '');
+                document.getElementById("textfield_input").setAttribute('disabled', '');
+                document.getElementById("text_color_field").setAttribute('disabled', '');
+                document.getElementById("font_size_textfield").style.backgroundColor = 'lightgray';
+                document.getElementById("textfield_input").style.backgroundColor = 'lightgray';
+                document.getElementById("text_color_field").style.backgroundColor = 'lightgray';
+            }
+            // not a container
+            else {
+                document.getElementById("font_size_textfield").value = item.control_font_size;
+                document.getElementById("textfield_input").value = item.control_text;
+                document.getElementById("text_color_field").value = item.control_text_color;
+            }
+            // do for all items
+                document.getElementById("background_field").value = item.control_background; // background color
+                document.getElementById("border_color_field").value = item.control_border_color; // background color
+                document.getElementById("border_thickness_field").value = item.control_border_thickness;
+                document.getElementById("border_radius_field").value = item.control_border_radius ;
+            }
         }
-    }
  
     render() {
 
