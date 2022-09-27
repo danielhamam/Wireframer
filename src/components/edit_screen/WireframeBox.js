@@ -194,12 +194,14 @@ class WireframeBox extends Component {
     }
 
     sendItemToBack = () => {
-        let selectedItem = this.getSelectedItem();
         // Check if selected item exists
-        if (selectedItem != null && this.state.isCurrSelection[0] === true && this.state.isCurrSelection[1] != null) {
-            console.log("Moving z index of ", selectedItem, " back to ", this.state.z_index_low - 1);
-            selectedItem.z_index = this.state.z_index_low - 1;
-            this.setState({z_index_low : this.state.z_index_low - 1});
+        if (this.state.isCurrSelection[0] === true && this.state.isCurrSelection[1] != null) {
+            let selectedItem = this.getSelectedItem();
+            if (selectedItem != null) {
+                console.log("Moving z index of ", selectedItem, " back to ", this.state.z_index_low - 1);
+                selectedItem.z_index = this.state.z_index_low - 1;
+                this.setState((prevState) => ({z_index_low : prevState.z_index_low - 1}));
+            }
         }
     }
     bringItemToFront = () => {
@@ -207,7 +209,7 @@ class WireframeBox extends Component {
         // Check if selected item exists
         if (selectedItem != null && this.state.isCurrSelection[0] === true && this.state.isCurrSelection[1] != null) {
             selectedItem.z_index = this.state.z_index_high + 1;
-            this.setState({z_index_high : this.state.z_index_high + 1});
+            this.setState((prevState) => ({z_index_high : prevState.z_index_high + 1}));
             console.log("Moving z index of ", selectedItem, " in front to ", this.state.z_index_high + 1);
         }
     }
@@ -363,7 +365,6 @@ class WireframeBox extends Component {
                     <div id="my_modal" className="modal">
                         <div className="modal-content ">
                             <h4>Save Wireframe?</h4>
-                            <br />
                             <p> Would you like to save your progress? </p>
                         </div>
                         <button id="yes" onClick={this.saveWork} className="modal-close waves-effect waves-white btn-flat">Yes</button>

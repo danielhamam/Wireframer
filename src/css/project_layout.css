@@ -930,7 +930,9 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   /* display: none; hidden by default */
   position: fixed; /* Stay in place front is invalid - may break your css so removed */  
   z-index: 9999; /* to move in front of other elements. */
+  top: 50%;
   width: 300px;
+  height: 220px;
   opacity : 100%;
   background-color: #E1E4CB;
   text-align: center;
