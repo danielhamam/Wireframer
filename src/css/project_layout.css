@@ -936,6 +936,20 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   opacity : 100%;
   background-color: #E1E4CB;
   text-align: center;
+  z-index: 2147483647;
+}
+
+#modal_screen_overlay {
+  position:fixed;
+  left:0;
+  top:0;
+  width:100vw;
+  height:100vh;
+  display:none;
+  background-color:#000;
+  opacity:0.5;
+  /* pointer-events: none; */
+  z-index: 2147483646;
 }
 
 .modal_content {

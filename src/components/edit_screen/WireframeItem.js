@@ -154,6 +154,7 @@ selectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
     // Case 1: Item is not currently selected
     if (this.state.isSelected === false && !this.props.isCurrSelection[0]) 
     {
+      // this.props.setSave();
       console.log("WireframeItem.selectItem - Selecting Item With ID: ", itemId);
       document.getElementById(itemId).classList.add("select_border");
       // debugger;
@@ -164,16 +165,6 @@ selectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
       document.getElementById(bottomRight).classList.add("rectangle_bottomright");
 
       this.setSelected(true);
-
-      // Add properties
-      // document.getElementById("font_size_textfield").value = this.props.item.control_font_size;
-      // document.getElementById("textfield_input").value = this.props.item.control_text;
-      // document.getElementById("text_color_field").value = this.props.item.control_text_color;
-      // document.getElementById("background_field").value = this.props.item.control_background; // background color
-      // document.getElementById("border_color_field").value = this.props.item.control_border_color; // background color
-      // document.getElementById("border_thickness_field").value = this.props.item.control_border_thickness;
-      // document.getElementById("border_radius_field").value = this.props.item.control_border_radius;
-      // console.log('this.props: ', this.props);
   }
 }
 

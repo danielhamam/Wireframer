@@ -27,7 +27,9 @@ handleNewWireframe = () => {
         height : 480, // default
         items: [],
         scale : 1,
-        key : answer
+        key : answer,
+        bringToFrontVal : 1073741823,
+        sendToBackVal : 1073741823
       })
     }).then(() => {
       this.setState({wireframeKey : answer});

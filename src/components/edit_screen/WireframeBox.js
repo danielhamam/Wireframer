@@ -30,8 +30,9 @@ class WireframeBox extends Component {
         pending_width : 0,
         pending_height : 0,
         prompt_save : false, // modal save pop-up
-        z_index_high : 1073741823,
-        z_index_low : 1073741823
+        z_index_high : this.props.wireframe.bringToFrontVal ? this.props.wireframe.bringToFrontVal : 1073741823,
+        z_index_low : this.props.wireframe.sendToBackVal ? this.props.wireframe.sendToBackVal : 1073741823,
+        isModalOpen : false
     }
 
     setSave = () => {this.setState({prompt_save : true})} // If prompt_save is true, will prompt user if he/she would like to save when closing work.
@@ -67,6 +68,8 @@ class WireframeBox extends Component {
         this.props.wireframe.width = this.state.width;
         this.props.wireframe.height = this.state.height;
         this.props.wireframe.scale = this.state.scale;
+        this.props.wireframe.bringToFrontVal = this.state.z_index_high;
+        this.props.wireframe.sendToBackVal = this.state.z_index_low;
         // this.props.wireframe.created_time = new Date(); // so it can be on top
 
         // Move it to be first on the list 
@@ -183,14 +186,19 @@ class WireframeBox extends Component {
     }
 
     toggleModal = () => {
-        let result = document.getElementById("my_modal");
-        if (result.style.display === "block") {
-            document.getElementById("my_modal").style.animation = "fadeout .6s";
-            result.style.visibility = "hidden";
+        let myModal = document.getElementById("my_modal");
+        let modalOverlay = document.getElementById("modal_screen_overlay");
+        if (myModal.style.display === "block") {
+            myModal.style.animation = "fadeout .6s";
+            myModal.style.visibility = "hidden";
+            modalOverlay.style.display = "hidden";
+            this.setState({isModalOpen : false});
         } else {
-            result.style.visibility = "visible";
-            document.getElementById("my_modal").style.animation = "fadein .6s";
-            result.style.display = "block";
+            myModal.style.visibility = "visible";
+            myModal.style.animation = "fadein .6s";
+            myModal.style.display = "block";
+            modalOverlay.style.display = "block";
+            this.setState({isModalOpen : true});
         }
     }
 
@@ -209,14 +217,13 @@ class WireframeBox extends Component {
     bringItemToFront = () => {
         let selectedItem = this.getSelectedItem();
         // Check if selected item exists
-        if (selectedItem != null && this.state.isCurrSelection[0] === true && this.state.isCurrSelection[1] != null) {
+        if (selectedItem != null && this.state.isCurrSelection[0] && this.state.isCurrSelection[1] != null) {
             selectedItem.z_index = this.state.z_index_high + 1;
-            this.setState((prevState) => ({z_index_high : prevState.z_index_high + 1}));
+            this.setState((prevState) => ({z_index_high : prevState.z_index_high + 1})); // call back function
             console.log("Moving z index of ", selectedItem, " in front to ", this.state.z_index_high + 1);
             this.setSave();
         }
     }
-
     updatePropertyLabels = () => {
         // Check if selected item exists
         if (this.state.isCurrSelection[0] === true && this.state.isCurrSelection[1] != null) {
@@ -236,9 +243,9 @@ class WireframeBox extends Component {
         // Here, we are going to update the properties panel on the right side with the props of the item.
 
         // 1. Check if selected item exists
-        if (this.state.isCurrSelection[0] === true && this.state.isCurrSelection[1] != null) {
+        if (this.state.isCurrSelection[0] === true && this.state.isCurrSelection[1] != null && !this.state.goHome) {
             let item = this.getSelectedItem();
-            console.log("Item: ", item);
+            // console.log("Item: ", item);
             // if item is container
             if (item.control === 'container') {
                 document.getElementById("font_size_textfield").setAttribute('disabled', '');
@@ -365,6 +372,7 @@ class WireframeBox extends Component {
                                 }
                             </div>
                     </div> 
+                    <div id="modal_screen_overlay"> </div>
                     <div id="my_modal" className="modal">
                         <div className="modal-content ">
                             <h4>Save Wireframe?</h4>
