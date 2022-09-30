@@ -118,8 +118,8 @@ else {
 deselectItem = (e) => {
   // console.log("EVENT: ", e)
   if (this.state.isSelected && this.props.isCurrSelection[0] 
-    && (e === 'delete' || e === 'duplicate' || e.target.classList.contains('dimension') // can only deselect when clicking within dimension 
-    || e.target.classList.contains('control_move'))) // check if it's another item
+    && (e === 'delete' || e === 'duplicate' || e.target && (e.target.classList.contains('dimension') || // can only deselect when clicking within dimension 
+    e.target.classList.contains('control_move')))) // check if it's another item
   {
     // console.log("WireframeItem.deselectItem - Event object: ", e);
     console.log("WireframeItem.deselectItem - Deselecting Item With ID: ", this.props.item.id);
@@ -129,9 +129,10 @@ deselectItem = (e) => {
     document.getElementById(this.state.inner2).classList.remove("rectangle_topright");
     document.getElementById(this.state.inner3).classList.remove("rectangle_bottomleft");
     document.getElementById(this.state.inner4).classList.remove("rectangle_bottomright");
+    document.getElementById(this.props.item.id).classList.remove("select_border");
 
     if (e.target && !e.target.classList.contains('control_move')) {
-      console.log('here');
+      console.log('Selection was not another item - proceeding...');
       // Reset inputs on the right hand side
       document.getElementById("font_size_textfield").value = "";
       document.getElementById("textfield_input").value = "";
@@ -141,10 +142,11 @@ deselectItem = (e) => {
       document.getElementById("border_thickness_field").value = "";
       document.getElementById("border_radius_field").value = "";
       // Reset item selection CSS design
-      document.getElementById(this.props.item.id).classList.remove("select_border");
       this.setSelected(false);
     }
-    else {} // In this use case, we are selecting another item
+    else {
+      this.setState({isSelected : false}); // tell itself that it isn't selected
+    } // In this use case, we are selecting another item
   }
 }
 
