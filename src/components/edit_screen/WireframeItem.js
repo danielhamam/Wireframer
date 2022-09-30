@@ -130,30 +130,28 @@ deselectItem = (e) => {
     document.getElementById(this.state.inner3).classList.remove("rectangle_bottomleft");
     document.getElementById(this.state.inner4).classList.remove("rectangle_bottomright");
 
-    // selected another item
-    if (e.target && e.target.classList.contains('control_move')) {
-      
+    if (e.target && !e.target.classList.contains('control_move')) {
+      console.log('here');
+      // Reset inputs on the right hand side
+      document.getElementById("font_size_textfield").value = "";
+      document.getElementById("textfield_input").value = "";
+      document.getElementById("text_color_field").value = "#000000";
+      document.getElementById("background_field").value = "#000000";
+      document.getElementById("border_color_field").value = "#000000";
+      document.getElementById("border_thickness_field").value = "";
+      document.getElementById("border_radius_field").value = "";
+      // Reset item selection CSS design
+      document.getElementById(this.props.item.id).classList.remove("select_border");
+      this.setSelected(false);
     }
-
-    // Reset inputs on the right hand side
-    document.getElementById("font_size_textfield").value = "";
-    document.getElementById("textfield_input").value = "";
-    document.getElementById("text_color_field").value = "#000000";
-    document.getElementById("background_field").value = "#000000";
-    document.getElementById("border_color_field").value = "#000000";
-    document.getElementById("border_thickness_field").value = "";
-    document.getElementById("border_radius_field").value = "";
-
-    // Reset item selection CSS design
-    document.getElementById(this.props.item.id).classList.remove("select_border");
-    this.setSelected(false);
+    else {} // In this use case, we are selecting another item
   }
 }
 
 selectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
     // Case 1: Item is not currently selected
-    if (this.state.isSelected === false && !this.props.isCurrSelection[0]) 
-    {
+    // if (this.state.isSelected === false && !this.props.isCurrSelection[0]) 
+    // {
       // this.props.setSave();
       console.log("WireframeItem.selectItem - Selecting Item With ID: ", itemId);
       document.getElementById(itemId).classList.add("select_border");
@@ -165,7 +163,7 @@ selectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
       document.getElementById(bottomRight).classList.add("rectangle_bottomright");
 
       this.setSelected(true);
-  }
+  // }
 }
 
 changeButton = (e) => {
