@@ -1,6 +1,4 @@
 import * as actionCreators from '../../actions/actionCreators'
-import { registerHandler } from './authReducerHelpers'
-import { getFirestore } from 'redux-firestore';
 
 // REDUCERS ARE CALLED WHEN AN ACTION IS DISPATCHED,
 // THEIR JOB IS TO ADVANCE THE STATE. THEY WILL UPDATE
@@ -11,7 +9,8 @@ import { getFirestore } from 'redux-firestore';
 // function add(a = 0, b = 0) { return a + b }
 const initState = {
   creating : false,
-  authError: ''
+  authError: '',
+  loggedOutLink : 'register'
 };
 
 // Using ...state spread operator in the sense of "if you can't change it, replace it"

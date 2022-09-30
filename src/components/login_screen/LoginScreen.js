@@ -84,7 +84,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   // login: authData => loginHandler(authData)(dispatch),
   loginSucceeded : () => dispatch(loginSucceeded()),
-  loginErrored : (error) => dispatch(loginErrored(error))
+  loginErrored : (error) => dispatch(loginErrored(error)),
 });
 
 // We need firebaseConnect function to provide to this component
