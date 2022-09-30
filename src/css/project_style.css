@@ -117,7 +117,7 @@ body {
   border-color: black;
   border-width: 1px;
   border-style: solid;
-  border-radius: 4pt;
+  /* border-radius: 4pt; */
 }
 
 .left_screen {
@@ -125,7 +125,7 @@ body {
   background-color : whitesmoke;
   border-width: 0.5px;
   border-style: solid;
-  border-radius: 2pt;
+  /* border-radius: 2pt; */
   border-bottom: 0px;
   border-left: 0px;
   border-top: 0px;
@@ -142,7 +142,7 @@ body {
   border-width: 0.5px;
   border-style: solid;
   background-color : whitesmoke;
-  border-radius: 2pt;
+  /* border-radius: 2pt; */
   border-bottom: 0px;
   border-right: 0px;
   border-top: 0px;
