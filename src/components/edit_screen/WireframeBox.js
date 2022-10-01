@@ -376,10 +376,10 @@ class WireframeBox extends Component {
                     <div id="my_modal" className="modal">
                         <div className="modal-content ">
                             <h4>Save Wireframe?</h4>
-                            <p> Would you like to save your progress? </p>
+                            <span> Would you like to save your progress? </span>
                         </div>
-                        <button id="yes" onClick={this.saveWork} className="modal-close waves-effect waves-white btn-flat">Yes</button>
-                        <button id="no" onClick={this.closeWork} className="modal-close waves-effect waves-white btn-flat">No</button>
+                        <button id="yes" onClick={this.saveWork} className="modal-close" style={{marginRight: '12px'}}>Yes</button>
+                        <button id="no" onClick={this.closeWork} className="modal-close">No</button>
                         <div id="last_line"> Without saving, all progress will be lost.</div>
                     </div>
                     <div id="wireframe_dimensions">

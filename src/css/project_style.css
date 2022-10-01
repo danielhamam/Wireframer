@@ -11,6 +11,7 @@
   --swatch-accent:        #669966; /* USED IN MOUSE-OVER SELECTION OF TEXT AND BORDERS */    
   --swatch-disabled:      #6b6b6b; /* USED TO GRAY OUT / DISABLE ELEMENTS OF CHOICE*/
   --my-font-family:          "Robaaaoto";
+  --on-hover-style: 0.6;
   --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
 }
 
