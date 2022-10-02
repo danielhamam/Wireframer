@@ -312,18 +312,16 @@ class WireframeBox extends Component {
                     </div> 
                     <div id="middle_screen" className="middle_screen"> 
                         <div id="dimension" className="dimension" style={{width: this.state.width + "px", height: this.state.height + "px"}}>
-                            <div id="zoomable"> 
-                                {wireframe && items && items.map(item => (
-                                    <WireframeItem items={items} item={item} key={item.id} isCurrSelection={this.state.isCurrSelection} 
-                                    deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut} 
-                                    width={this.state.width} height={this.state.height} setSave={this.setSave} setCurrSelection={this.setCurrSelection}
-                                    // Refs for property elements
-                                    textFieldInputRef={this.textFieldInputRef} fontSizeTextfieldRef={this.fontSizeTextfieldRef} textColorFieldRef={this.textColorFieldRef}
-                                    backgroundFieldRef={this.backgroundFieldRef} borderColorFieldRef={this.borderColorFieldRef} borderThicknessFieldRef={this.borderThicknessFieldRef}
-                                    borderRadiusFieldRef={this.borderRadiusFieldRef} scale={this.state.scale}
-                                    />
-                                ))}
-                            </div>
+                            {wireframe && items && items.map(item => (
+                                <WireframeItem items={items} item={item} key={item.id} isCurrSelection={this.state.isCurrSelection} 
+                                deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut} 
+                                width={this.state.width} height={this.state.height} setSave={this.setSave} setCurrSelection={this.setCurrSelection}
+                                // Refs for property elements
+                                textFieldInputRef={this.textFieldInputRef} fontSizeTextfieldRef={this.fontSizeTextfieldRef} textColorFieldRef={this.textColorFieldRef}
+                                backgroundFieldRef={this.backgroundFieldRef} borderColorFieldRef={this.borderColorFieldRef} borderThicknessFieldRef={this.borderThicknessFieldRef}
+                                borderRadiusFieldRef={this.borderRadiusFieldRef} scale={this.state.scale}
+                                />
+                            ))}
                         </div>
                     </div>
                     <div className = "right_screen">

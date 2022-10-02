@@ -704,8 +704,8 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   grid-column: 2;
   margin-top: 1%;
   font-size: 12pt;
-  width: 200px;
-  height: 25px;
+  /* width: 200px; */
+  /* height: 25px; */
   left: 25px;
 }
 
@@ -809,11 +809,6 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   left: 100%;
 }
 
-.movable {
-  position: absolute;
-  outline:none;
-}
-
 .visible_button1, .visible_button2, .visible_label1, .visible_label2 {
   visibility : hidden;
 }
@@ -854,11 +849,6 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 .zoomOut {
   transform: scaleX(0.5);
   transform: scaleY(0.5);
-}
-
-#zoomable { 
-  position : absolute;  
-  /* left: -7%; */
 }
 
 .dimension {

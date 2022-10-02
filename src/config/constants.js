@@ -13,8 +13,8 @@ const constants = {
     newItemProps : {
         'textfield' : {
             control : "textfield",
-            control_width : "",
-            control_height: "",
+            control_width : "200",
+            control_height: "25",
             control_text : "",
             control_font_size : "12",
             control_background : "#ffffff",
@@ -27,11 +27,11 @@ const constants = {
         },
         'label' : {
             control : "label",
-            control_width : "",
+            control_width : "200",
             control_height: "",
             control_text : "Prompt for input",
             control_font_size : "12",
-            control_background : "#ffffff",
+            control_background : "",
             control_border_color : "",
             control_text_color : "",
             control_border_thickness : "0",
@@ -41,15 +41,15 @@ const constants = {
         },
         'button' : {
             control : "button",
-            control_width : "",
-            control_height: "",
+            control_width : "180",
+            control_height: "32",
             control_text : "Submit",
             control_font_size : "16",
             control_background : "#DCDCDC",
             control_border_color : "#000000",
             control_text_color : "#000000",
             control_border_thickness : "0.5",
-            control_border_radius : "2",
+            control_border_radius : "4",
             control_x_position : 0,
             control_y_position : 0
         },
