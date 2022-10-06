@@ -17,7 +17,7 @@ const initState = {
 
 // MANPULATES REDUX STATE
 const authReducer = (state = initState, action) => {
-  console.log("authReducer: Beginning mapping of type " + action.type + " to corresponding handler");
+  // console.log("authReducer: Beginning mapping of type " + action.type + " to corresponding handler");
   switch (action.type) {
     case actionCreators.LOGIN_ERRORED:
       return {

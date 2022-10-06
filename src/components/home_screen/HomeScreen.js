@@ -36,7 +36,7 @@ handleNewWireframe = () => {
       this.setState({isNewWireframe : true});
     }).catch((error) => {
       console.log(error);
-  });  
+  }); 
 }
 
 componentDidMount() {

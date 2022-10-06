@@ -300,6 +300,11 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   width: 100%;
 }
 
+#rnd_canvas {
+  position : relative;
+  display:block
+}
+
 .inner_edit_box {
   position: relative;
   margin:auto;
@@ -866,6 +871,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 #dimension { 
+  position: relative;
   overflow : auto;
 }
 

@@ -47,6 +47,12 @@ class WireframeBox extends Component {
 
     zoomIn = (e) => {
         let calculatedScale = this.state.scale * 1.5;
+        // this.state.staging_changes_items.forEach((item) => {
+        //     console.log("before item: ", item);
+        //     item.control_width = (parseInt(item.control_width, 10) * 1.5).toString();
+        //     item.control_height = (parseInt(item.control_height, 10) * 1.5).toString();
+        //     console.log("after item: ", item);
+        // });
         this.setState({ scale : calculatedScale});
         this.setSave();
     }
@@ -202,6 +208,13 @@ class WireframeBox extends Component {
         }
     }
 
+    deleteItem = (item) => {
+        let index = this.state.staging_changes_items.indexOf(item);
+        this.state.staging_changes_items.splice( index, 1 ); // removed item
+        this.setState({ rerender : true}); // rerender
+        console.log('deleted item');
+      }
+
     sendItemToBack = () => {
         // Check if selected item exists
         if (this.state.isCurrSelection[0] === true && this.state.isCurrSelection[1] != null) {
@@ -247,25 +260,27 @@ class WireframeBox extends Component {
             let item = this.getSelectedItem();
             // console.log("Item: ", item);
             // if item is container
-            if (item.control === 'container') {
-                document.getElementById("font_size_textfield").setAttribute('disabled', '');
-                document.getElementById("textfield_input").setAttribute('disabled', '');
-                document.getElementById("text_color_field").setAttribute('disabled', '');
-                document.getElementById("font_size_textfield").style.backgroundColor = 'lightgray';
-                document.getElementById("textfield_input").style.backgroundColor = 'lightgray';
-                document.getElementById("text_color_field").style.backgroundColor = 'lightgray';
-            }
-            // not a container
-            else {
-                document.getElementById("font_size_textfield").value = item.control_font_size;
-                document.getElementById("textfield_input").value = item.control_text;
-                document.getElementById("text_color_field").value = item.control_text_color;
-            }
-            // do for all items
-                document.getElementById("background_field").value = item.control_background; // background color
-                document.getElementById("border_color_field").value = item.control_border_color; // background color
-                document.getElementById("border_thickness_field").value = item.control_border_thickness;
-                document.getElementById("border_radius_field").value = item.control_border_radius ;
+            if (item != null) {
+                if (item.control === 'container') {
+                    document.getElementById("font_size_textfield").setAttribute('disabled', '');
+                    document.getElementById("textfield_input").setAttribute('disabled', '');
+                    document.getElementById("text_color_field").setAttribute('disabled', '');
+                    document.getElementById("font_size_textfield").style.backgroundColor = 'lightgray';
+                    document.getElementById("textfield_input").style.backgroundColor = 'lightgray';
+                    document.getElementById("text_color_field").style.backgroundColor = 'lightgray';
+                }
+                // not a container
+                else {
+                    document.getElementById("font_size_textfield").value = item.control_font_size;
+                    document.getElementById("textfield_input").value = item.control_text;
+                    document.getElementById("text_color_field").value = item.control_text_color;
+                }
+                // do for all items
+                    document.getElementById("background_field").value = item.control_background; // background color
+                    document.getElementById("border_color_field").value = item.control_border_color; // background color
+                    document.getElementById("border_thickness_field").value = item.control_border_thickness;
+                    document.getElementById("border_radius_field").value = item.control_border_radius ;
+                }
             }
         }
  

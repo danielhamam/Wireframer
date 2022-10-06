@@ -3,23 +3,27 @@ import ClickOutHandler from 'react-onclickout';
 import {Rnd} from 'react-rnd'; // resizable and draggable component for React.
 
 class WireframeItem extends Component {
-  state = {
-    // State variables initialized to props value as start value
-    // control_x_position : this.props.item.control_x_position,
-    // control_y_position : this.props.item.control_y_position,
-
-    rerender : false,
-    isSelected : false,
-
-    inner1 : Math.floor(Math.random() * 10000) + 100 + "",
-    inner2 : Math.floor(Math.random() * 10000) + 100 + "",
-    inner3 : Math.floor(Math.random() * 10000) + 100 + "",
-    inner4 : Math.floor(Math.random() * 10000) + 100 + "",
-    
-    // drag bounds
-    top: 40, 
-    left: 40
-
+  constructor() {
+    super();
+    // this.rndRef = React.createRef();
+    this.state = {
+      // State variables initialized to props value as start value
+      // control_x_position : this.props.item.control_x_position,
+      // control_y_position : this.props.item.control_y_position,
+  
+      rerender : false,
+      isSelected : false,
+  
+      inner1 : Math.floor(Math.random() * 10000) + 100 + "",
+      inner2 : Math.floor(Math.random() * 10000) + 100 + "",
+      inner3 : Math.floor(Math.random() * 10000) + 100 + "",
+      inner4 : Math.floor(Math.random() * 10000) + 100 + "",
+      
+      // drag bounds
+      top: 40, 
+      left: 40
+  
+    }
   }
   
   setSelected = (toggleVal) => {
@@ -40,7 +44,7 @@ checkKeyPress = (e) => {
       document.getElementById("border_thickness_field").value = "";
       document.getElementById("border_radius_field").value = "";
       this.deselectItem('delete');
-      this.deleteItem(this.props.item);
+      this.props.deleteItem(this.props.item);
     }
     else if (e.keyCode === 68 && (e.ctrlKey || e.metaKey)) { // Ctrl + d to duplicate
       e.preventDefault();
@@ -52,11 +56,12 @@ checkKeyPress = (e) => {
   }
 }
 
-deleteItem = (item) => {
-  let index = this.props.items.indexOf(item);
-  this.props.items.splice( index, 1 ); // removed item
-  this.setState({ rerender : true}); // rerender
-}
+// deleteItem = (item) => {
+//   let index = this.props.items.indexOf(item);
+//   this.props.items.splice( index, 1 ); // removed item
+//   this.setState({ rerender : true}); // rerender
+//   console.log('deleted item');
+// }
 
 duplicateSelectedItem = () => {
   let item = this.props.item;
@@ -173,48 +178,52 @@ changeButton = (e) => {
   this.setState({ control_text : e.target.value});
 }
 
-componentDidUpdate = () => {
-  // Here, we are going to update the scale property of an item's RND container.
-  let itemRnd = document.getElementById("item_rnd");
-  // 1. Check if selected item exists
-  if (itemRnd != null && this.props.scale != null) {
-    let currTransformStyle = itemRnd.style.transform;
-    if (currTransformStyle != null) 
-    {
-      // Case 1: Translate/Scale already exists, modify the scale (remove then re-add)
-      if (currTransformStyle.indexOf("scale") !== -1) {
-        itemRnd.style.transform = currTransformStyle.replace(/scale.*$/i, "scale(" + this.props.scale + ")");
-      }
-      // Case 2: Translate exists but Scale doesn't exist, add scale to it
-      else if (currTransformStyle.indexOf("scale") === -1) {
-        itemRnd.style.transform  = currTransformStyle + "scale(" + this.props.scale + ")";
-      }
-    }
-  }
-}
+// componentDidUpdate = () => {
+//   // Here, we are going to update the scale property of an item's RND container.
+//   let itemRnd = document.getElementById("item-rnd-"+this.props.item.id);
+//   // 1. Check if selected item exists
+//   if (itemRnd != null && this.props.scale != null) {
+//     let currTransformStyle = itemRnd.style.transform;
+//     if (currTransformStyle != null) 
+//     {
+//       // Case 1: Translate/Scale already exists, modify the scale (remove then re-add)
+//       if (currTransformStyle.indexOf("scale") !== -1) {
+//         itemRnd.style.transform = currTransformStyle.replace(/scale.*$/i, "scale(" + this.props.scale + ")");
+//       }
+//       // Case 2: Translate exists but Scale doesn't exist, add scale to it
+//       else if (currTransformStyle.indexOf("scale") === -1) {
+//         itemRnd.style.transform  = currTransformStyle + "scale(" + this.props.scale + ")";
+//       }
+//     }
+//   }
+// }
 
 checkControl = () => {
   // Check control, make it container_box (container), prompt_text (label), buttom_submit (button), textfield_input (textfield)
 
   let name = this.props.item.control;
   let key = this.props.item.id;
+  let numScale =  parseFloat(this.props.scale).toFixed(1);
+
+  console.log("x pos: ", this.props.item.control_x_position);
+  console.log("x/numscale ", this.props.item.control_x_position/numScale);
   
     return (
       <ClickOutHandler onClickOut={(e) => this.deselectItem(e)}>
-        {/* <div id="rnd-canvas" style={{zIndex: this.props.item.z_index, position: 'absolute', width: this.props.item.control_width + "px", height: this.props.item.control_height + "px", 
-                                    transform: "scale(" + this.props.scale + ")" + "translate("+parseInt(this.props.item.control_x_position, 10)+"px,"+parseInt(this.props.item.control_y_position, 10)+"px)"}}> */}
-          <Rnd id="item_rnd" onKeyDown={(e) => this.checkKeyPress(e)} enableResizing={this.checkResizable()} 
-          size={{width: this.props.item.control_width, height: this.props.item.control_height}}
-          // style={{transform: "scale(" + this.props.scale + ")" + "translate("+parseInt(this.props.item.control_x_position, 10)+"px,"+parseInt(this.props.item.control_y_position, 10)+"px) !important;"}}
-          style={{zIndex: this.props.item.z_index, position: 'absolute'}} 
-          onDragStart={(e,data) => {this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)}}
-          onDragStop={(e,d) => {this.props.item.control_x_position = d.x; this.props.item.control_y_position = d.y; this.props.setSave()}}
-          onResize={(e, ignore1, ref, ignore2, ignore3) => {this.props.item.control_width = ref.offsetWidth; this.props.item.control_height = ref.offsetHeight; this.setState({rerender : true})}}
-          default={{x: parseInt(this.props.item.control_x_position, 10), y: parseInt(this.props.item.control_y_position, 10)}}> 
+        {/* <div id="rnd_canvas" style={{scale: "scale(" + this.props.scale + ")"}}> */}
+          <Rnd id={"item-rnd-"+key} onKeyDown={(e) => this.checkKeyPress(e)} enableResizing={this.checkResizable()} 
+            ref={(el) => this.rndRef = el}
+            size={{width: this.props.item.control_width, height: this.props.item.control_height}}
+            // style={{transform: "scale(" + this.props.scale + ")" + "translate("+parseInt(this.props.item.control_x_position, 10)+"px,"+parseInt(this.props.item.control_y_position, 10)+"px) !important;"}}
+            style={{zIndex: this.props.item.z_index, position: 'absolute', scale : numScale}} 
+            onDragStart={(e,data) => {this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)}}
+            onDragStop={(e,d) => {this.props.item.control_x_position = (d.x)*numScale; this.props.item.control_y_position = (d.y)*numScale; this.props.setSave()}}
+            onResize={(e, ignore1, ref, ignore2, ignore3) => {this.props.item.control_width = ref.offsetWidth; this.props.item.control_height = ref.offsetHeight; this.setState({rerender : true})}}
+            position={{x: (this.props.item.control_x_position/numScale), y: (this.props.item.control_y_position/numScale)}}> 
             { name === 'button' ? 
               // Case 1: Button
               <button className={"button_submit2 control_move"}
-              style={{width: this.props.item.control_width, height: this.props.item.control_height,fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, borderColor: this.props.item.control_border_color, //transform: "scale(" + this.props.scale + ")",
+              style={{width: "100%", height: "100%",fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, borderColor: this.props.item.control_border_color, //transform: "scale(" + this.props.scale + ")",
               color: this.props.item.control_text_color, borderWidth: this.props.item.control_border_thickness + "px", borderRadius: this.props.item.control_border_radius + "px"}} 
               id={key} onClick = {() => this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)} > 
                 {this.props.item.control_text} 
@@ -226,7 +235,7 @@ checkControl = () => {
               // Case 2: Container
               name === 'container' ? 
                 <div className={"container_box2 control_move"}
-                  style={{width: this.props.item.control_width, height: this.props.item.control_height, fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, borderColor: this.props.item.control_border_color, //transform: "scale(" + this.props.scale + ")",
+                  style={{width: "100%", height: "100%", fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, borderColor: this.props.item.control_border_color, //transform: "scale(" + this.props.scale + ")",
                   color: this.props.item.control_text_color, borderWidth: this.props.item.control_border_thickness + "px", borderRadius: this.props.item.control_border_radius + "px"}} 
                   id={key} onClick = {() => this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)}> {this.props.item.control_text} 
                   <span id={this.state.inner1} />
