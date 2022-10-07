@@ -4,7 +4,7 @@ import { firebaseConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
 import { registerHandler} from '../../redux/reducers/authReducer/authReducerHelpers'
-import { registerStarted, registerSucceeded, registerErrored, showLinkOnNavbar } from '../../redux/actions/actionCreators';
+import { registerStarted, registerSucceeded, registerErrored, showLinkOnNavbar, resetAuthError } from '../../redux/actions/actionCreators';
 import { getFirestore } from 'redux-firestore';
 import constants from '../../config/constants';
 
@@ -51,7 +51,10 @@ class RegisterScreen extends Component {
   }
 
   componentDidMount = () => {
-    if (this.props.loggedOutLink !== '/login') this.props.showLinkOnNavbar('/login');
+    if (this.props.loggedOutLink !== '/login') {
+      this.props.showLinkOnNavbar('/login');
+    }
+    this.props.resetAuthError();
   }
 
   render() {
@@ -116,7 +119,8 @@ const mapDispatchToProps = dispatch => ({
   registerStarted: () => dispatch(registerStarted()),
   registerSucceeded: (user) => dispatch(registerSucceeded(user)),
   registerErrored: (error) => dispatch(registerErrored(error)),
-  showLinkOnNavbar: (link) => dispatch(showLinkOnNavbar(link))
+  showLinkOnNavbar: (link) => dispatch(showLinkOnNavbar(link)),
+  resetAuthError: () => dispatch(resetAuthError())
 });
 
 export default compose(

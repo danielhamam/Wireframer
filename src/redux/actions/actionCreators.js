@@ -12,6 +12,7 @@ export const REGISTER_ERRORED = 'REGISTER_ERRORED';
 export const LOGIN_SUCCEEDED = 'LOGIN_SUCCESS';
 export const LOGIN_ERRORED = 'LOGIN_ERROR';
 export const LOGGED_OUT_LINK_CHANGED = 'LOGGED_OUT_LINK_CHANGED';
+export const RESET_AUTH_ERROR = 'RESET_AUTH_ERROR';
 
 // THESE CREATORS MAKE ACTIONS ASSOCIATED WITH USER ACCOUNTS
 
@@ -25,6 +26,13 @@ export const showLinkOnNavbar = (link) => {
     return { 
         type: LOGGED_OUT_LINK_CHANGED,
         loggedOutLink : link
+    }
+};
+
+export const resetAuthError = () => {
+    return { 
+        type: RESET_AUTH_ERROR,
+        error: ''
     }
 };
 
