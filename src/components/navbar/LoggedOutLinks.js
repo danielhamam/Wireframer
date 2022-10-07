@@ -2,31 +2,29 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { showRegisterLink, showLoginLink } from '../../redux/actions/actionCreators';
+import { firebaseConnect } from 'react-redux-firebase';
 
 class LoggedOutLinks extends React.Component {
   constructor() {
     super();
     this.state = {
-      loggedOutLink : window.location.pathname, // when rerenders, extracts from url
+      // loggedOutLink : '/login', // when rerenders, extracts from url
     }
   }
 
-  toggleLink = () => {
-    if (this.state.loggedOutLink === '/login') this.setState({loggedOutLink : '/register'});
-    else this.setState({loggedOutLink : '/login'});
-  }
-
   render() {
+
+    // console.log("LOGGED OUT LINK: ", this.props.loggedOutLink);
+
     return (
       <ul className = "right" >
         <li >
-          {this.state.loggedOutLink === '/login' ? 
-          <NavLink to="/register" onClick={() => this.toggleLink()}>
+          {this.props.loggedOutLink === '/register' ? 
+          <NavLink to="/register">
             <span id="navbar_links">Register</span>
           </NavLink>
           :
-          <NavLink to="/login" onClick={() => this.toggleLink()}>
+          <NavLink to="/login">
             <span id="navbar_links">Login</span>
           </NavLink>
         }
@@ -36,4 +34,15 @@ class LoggedOutLinks extends React.Component {
   }
 }
 
-export default LoggedOutLinks;
+const mapStateToProps = (state) => {
+  // console.log("STATE: ", state);
+  return {
+    authError: state.auth.authError,
+    loggedOutLink: state.auth.loggedOutLink,
+  }
+};
+
+export default compose(
+  firebaseConnect(),
+  connect(mapStateToProps),
+)(LoggedOutLinks);

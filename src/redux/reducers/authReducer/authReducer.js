@@ -10,15 +10,21 @@ import * as actionCreators from '../../actions/actionCreators'
 const initState = {
   creating : false,
   authError: '',
-  loggedOutLink : 'register'
+  loggedOutLink : ''
 };
 
 // Using ...state spread operator in the sense of "if you can't change it, replace it"
 
 // MANPULATES REDUX STATE
 const authReducer = (state = initState, action) => {
-  // console.log("authReducer: Beginning mapping of type " + action.type + " to corresponding handler");
+  console.log("authReducer: Beginning mapping of type " + action.type + " to corresponding handler");
   switch (action.type) {
+    case actionCreators.LOGGED_OUT_LINK_CHANGED:
+      console.log('changing loggedOutLink to: ', action.loggedOutLink);
+      return {
+        ...state,
+        loggedOutLink: action.loggedOutLink
+      };
     case actionCreators.LOGIN_ERRORED:
       return {
         ...state,

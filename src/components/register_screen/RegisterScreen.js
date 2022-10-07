@@ -4,7 +4,7 @@ import { firebaseConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
 import { registerHandler} from '../../redux/reducers/authReducer/authReducerHelpers'
-import { registerStarted, registerSucceeded, registerErrored } from '../../redux/actions/actionCreators';
+import { registerStarted, registerSucceeded, registerErrored, showLinkOnNavbar } from '../../redux/actions/actionCreators';
 import { getFirestore } from 'redux-firestore';
 import constants from '../../config/constants';
 
@@ -48,6 +48,10 @@ class RegisterScreen extends Component {
     else {
       this.setState({failedMsg : constants.registrationFailedErrMsg});
     }
+  }
+
+  componentDidMount = () => {
+    if (this.props.loggedOutLink !== '/login') this.props.showLinkOnNavbar('/login');
   }
 
   render() {
@@ -102,6 +106,7 @@ class RegisterScreen extends Component {
 const mapStateToProps = state => ({
   auth: state.firebase.auth,
   authError: state.auth.authError,
+  loggedOutLink : state.auth.loggedOutLink
 });
 
 // mapDispatchToProps = Component to Redux (calling an action, writing to the store)
@@ -110,7 +115,8 @@ const mapDispatchToProps = dispatch => ({
   // registerUser: (user, firebase) => dispatch(registerHandler(user, firebase, getFirestore))
   registerStarted: () => dispatch(registerStarted()),
   registerSucceeded: (user) => dispatch(registerSucceeded(user)),
-  registerErrored: (error) => dispatch(registerErrored(error))
+  registerErrored: (error) => dispatch(registerErrored(error)),
+  showLinkOnNavbar: (link) => dispatch(showLinkOnNavbar(link))
 });
 
 export default compose(

@@ -682,6 +682,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   cursor: pointer;
   height: 33px;
   width: 180px;
+  background-color: #DCDCDC;
 }
 
 .button_submit2 {

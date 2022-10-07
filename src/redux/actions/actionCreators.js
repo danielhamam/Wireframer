@@ -11,6 +11,7 @@ export const REGISTER_SUCCEEDED = 'REGISTER_SUCCEEDED';
 export const REGISTER_ERRORED = 'REGISTER_ERRORED';
 export const LOGIN_SUCCEEDED = 'LOGIN_SUCCESS';
 export const LOGIN_ERRORED = 'LOGIN_ERROR';
+export const LOGGED_OUT_LINK_CHANGED = 'LOGGED_OUT_LINK_CHANGED';
 
 // THESE CREATORS MAKE ACTIONS ASSOCIATED WITH USER ACCOUNTS
 
@@ -18,6 +19,14 @@ export const LOGIN_ERRORED = 'LOGIN_ERROR';
 * PURPOSE: When called, returns object with required information
 * WHERE IS IT USED?: Used in userActions functions / mapDispatchtoProps
 ************************************************************************/
+
+export const showLinkOnNavbar = (link) => {
+    console.log("HERE with", link);
+    return { 
+        type: LOGGED_OUT_LINK_CHANGED,
+        loggedOutLink : link
+    }
+};
 
 export const registerStarted = () => {
     return { 
