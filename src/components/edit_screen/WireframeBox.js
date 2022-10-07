@@ -273,12 +273,18 @@ class WireframeBox extends Component {
                     document.getElementById("font_size_textfield").setAttribute('disabled', '');
                     document.getElementById("textfield_input").setAttribute('disabled', '');
                     document.getElementById("text_color_field").setAttribute('disabled', '');
-                    document.getElementById("font_size_textfield").style.backgroundColor = 'lightgray';
-                    document.getElementById("textfield_input").style.backgroundColor = 'lightgray';
-                    document.getElementById("text_color_field").style.backgroundColor = 'lightgray';
+                    document.getElementById("font_size_textfield").value = "N/A";
+                    document.getElementById("textfield_input").value =  "N/A";
+                    document.getElementById("text_color_field").value =  "N/A";
+                    // document.getElementById("font_size_textfield").style.backgroundColor = 'lightgray';
+                    // document.getElementById("textfield_input").style.backgroundColor = 'lightgray';
+                    // document.getElementById("text_color_field").style.backgroundColor = 'lightgray';
                 }
                 // not a container
                 else {
+                    document.getElementById("font_size_textfield").removeAttribute('disabled');
+                    document.getElementById("textfield_input").removeAttribute('disabled');
+                    document.getElementById("text_color_field").removeAttribute('disabled');
                     document.getElementById("font_size_textfield").value = item.control_font_size;
                     document.getElementById("textfield_input").value = item.control_text;
                     document.getElementById("text_color_field").value = item.control_text_color;
