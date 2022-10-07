@@ -49,9 +49,9 @@ class WireframeBox extends Component {
         // let calculatedScale = this.state.scale * 1.5;
         this.state.staging_changes_items.forEach((item) => {
             console.log("before item: ", item);
-            item.control_width = (parseInt(item.control_width, 10) * 1.2).toString();
-            item.control_height = (parseInt(item.control_height, 10) * 1.2).toString();
-            item.control_font_size = (parseInt(item.control_font_size) + 2).toString();
+            item.control_width = (parseInt(item.control_width, 10) * 1.2).toString() < constants.MAX_ITEM_WIDTH_ZOOM ? (parseInt(item.control_width, 10) * 1.2).toString() : "450";
+            item.control_height = (parseInt(item.control_height, 10) * 1.2).toString() < constants.MAX_ITEM_HEIGHT_ZOOM ? (parseInt(item.control_height, 10) * 1.2).toString() : "450";
+            item.control_font_size = (parseInt(item.control_font_size) + 1).toString() < constants.MAX_FONT_SIZE_ZOOM ? (parseInt(item.control_font_size) + 1).toString() : "50";
             // console.log("after item: ", item);
         });
         // this.setState({ scale : calculatedScale});
@@ -62,9 +62,9 @@ class WireframeBox extends Component {
         // console.log("before item: ", item);
         this.state.staging_changes_items.forEach((item) => {
             console.log("before item: ", item);
-            item.control_width = (parseInt(item.control_width, 10) / 1.2).toString();
-            item.control_height = (parseInt(item.control_height, 10) / 1.2).toString();
-            item.control_font_size = (parseInt(item.control_font_size) - 2).toString();
+            item.control_width = (parseInt(item.control_width, 10) / 1.2).toString() > constants.MIN_ITEM_WIDTH_ZOOM ? (parseInt(item.control_width, 10) / 1.2).toString() : constants.MIN_ITEM_WIDTH_ZOOM.toString();
+            item.control_height = (parseInt(item.control_height, 10) / 1.2).toString() > constants.MIN_ITEM_HEIGHT_ZOOM  ? (parseInt(item.control_height, 10) / 1.2).toString() : constants.MIN_ITEM_HEIGHT_ZOOM.toString();;
+            item.control_font_size = (parseInt(item.control_font_size) - 1).toString() > constants.MIN_FONT_SIZE_ZOOM ? (parseInt(item.control_font_size) - 1).toString() : constants.MIN_FONT_SIZE_ZOOM.toString();;
             console.log("after item: ", item);
         });
         // console.log("after item: ", item);

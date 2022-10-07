@@ -8,6 +8,12 @@ const constants = {
     // Register Screen
     passwordValidationErrMsg : 'Your password must be at least 6 characters long',
     registrationFailedErrMsg : 'Registration failed. Please check the field(s) again!',
+    MIN_FONT_SIZE_ZOOM: 4,
+    MIN_ITEM_WIDTH_ZOOM: 10,
+    MIN_ITEM_HEIGHT_ZOOM: 10,
+    MAX_ITEM_WIDTH_ZOOM: 450,
+    MAX_ITEM_HEIGHT_ZOOM: 450,
+    MAX_FONT_SIZE_ZOOM: 50,
 
     // New Item Properties
     newItemProps : {
