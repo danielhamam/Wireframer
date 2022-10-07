@@ -9506,7 +9506,7 @@
     "prop-types" "15.x"
     "react-draggable" "^4.0.3"
 
-"react-rnd@^10.1.3":
+"react-rnd@^10.3.7":
   "integrity" "sha512-fYifqMI6xWzzajoRbxNNH2xpKagJT5o1zAY3a4eh4gKk+Eyy/9LGoBKA3eVX0yNOeD7JB+wznps4YmnU38v6Yw=="
   "resolved" "https://registry.npmjs.org/react-rnd/-/react-rnd-10.3.7.tgz"
   "version" "10.3.7"

@@ -46,20 +46,28 @@ class WireframeBox extends Component {
     }
 
     zoomIn = (e) => {
-        let calculatedScale = this.state.scale * 1.5;
-        // this.state.staging_changes_items.forEach((item) => {
-        //     console.log("before item: ", item);
-        //     item.control_width = (parseInt(item.control_width, 10) * 1.5).toString();
-        //     item.control_height = (parseInt(item.control_height, 10) * 1.5).toString();
-        //     console.log("after item: ", item);
-        // });
-        this.setState({ scale : calculatedScale});
+        // let calculatedScale = this.state.scale * 1.5;
+        this.state.staging_changes_items.forEach((item) => {
+            console.log("before item: ", item);
+            item.control_width = (parseInt(item.control_width, 10) * 1.2).toString();
+            item.control_height = (parseInt(item.control_height, 10) * 1.2).toString();
+            item.control_font_size = (parseInt(item.control_font_size) + 2).toString();
+            // console.log("after item: ", item);
+        });
+        // this.setState({ scale : calculatedScale});
         this.setSave();
     }
         
     zoomOut = (e) => {
-        let calculatedScale = this.state.scale / 1.5;
-        this.setState({ scale : calculatedScale});
+        // console.log("before item: ", item);
+        this.state.staging_changes_items.forEach((item) => {
+            console.log("before item: ", item);
+            item.control_width = (parseInt(item.control_width, 10) / 1.2).toString();
+            item.control_height = (parseInt(item.control_height, 10) / 1.2).toString();
+            item.control_font_size = (parseInt(item.control_font_size) - 2).toString();
+            console.log("after item: ", item);
+        });
+        // console.log("after item: ", item);
         this.setSave();
     }
         
@@ -212,7 +220,7 @@ class WireframeBox extends Component {
         let index = this.state.staging_changes_items.indexOf(item);
         this.state.staging_changes_items.splice( index, 1 ); // removed item
         this.setState({ rerender : true}); // rerender
-        console.log('deleted item');
+        // console.log('deleted item');
       }
 
     sendItemToBack = () => {
@@ -326,7 +334,7 @@ class WireframeBox extends Component {
                         </div>
                     </div> 
                     <div id="middle_screen" className="middle_screen"> 
-                        <div id="dimension" className="dimension" style={{width: this.state.width + "px", height: this.state.height + "px"}}>
+                        <div id="dimension" className="dimension" style={{width: this.state.width + "px", height: this.state.height + "px", scale: parseFloat(this.state.scale).toFixed(1)}}>
                             {wireframe && items && items.map(item => (
                                 <WireframeItem items={items} item={item} key={item.id} isCurrSelection={this.state.isCurrSelection} 
                                 deleteItem = {this.deleteItem} duplicateItem={this.duplicateItem} zoomIn={this.zoomIn} zoomOut={this.zoomOut} 

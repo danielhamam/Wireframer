@@ -20,8 +20,8 @@ class WireframeItem extends Component {
       inner4 : Math.floor(Math.random() * 10000) + 100 + "",
       
       // drag bounds
-      top: 40, 
-      left: 40
+      // top: 40, 
+      // left: 40
   
     }
   }
@@ -198,6 +198,7 @@ changeButton = (e) => {
 //   }
 // }
 
+
 checkControl = () => {
   // Check control, make it container_box (container), prompt_text (label), buttom_submit (button), textfield_input (textfield)
 
@@ -205,8 +206,10 @@ checkControl = () => {
   let key = this.props.item.id;
   let numScale =  parseFloat(this.props.scale).toFixed(1);
 
-  console.log("x pos: ", this.props.item.control_x_position);
-  console.log("x/numscale ", this.props.item.control_x_position/numScale);
+  console.log("x: ", this.props.item.control_x_position);
+  let adjustedX = this.props.item.control_x_position/numScale;
+  let adjustedY = this.props.item.control_y_position/numScale;
+  console.log("x/numscale: ", this.props.item.control_x_position/numScale);
   
     return (
       <ClickOutHandler onClickOut={(e) => this.deselectItem(e)}>
@@ -215,11 +218,11 @@ checkControl = () => {
             ref={(el) => this.rndRef = el}
             size={{width: this.props.item.control_width, height: this.props.item.control_height}}
             // style={{transform: "scale(" + this.props.scale + ")" + "translate("+parseInt(this.props.item.control_x_position, 10)+"px,"+parseInt(this.props.item.control_y_position, 10)+"px) !important;"}}
-            style={{zIndex: this.props.item.z_index, position: 'absolute', scale : numScale}} 
-            onDragStart={(e,data) => {this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)}}
-            onDragStop={(e,d) => {this.props.item.control_x_position = (d.x)*numScale; this.props.item.control_y_position = (d.y)*numScale; this.props.setSave()}}
-            onResize={(e, ignore1, ref, ignore2, ignore3) => {this.props.item.control_width = ref.offsetWidth; this.props.item.control_height = ref.offsetHeight; this.setState({rerender : true})}}
-            position={{x: (this.props.item.control_x_position/numScale), y: (this.props.item.control_y_position/numScale)}}> 
+            style={{zIndex: this.props.item.z_index, position: 'absolute'}} 
+            onDragStart={(e,data) => {console.log('dragging started'); this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)}}
+            onDragStop={(e,d) => { this.props.item.control_x_position = (d.x); this.props.item.control_y_position = (d.y); this.props.setSave()}}
+            onResize={(e, ignore1, ref, ignore2, ignore3) => {this.props.item.control_width = ref.offsetWidth; this.props.item.control_height = ref.offsetHeight; this.props.item.control_x_position = this.props.item.control_x_position; this.setState({rerender : true});}}
+            default={{x: (this.props.item.control_x_position), y: (this.props.item.control_y_position)}}> 
             { name === 'button' ? 
               // Case 1: Button
               <button className={"button_submit2 control_move"}
