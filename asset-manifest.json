@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/Wireframer-Project/static/css/main.5b63af1c.chunk.css",
+    "main.css": "/Wireframer-Project/static/css/main.454df972.chunk.css",
     "main.js": "/Wireframer-Project/static/js/main.1d208775.chunk.js",
     "main.js.map": "/Wireframer-Project/static/js/main.1d208775.chunk.js.map",
     "runtime-main.js": "/Wireframer-Project/static/js/runtime-main.cbecc9a5.js",
@@ -8,14 +8,14 @@
     "static/js/2.368703cc.chunk.js": "/Wireframer-Project/static/js/2.368703cc.chunk.js",
     "static/js/2.368703cc.chunk.js.map": "/Wireframer-Project/static/js/2.368703cc.chunk.js.map",
     "index.html": "/Wireframer-Project/index.html",
-    "precache-manifest.fb3d1a26f55339836fde0703ea1fdef4.js": "/Wireframer-Project/precache-manifest.fb3d1a26f55339836fde0703ea1fdef4.js",
+    "precache-manifest.0ed68b2eb81b85d2d2981a0aecb1c658.js": "/Wireframer-Project/precache-manifest.0ed68b2eb81b85d2d2981a0aecb1c658.js",
     "service-worker.js": "/Wireframer-Project/service-worker.js",
-    "static/css/main.5b63af1c.chunk.css.map": "/Wireframer-Project/static/css/main.5b63af1c.chunk.css.map"
+    "static/css/main.454df972.chunk.css.map": "/Wireframer-Project/static/css/main.454df972.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.cbecc9a5.js",
     "static/js/2.368703cc.chunk.js",
-    "static/css/main.5b63af1c.chunk.css",
+    "static/css/main.454df972.chunk.css",
     "static/js/main.1d208775.chunk.js"
   ]
 }
