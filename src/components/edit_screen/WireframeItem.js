@@ -36,6 +36,7 @@ checkKeyPress = (e) => {
   e.preventDefault();
   if (this.state.isSelected) {
     if (e.keyCode === 8 || e.key === "Delete") {
+      console.log('WireframeItem.checkKeyPress: deleting item...')
       document.getElementById("font_size_textfield").value = "";
       document.getElementById("textfield_input").value = "";
       document.getElementById("text_color_field").value = "#000000";
@@ -47,6 +48,7 @@ checkKeyPress = (e) => {
       this.props.deleteItem(this.props.item);
     }
     else if (e.keyCode === 68 && (e.ctrlKey || e.metaKey)) { // Ctrl + d to duplicate
+      console.log('WireframeItem.checkKeyPress: duplicating item...')
       e.preventDefault();
       this.duplicateSelectedItem();
       this.deselectItem('duplicate');
@@ -206,10 +208,10 @@ checkControl = () => {
   let key = this.props.item.id;
   let numScale =  parseFloat(this.props.scale).toFixed(1);
 
-  console.log("x: ", this.props.item.control_x_position);
-  let adjustedX = this.props.item.control_x_position/numScale;
-  let adjustedY = this.props.item.control_y_position/numScale;
-  console.log("x/numscale: ", this.props.item.control_x_position/numScale);
+  // console.log("x: ", this.props.item.control_x_position);
+  // let adjustedX = this.props.item.control_x_position/numScale;
+  // let adjustedY = this.props.item.control_y_position/numScale;
+  // console.log("x/numscale: ", this.props.item.control_x_position/numScale);
   
     return (
       <ClickOutHandler onClickOut={(e) => this.deselectItem(e)}>
@@ -250,7 +252,7 @@ checkControl = () => {
               name === 'textfield' ? 
                 <div>
                   <input type="input" id={key} className={"textfield_input2 control_move"} placeholder="Input" 
-                  style={{width: this.props.item.control_width, height: this.props.item.control_height, fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, //transform: "scale(" + this.props.scale + ")",
+                  style={{width: "100%", height: "100%", fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, //transform: "scale(" + this.props.scale + ")",
                   borderColor: this.props.item.control_border_color, color: this.props.item.control_text_color, borderWidth: this.props.item.control_border_thickness + "px",
                   borderRadius: this.props.item.control_border_radius + "px"}} onClick = {() => this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)} defaultValue={this.props.item.control_text} /> 
                   <div>
@@ -263,7 +265,7 @@ checkControl = () => {
               // Case 4: Label
               name === 'label' ? 
                 <div className={"prompt_text2 control_move"} 
-                style={{width: this.props.item.control_width, height: this.props.item.control_height, fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, borderColor: this.props.item.control_border_color, //transform: "scale(" + this.props.scale + ")",
+                style={{width: "100%", height: "100%", fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, borderColor: this.props.item.control_border_color, //transform: "scale(" + this.props.scale + ")",
                 color: this.props.item.control_text_color, borderWidth: this.props.item.control_border_thickness + "px", borderRadius: this.props.item.control_border_radius + "px"}} 
                 id={key} onClick = {() => this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)} > {this.props.item.control_text} 
                   <span id={this.state.inner1} />

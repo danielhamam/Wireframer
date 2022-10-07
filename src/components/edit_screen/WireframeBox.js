@@ -49,9 +49,9 @@ class WireframeBox extends Component {
         // let calculatedScale = this.state.scale * 1.5;
         this.state.staging_changes_items.forEach((item) => {
             console.log("before item: ", item);
-            item.control_width = (parseInt(item.control_width, 10) * 1.2).toString() < constants.MAX_ITEM_WIDTH_ZOOM ? (parseInt(item.control_width, 10) * 1.2).toString() : "450";
-            item.control_height = (parseInt(item.control_height, 10) * 1.2).toString() < constants.MAX_ITEM_HEIGHT_ZOOM ? (parseInt(item.control_height, 10) * 1.2).toString() : "450";
-            item.control_font_size = (parseInt(item.control_font_size) + 1).toString() < constants.MAX_FONT_SIZE_ZOOM ? (parseInt(item.control_font_size) + 1).toString() : "50";
+            item.control_width = (parseInt(item.control_width) + constants.SCALE_FACTOR_SIZE).toString() < constants.MAX_ITEM_WIDTH_ZOOM ? (parseInt(item.control_width) + constants.SCALE_FACTOR_SIZE).toString() : "0";
+            item.control_height = (parseInt(item.control_height) + constants.SCALE_FACTOR_SIZE).toString() < constants.MAX_ITEM_HEIGHT_ZOOM ? (parseInt(item.control_height) + constants.SCALE_FACTOR_SIZE).toString() : "0";
+            item.control_font_size = (parseInt(item.control_font_size) + constants.SCALE_FACTOR_FONT).toString() < constants.MAX_FONT_SIZE_ZOOM ? (parseInt(item.control_font_size) + constants.SCALE_FACTOR_FONT).toString() : "0";
             // console.log("after item: ", item);
         });
         // this.setState({ scale : calculatedScale});
@@ -62,9 +62,9 @@ class WireframeBox extends Component {
         // console.log("before item: ", item);
         this.state.staging_changes_items.forEach((item) => {
             console.log("before item: ", item);
-            item.control_width = (parseInt(item.control_width, 10) / 1.2).toString() > constants.MIN_ITEM_WIDTH_ZOOM ? (parseInt(item.control_width, 10) / 1.2).toString() : constants.MIN_ITEM_WIDTH_ZOOM.toString();
-            item.control_height = (parseInt(item.control_height, 10) / 1.2).toString() > constants.MIN_ITEM_HEIGHT_ZOOM  ? (parseInt(item.control_height, 10) / 1.2).toString() : constants.MIN_ITEM_HEIGHT_ZOOM.toString();;
-            item.control_font_size = (parseInt(item.control_font_size) - 1).toString() > constants.MIN_FONT_SIZE_ZOOM ? (parseInt(item.control_font_size) - 1).toString() : constants.MIN_FONT_SIZE_ZOOM.toString();;
+            item.control_width = (parseInt(item.control_width) - constants.SCALE_FACTOR_SIZE).toString() > constants.MIN_ITEM_WIDTH_ZOOM ? (parseInt(item.control_width) - constants.SCALE_FACTOR_SIZE).toString() : "0";
+            item.control_height = (parseInt(item.control_height) - constants.SCALE_FACTOR_SIZE).toString() > constants.MIN_ITEM_HEIGHT_ZOOM  ? (parseInt(item.control_height) - constants.SCALE_FACTOR_SIZE).toString() : "0";
+            item.control_font_size = (parseInt(item.control_font_size) - constants.SCALE_FACTOR_FONT).toString() > constants.MIN_FONT_SIZE_ZOOM ? (parseInt(item.control_font_size) - constants.SCALE_FACTOR_FONT).toString() : "0";
             console.log("after item: ", item);
         });
         // console.log("after item: ", item);
@@ -313,23 +313,25 @@ class WireframeBox extends Component {
                             <div id="close_work" onClick={this.closeWork_check}> Close </div>
                         </div>
                         <div id="bottom_left"> 
-                            <div className="container_example">
-                                <div className="container_box example_item_select" onClick={() => this.addNewItem('container')} > </div>
-                                <div id="container_text" className='example_item' > Container </div>
+                            <div className='left_screen_title'> <b> Please click an item to add: </b> </div>
+                            <div className="container_example example_item">
+                                <div className="container_box example_item_select" onClick={() => this.addNewItem('container')} > 
+                                    <div id="container_text"> Container </div>
+                                </div>
                             </div>
-                            < br />
-                            <div id="prompt_for_input">
-                                <div className="prompt_text example_item_select" onClick={() => this.addNewItem('label')} > Prompt for input:</div>
-                                <div id="label_text" className='example_item'>Label</div>
+                            <div id="prompt_for_input" className='example_item'>
+                                <div className="prompt_text example_item_select" onClick={() => this.addNewItem('label')} > 
+                                    <div id="label_text"> Label </div>
+                                </div>
                             </div>
-                            <div className="button_example">
-                                <button className="button_submit example_item_select" onClick={() => this.addNewItem('button')}> Submit</button>
-                                <div id="button_text" className='example_item'> Button</div>
+                            <div className="button_example example_item">
+                                <button className="button_submit example_item_select" onClick={() => this.addNewItem('button')}> 
+                                    <div id="button_text"> Button </div>
+                                </button>
                             </div>
-                            < br />
-                            <div className="textfield_example">
-                                <input type="input" className="textfield_input example_item_select" placeholder="Input" onClick={() => this.addNewItem('textfield')} />
-                                <p id="textfield_label" className='example_item'>Textfield</p>
+                            <div className="textfield_example example_item">
+                                <input type="input" className="textfield_input example_item_select" placeholder="Textfield" onClick={() => this.addNewItem('textfield')} />
+                                {/* <p id="textfield_label" className='example_item'>Textfield</p> */}
                             </div>
                         </div>
                     </div> 

@@ -8,11 +8,16 @@ const constants = {
     // Register Screen
     passwordValidationErrMsg : 'Your password must be at least 6 characters long',
     registrationFailedErrMsg : 'Registration failed. Please check the field(s) again!',
+
+    // Zoom out/in 
+    SCALE_FACTOR_SIZE : 5, // for width/height
+    SCALE_FACTOR_FONT : 1, // for font size
     MIN_FONT_SIZE_ZOOM: 4,
     MIN_ITEM_WIDTH_ZOOM: 10,
     MIN_ITEM_HEIGHT_ZOOM: 10,
     MAX_ITEM_WIDTH_ZOOM: 450,
     MAX_ITEM_HEIGHT_ZOOM: 450,
+    MIN_FONT_SIZE_ZOOM: 4,
     MAX_FONT_SIZE_ZOOM: 50,
 
     // New Item Properties
@@ -35,7 +40,7 @@ const constants = {
             control : "label",
             control_width : "200",
             control_height: "",
-            control_text : "Prompt for input",
+            control_text : "Label",
             control_font_size : "12",
             control_background : "",
             control_border_color : "",
@@ -49,7 +54,7 @@ const constants = {
             control : "button",
             control_width : "180",
             control_height: "32",
-            control_text : "Submit",
+            control_text : "Button",
             control_font_size : "16",
             control_background : "#DCDCDC",
             control_border_color : "#000000",
