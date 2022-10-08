@@ -9,13 +9,6 @@ import constants from '../../config/constants';
 class WireframeBox extends Component {
     constructor(props) {
         super(props);
-        // this.textFieldInputRef = React.createRef();
-        // this.fontSizeTextfieldRef = React.createRef();
-        // this.textColorFieldRef = React.createRef();
-        // this.backgroundFieldRef = React.createRef();
-        // this.borderColorFieldRef = React.createRef();
-        // this.borderThicknessFieldRef = React.createRef();
-        // this.borderRadiusFieldRef = React.createRef();
     }
     state = {
         goHome : false,
@@ -25,8 +18,8 @@ class WireframeBox extends Component {
         height : this.props.wireframe ? this.props.wireframe.height : 460,
         width : this.props.wireframe ? this.props.wireframe.width : 500,
         isCurrSelection : [false,null], // returns true if an item is currently selected
-        isWidthEnabled : true,
-        isHeightEnabled : true,
+        isWidthDisabled : false,
+        isHeightDisabled : false,
         pending_width : 0,
         pending_height : 0,
         prompt_save : false, // modal save pop-up
@@ -46,30 +39,32 @@ class WireframeBox extends Component {
     }
 
     zoomIn = (e) => {
-        // let calculatedScale = this.state.scale * 1.5;
-        this.state.staging_changes_items.forEach((item) => {
-            console.log("before item: ", item);
-            item.control_width = (parseInt(item.control_width) + constants.SCALE_FACTOR_SIZE).toString() < constants.MAX_ITEM_WIDTH_ZOOM ? (parseInt(item.control_width) + constants.SCALE_FACTOR_SIZE).toString() : "0";
-            item.control_height = (parseInt(item.control_height) + constants.SCALE_FACTOR_SIZE).toString() < constants.MAX_ITEM_HEIGHT_ZOOM ? (parseInt(item.control_height) + constants.SCALE_FACTOR_SIZE).toString() : "0";
-            item.control_font_size = (parseInt(item.control_font_size) + constants.SCALE_FACTOR_FONT).toString() < constants.MAX_FONT_SIZE_ZOOM ? (parseInt(item.control_font_size) + constants.SCALE_FACTOR_FONT).toString() : "0";
-            // console.log("after item: ", item);
-        });
-        // this.setState({ scale : calculatedScale});
+        let calculatedScale = this.state.scale * constants.SCALE_FACTOR;
+        // this.state.staging_changes_items.forEach((item) => {
+        //     console.log("before item: ", item);
+        //     item.control_width = (parseInt(item.control_width) + constants.SCALE_FACTOR_SIZE).toString() < constants.MAX_ITEM_WIDTH_ZOOM ? (parseInt(item.control_width) + constants.SCALE_FACTOR_SIZE).toString() : "0";
+        //     item.control_height = (parseInt(item.control_height) + constants.SCALE_FACTOR_SIZE).toString() < constants.MAX_ITEM_HEIGHT_ZOOM ? (parseInt(item.control_height) + constants.SCALE_FACTOR_SIZE).toString() : "0";
+        //     item.control_font_size = (parseInt(item.control_font_size) + constants.SCALE_FACTOR_FONT).toString() < constants.MAX_FONT_SIZE_ZOOM ? (parseInt(item.control_font_size) + constants.SCALE_FACTOR_FONT).toString() : "0";
+        //     // console.log("after item: ", item);
+        // });
+        this.setState({ scale : calculatedScale});
         this.setSave();
     }
         
     zoomOut = (e) => {
         // console.log("before item: ", item);
-        this.state.staging_changes_items.forEach((item) => {
-            console.log("before item: ", item);
+        // this.state.staging_changes_items.forEach((item) => {
+            // console.log("before item: ", item);
             // item.control_width = (parseInt(item.control_width) - constants.SCALE_FACTOR_SIZE).toString() > constants.MIN_ITEM_WIDTH_ZOOM ? (parseInt(item.control_width) - constants.SCALE_FACTOR_SIZE).toString() : "0";
             // item.control_height = (parseInt(item.control_height) - constants.SCALE_FACTOR_SIZE).toString() > constants.MIN_ITEM_HEIGHT_ZOOM  ? (parseInt(item.control_height) - constants.SCALE_FACTOR_SIZE).toString() : "0";
             // item.control_font_size = (parseInt(item.control_font_size) - constants.SCALE_FACTOR_FONT).toString() > constants.MIN_FONT_SIZE_ZOOM ? (parseInt(item.control_font_size) - constants.SCALE_FACTOR_FONT).toString() : "0";
-            item.control_width = (parseInt(item.control_width) - constants.SCALE_FACTOR_SIZE).toString() > 0 ? (parseInt(item.control_width) - constants.SCALE_FACTOR_SIZE).toString() : item.control_width;
-            item.control_height = (parseInt(item.control_height) - constants.SCALE_FACTOR_SIZE).toString() > 0  ? (parseInt(item.control_height) - constants.SCALE_FACTOR_SIZE).toString() : item.control_height;
-            item.control_font_size = (parseInt(item.control_font_size) - constants.SCALE_FACTOR_FONT).toString() > 0 ? (parseInt(item.control_font_size) - constants.SCALE_FACTOR_FONT).toString() : item.control_font_size;
-            console.log("after item: ", item);
-        });
+            // item.control_width = (parseInt(item.control_width) - constants.SCALE_FACTOR_SIZE).toString() > 0 ? (parseInt(item.control_width) - constants.SCALE_FACTOR_SIZE).toString() : item.control_width;
+            // item.control_height = (parseInt(item.control_height) - constants.SCALE_FACTOR_SIZE).toString() > 0  ? (parseInt(item.control_height) - constants.SCALE_FACTOR_SIZE).toString() : item.control_height;
+            // item.control_font_size = (parseInt(item.control_font_size) - constants.SCALE_FACTOR_FONT).toString() > 0 ? (parseInt(item.control_font_size) - constants.SCALE_FACTOR_FONT).toString() : item.control_font_size;
+            // console.log("after item: ", item);
+        // });
+        let calculatedScale = this.state.scale / constants.SCALE_FACTOR;
+        this.setState({ scale : calculatedScale});
         // console.log("after item: ", item);
         this.setSave();
     }
@@ -173,22 +168,22 @@ class WireframeBox extends Component {
     handleChange_diagram_width = (e) => { this.setState({ width: this.state.pending_width}); this.setSave(); }
     handleChange_diagram_height = (e) => { this.setState({ height: this.state.pending_height}); this.setSave(); }
     checkWidth_diagram = (e) => {
-        if (e.target.value <= 5000 && e.target.value >= 1) {
-            this.setState({isWidthEnabled : false});
+        if (e.target.value <= constants.WIREFRAME_MAX_SIZE && e.target.value >= constants.WIREFRAME_MIN_SIZE) {
+            this.setState({isWidthDisabled : false});
             this.setState({pending_width : e.target.value})
         }
         else {
-            this.setState({isWidthEnabled : true});
+            this.setState({isWidthDisabled : true});
         }
     }
 
     checkHeight_diagram = (e) => {
-        if (e.target.value <= 5000 && e.target.value >= 1) {
-            this.setState({isHeightEnabled : false});
+        if (e.target.value <= constants.WIREFRAME_MAX_SIZE && e.target.value >= constants.WIREFRAME_MIN_SIZE) {
+            this.setState({isHeightDisabled : false});
             this.setState({pending_height : e.target.value})
         }
         else {
-            this.setState({isHeightEnabled : true});
+            this.setState({isHeightDisabled : true});
         }
     }
 
@@ -416,12 +411,12 @@ class WireframeBox extends Component {
                     </div>
                     <div id="wireframe_dimensions">
                         <div id="wireframe_dimension_left" className="font_dimension"> 
-                            <button id="dimension_width_button" disabled={this.state.isWidthEnabled} onClick={this.handleChange_diagram_width} >Update Width </button>
-                            <input type="input" id="dimension_width" name="width" onChange ={(e) => this.checkWidth_diagram(e)}/>
+                            <button id="dimension_width_button" disabled={this.state.isWidthDisabled} onClick={this.handleChange_diagram_width} >Update Width </button>
+                            <input type="input" id="dimension_width" name="width" defaultValue={this.state.width} onChange ={(e) => this.checkWidth_diagram(e)}/>
                         </div>
                         <div id="wireframe_dimension_right" className="font_dimension"> 
-                            <button id="dimension_height_button" disabled={this.state.isHeightEnabled} onClick = {this.handleChange_diagram_height}>Update Height </button>
-                            <input type="input" id="dimension_height" name="height" onChange ={(e) => this.checkHeight_diagram(e)}/>
+                            <button id="dimension_height_button" disabled={this.state.isHeightDisabled} onClick = {this.handleChange_diagram_height}>Update Height </button>
+                            <input type="input" id="dimension_height" name="height" defaultValue={this.state.height} onChange ={(e) => this.checkHeight_diagram(e)}/>
                         </div>
                     </div> 
                 </div>

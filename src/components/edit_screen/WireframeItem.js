@@ -208,7 +208,7 @@ checkControl = () => {
 
   let name = this.props.item.control;
   let key = this.props.item.id;
-  // let numScale =  parseFloat(this.props.scale).toFixed(1);
+  let numScale =  parseFloat(this.props.scale).toFixed(1);
 
   // console.log("x: ", this.props.item.control_x_position);
   // let adjustedX = this.props.item.control_x_position/numScale;
@@ -219,7 +219,7 @@ checkControl = () => {
       <ClickOutHandler onClickOut={(e) => this.deselectItem(e)}>
         {/* <div id="rnd_canvas" style={{scale: "scale(" + this.props.scale + ")"}}> */}
           <Rnd id={"item-rnd-"+key} onKeyDown={(e) => this.checkKeyPress(e)} enableResizing={this.checkResizable()} tabIndex="0"
-            size={{width: this.props.item.control_width, height: this.props.item.control_height}}
+            size={{width: this.props.item.control_width, height: this.props.item.control_height}} 
             // style={{transform: "scale(" + this.props.scale + ")" + "translate("+parseInt(this.props.item.control_x_position, 10)+"px,"+parseInt(this.props.item.control_y_position, 10)+"px) !important;"}}
             style={{zIndex: this.props.item.z_index, position: 'absolute'}} 
             onDragStart={(e,data) => {this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)}}
