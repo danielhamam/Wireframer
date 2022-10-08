@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { firestoreConnect } from 'react-redux-firebase'; // use this as a higher order component to connect cmp with firestore data
 import { getFirestore } from 'redux-firestore';
 import WireFrameCards from './WireFrameCards';
+import constants from '../../config/constants';
 
 class HomeScreen extends Component {
 
@@ -23,8 +24,8 @@ handleNewWireframe = () => {
       'wireframes': fireStore.FieldValue.arrayUnion({
         name: "Unknown",
         created_time: new Date(), // to later sort, the ones in json dont need a date. that order doesnt matter. 
-        width : 490, // default
-        height : 480, // default
+        width : constants.WIREFRAME_START_SIZE, // default
+        height : constants.WIREFRAME_START_SIZE, // default
         items: [],
         scale : 1,
         key : answer,

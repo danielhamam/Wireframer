@@ -10,6 +10,7 @@ const constants = {
     registrationFailedErrMsg : 'Registration failed. Please check the field(s) again!',
 
     // Width and Height of Wireframe
+    WIREFRAME_START_SIZE : 500,
     WIREFRAME_MAX_SIZE : 2000,
     WIREFRAME_MIN_SIZE: 1,
 
