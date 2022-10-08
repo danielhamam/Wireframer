@@ -62,9 +62,12 @@ class WireframeBox extends Component {
         // console.log("before item: ", item);
         this.state.staging_changes_items.forEach((item) => {
             console.log("before item: ", item);
-            item.control_width = (parseInt(item.control_width) - constants.SCALE_FACTOR_SIZE).toString() > constants.MIN_ITEM_WIDTH_ZOOM ? (parseInt(item.control_width) - constants.SCALE_FACTOR_SIZE).toString() : "0";
-            item.control_height = (parseInt(item.control_height) - constants.SCALE_FACTOR_SIZE).toString() > constants.MIN_ITEM_HEIGHT_ZOOM  ? (parseInt(item.control_height) - constants.SCALE_FACTOR_SIZE).toString() : "0";
-            item.control_font_size = (parseInt(item.control_font_size) - constants.SCALE_FACTOR_FONT).toString() > constants.MIN_FONT_SIZE_ZOOM ? (parseInt(item.control_font_size) - constants.SCALE_FACTOR_FONT).toString() : "0";
+            // item.control_width = (parseInt(item.control_width) - constants.SCALE_FACTOR_SIZE).toString() > constants.MIN_ITEM_WIDTH_ZOOM ? (parseInt(item.control_width) - constants.SCALE_FACTOR_SIZE).toString() : "0";
+            // item.control_height = (parseInt(item.control_height) - constants.SCALE_FACTOR_SIZE).toString() > constants.MIN_ITEM_HEIGHT_ZOOM  ? (parseInt(item.control_height) - constants.SCALE_FACTOR_SIZE).toString() : "0";
+            // item.control_font_size = (parseInt(item.control_font_size) - constants.SCALE_FACTOR_FONT).toString() > constants.MIN_FONT_SIZE_ZOOM ? (parseInt(item.control_font_size) - constants.SCALE_FACTOR_FONT).toString() : "0";
+            item.control_width = (parseInt(item.control_width) - constants.SCALE_FACTOR_SIZE).toString() > 0 ? (parseInt(item.control_width) - constants.SCALE_FACTOR_SIZE).toString() : item.control_width;
+            item.control_height = (parseInt(item.control_height) - constants.SCALE_FACTOR_SIZE).toString() > 0  ? (parseInt(item.control_height) - constants.SCALE_FACTOR_SIZE).toString() : item.control_height;
+            item.control_font_size = (parseInt(item.control_font_size) - constants.SCALE_FACTOR_FONT).toString() > 0 ? (parseInt(item.control_font_size) - constants.SCALE_FACTOR_FONT).toString() : item.control_font_size;
             console.log("after item: ", item);
         });
         // console.log("after item: ", item);
@@ -181,11 +184,11 @@ class WireframeBox extends Component {
 
     checkHeight_diagram = (e) => {
         if (e.target.value <= 5000 && e.target.value >= 1) {
-            this.setState({height_status : false});
+            this.setState({isHeightEnabled : false});
             this.setState({pending_height : e.target.value})
         }
         else {
-            this.setState({height_status : true});
+            this.setState({isHeightEnabled : true});
         }
     }
 

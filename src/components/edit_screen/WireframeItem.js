@@ -34,9 +34,9 @@ class WireframeItem extends Component {
 
 checkKeyPress = (e) => {
   e.preventDefault();
+  console.log('WireframeItem.checkKeyPress: deleting item...')
   if (this.state.isSelected) {
     if (e.keyCode === 8 || e.key === "Delete") {
-      console.log('WireframeItem.checkKeyPress: deleting item...')
       document.getElementById("font_size_textfield").value = "";
       document.getElementById("textfield_input").value = "";
       document.getElementById("text_color_field").value = "#000000";
@@ -163,16 +163,18 @@ selectItem = (itemId, topLeft, topRight, bottomLeft, bottomRight) => {
     // if (this.state.isSelected === false && !this.props.isCurrSelection[0]) 
     // {
       // this.props.setSave();
-      console.log("WireframeItem.selectItem - Selecting Item With ID: ", itemId);
-      document.getElementById(itemId).classList.add("select_border");
-      // debugger;
-      // Select (add borders)
-      document.getElementById(topLeft).classList.add("rectangle_topleft");
-      document.getElementById(topRight).classList.add("rectangle_topright");
-      document.getElementById(bottomLeft).classList.add("rectangle_bottomleft");
-      document.getElementById(bottomRight).classList.add("rectangle_bottomright");
-
-      this.setSelected(true);
+      if (!this.state.isSelected) {
+        console.log("WireframeItem.selectItem - Selecting Item With ID: ", itemId);
+        document.getElementById(itemId).classList.add("select_border");
+        // debugger;
+        // Select (add borders)
+        document.getElementById(topLeft).classList.add("rectangle_topleft");
+        document.getElementById(topRight).classList.add("rectangle_topright");
+        document.getElementById(bottomLeft).classList.add("rectangle_bottomleft");
+        document.getElementById(bottomRight).classList.add("rectangle_bottomright");
+  
+        this.setSelected(true);
+      }
   // }
 }
 
@@ -206,7 +208,7 @@ checkControl = () => {
 
   let name = this.props.item.control;
   let key = this.props.item.id;
-  let numScale =  parseFloat(this.props.scale).toFixed(1);
+  // let numScale =  parseFloat(this.props.scale).toFixed(1);
 
   // console.log("x: ", this.props.item.control_x_position);
   // let adjustedX = this.props.item.control_x_position/numScale;
@@ -216,12 +218,11 @@ checkControl = () => {
     return (
       <ClickOutHandler onClickOut={(e) => this.deselectItem(e)}>
         {/* <div id="rnd_canvas" style={{scale: "scale(" + this.props.scale + ")"}}> */}
-          <Rnd id={"item-rnd-"+key} onKeyDown={(e) => this.checkKeyPress(e)} enableResizing={this.checkResizable()} 
-            ref={(el) => this.rndRef = el}
+          <Rnd id={"item-rnd-"+key} onKeyDown={(e) => this.checkKeyPress(e)} enableResizing={this.checkResizable()} tabIndex="0"
             size={{width: this.props.item.control_width, height: this.props.item.control_height}}
             // style={{transform: "scale(" + this.props.scale + ")" + "translate("+parseInt(this.props.item.control_x_position, 10)+"px,"+parseInt(this.props.item.control_y_position, 10)+"px) !important;"}}
             style={{zIndex: this.props.item.z_index, position: 'absolute'}} 
-            onDragStart={(e,data) => {console.log('dragging started'); this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)}}
+            onDragStart={(e,data) => {this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)}}
             onDragStop={(e,d) => { this.props.item.control_x_position = (d.x); this.props.item.control_y_position = (d.y); this.props.setSave()}}
             onResize={(e, ignore1, ref, ignore2, ignore3) => {this.props.item.control_width = ref.offsetWidth; this.props.item.control_height = ref.offsetHeight; this.props.item.control_x_position = this.props.item.control_x_position; this.setState({rerender : true});}}
             default={{x: (this.props.item.control_x_position), y: (this.props.item.control_y_position)}}> 
@@ -264,10 +265,10 @@ checkControl = () => {
                 </div> :
               // Case 4: Label
               name === 'label' ? 
-                <div className={"prompt_text2 control_move"} 
+                <div id={key} className={"prompt_text2 control_move"} 
                 style={{width: "100%", height: "100%", fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, borderColor: this.props.item.control_border_color, //transform: "scale(" + this.props.scale + ")",
                 color: this.props.item.control_text_color, borderWidth: this.props.item.control_border_thickness + "px", borderRadius: this.props.item.control_border_radius + "px"}} 
-                id={key} onClick = {() => this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)} > {this.props.item.control_text} 
+                onClick = {() => this.selectItem(key, this.state.inner1, this.state.inner2, this.state.inner3, this.state.inner4)} > {this.props.item.control_text} 
                   <span id={this.state.inner1} />
                   <span id={this.state.inner2} />
                   <span id={this.state.inner3} />
