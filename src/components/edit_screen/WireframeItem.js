@@ -67,9 +67,11 @@ checkKeyPress = (e) => {
 
 duplicateSelectedItem = () => {
   let item = this.props.item;
+
   const item_duplicate = {
       id : Math.floor(100000 + Math.random() * 900000),
       control : item.control,
+      z_index : item.z_index,
       control_width : item.control_width,
       control_height: item.control_height,
       control_text: item.control_text,

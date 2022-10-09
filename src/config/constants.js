@@ -35,7 +35,7 @@ const constants = {
         },
         'label' : {
             control : "label",
-            control_width : "200",
+            control_width : "100",
             control_height: "",
             control_text : "Label",
             control_font_size : "12",
