@@ -6,7 +6,7 @@ The project mimics the creation of a website prototype. It offers a playground f
 
 To push to production (gh-pages hosting), execute 'npm run deploy' after making changes and patiently wait for them to appear. 😅
 
-•	Tools used:   JavaScript,   React,   Redux,   Firebase,   HTML/CSS,   Materialize
+•	Tools used:   JavaScript,   React,   Redux,   Firebase,   HTML/CSS,   Materialize,   Bootstrap
 
 
 ![](images/wireframer1.png)
