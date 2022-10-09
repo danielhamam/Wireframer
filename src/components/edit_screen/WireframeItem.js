@@ -253,7 +253,7 @@ checkControl = () => {
                 </div> :
               // Case 3: Textfield
               name === 'textfield' ? 
-                <div>
+                <div style={{width: "100%", height: "100%"}}>
                   <input type="input" id={key} className={"textfield_input2 control_move"} placeholder="Input" 
                   style={{width: "100%", height: "100%", fontSize: this.props.item.control_font_size + 'pt', backgroundColor: this.props.item.control_background, //transform: "scale(" + this.props.scale + ")",
                   borderColor: this.props.item.control_border_color, color: this.props.item.control_text_color, borderWidth: this.props.item.control_border_thickness + "px",
