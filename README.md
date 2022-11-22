@@ -1,6 +1,6 @@
 # Wireframer
 
-Live version of application: https://danielhamam.github.io/Wireframe/
+Live version of application: https://danielhamam.github.io/Wireframer/
 
 Feel free to make an account! You are welcome to use this tool for your own prototyping.
 
